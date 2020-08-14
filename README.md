@@ -5,6 +5,7 @@ centralizado os dados de produtos, consulta de vendas e um relatório simplifica
  # Instruções
  - O foco principal do nosso teste é o backend. Para facilitar você poderá utilizar os blade.php que disponibilizamos no projeto.
  - Fique à vontade para usar bibliotecas/componentes externos
+ - Seguir princípios **CLEAN CODE** 
  - Utilize boas práticas de programação
  - Utilize boas práticas de git
  - Documentar como rodar o projeto
