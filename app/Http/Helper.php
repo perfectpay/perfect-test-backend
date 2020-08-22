@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use Carbon\Carbon;
+
 class Helper
 {
     public function formatarCpfCnpj($cpfCnpj){
@@ -16,5 +18,17 @@ class Helper
 
     public function filtrarSomenteNumeros($string){
         return preg_replace("/[^0-9]/", "", $string);
+    }
+
+    public function formatarDataBr($data){
+        $dataModificada = Carbon::createFromFormat('Y-m-d H:i:s', $data);
+
+        return $dataModificada->format('d/m/Y H:i:s');
+    }
+
+    public function formatarDataBanco($data){
+        $dataModificada = Carbon::createFromFormat('d/m/Y H:i:s', $data);
+
+        return $dataModificada->format('Y-m-d H:i:s');
     }
 }

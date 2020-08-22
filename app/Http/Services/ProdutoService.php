@@ -19,9 +19,9 @@ class ProdutoService
 
     public function listarProdutos($dados){
         try{
-            $produto = $this->repository->listarProdutos();
+            $produtos = $this->repository->listarProdutos();
 
-            if(empty($produto)){
+            if(empty($produtos)){
                 return [
                     'success'   => true,
                     'message'   => 'Nenhum produto encontrado.',
@@ -32,7 +32,7 @@ class ProdutoService
             return [
                 'success'   => true,
                 'message'   => 'Produtos listados com sucesso',
-                'data'      => ProdutoResource::collection($produto)
+                'data'      => ProdutoResource::collection($produtos)
             ];
 
         } catch(Exception $e){

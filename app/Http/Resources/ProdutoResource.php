@@ -14,7 +14,6 @@ class ProdutoResource extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             'idProduto'         => $this->id ?? null,
             'nomeProduto'       => $this->nome ?? null,
