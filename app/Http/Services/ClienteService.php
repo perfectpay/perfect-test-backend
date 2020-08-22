@@ -38,7 +38,7 @@ class ClienteService
         } catch(Exception $e){
             return [
                 'success'   => false,
-                'message'   => 'Falha ao listar Clientes. Erro: ' . $e->getMessage(),
+                'message'   => 'Falha ao listar os clientes. Erro: ' . $e->getMessage(),
                 'data'      => []
             ];
         }
@@ -67,7 +67,7 @@ class ClienteService
         } catch(Exception $e){
             return [
                 'success'   => false,
-                'message'   => 'Falha ao detalhar Cliente. Erro: ' . $e->getMessage(),
+                'message'   => 'Falha ao detalhar o cliente. Erro: ' . $e->getMessage(),
                 'data'      => []
             ];
         }
@@ -113,7 +113,7 @@ class ClienteService
         } catch(Exception $e){
             return [
                 'success'   => false,
-                'message'   => 'Falha ao alterar o Cliente. Erro: ' . $e->getMessage(),
+                'message'   => 'Falha ao alterar o cliente. Erro: ' . $e->getMessage(),
                 'data'      => []
             ];
         }
@@ -146,7 +146,7 @@ class ClienteService
         } catch(Exception $e){
             return [
                 'success'   => false,
-                'message'   => 'Falha ao inativar o Cliente. Erro: ' . $e->getMessage(),
+                'message'   => 'Falha ao inativar o cliente. Erro: ' . $e->getMessage(),
                 'data'      => []
             ];
         }

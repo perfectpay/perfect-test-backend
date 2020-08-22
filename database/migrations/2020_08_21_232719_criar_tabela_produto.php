@@ -19,6 +19,7 @@ class CriarTabelaProduto extends Migration
             $table->string('descricao');
             $table->float('preco', 10, 2);
             $table->binary('blob_imagem');
+            $table->char('situacao', 1);
         });
     }
 

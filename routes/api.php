@@ -25,3 +25,11 @@ Route::group(['prefix' => 'cliente'], function () {
     Route::post('alterar',      'ClienteController@alterarCliente');
     Route::post('apagar',       'ClienteController@apagarCliente');
 });
+
+Route::group(['prefix' => 'produto'], function () {
+    Route::post('listar',       'ProdutoController@listarProdutos');
+    Route::post('detalhar',     'ProdutoController@detalharProduto');
+    Route::post('cadastrar',    'ProdutoController@cadastrarProduto');
+    Route::post('alterar',      'ProdutoController@alterarProduto');
+    Route::post('apagar',       'ProdutoController@apagarProduto');
+});
