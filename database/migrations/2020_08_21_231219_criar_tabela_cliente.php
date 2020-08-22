@@ -18,6 +18,7 @@ class CriarTabelaCliente extends Migration
             $table->string('nome');
             $table->string('email')->unique();
             $table->string('cpf', 11)->unique();
+            $table->char('situacao', 1);
         });
     }
 
