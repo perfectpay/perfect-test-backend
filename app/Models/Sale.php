@@ -23,14 +23,21 @@ class Sale extends Model
      *
      * @var bool
      */
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['product_id', 'sale_status_id', 'qt_product', 'discount'];
+    protected $fillable = [
+        'qt_product',
+        'discount',
+        'sale_date',
+        'client_id',
+        'product_id',
+        'sale_status_id',
+    ];
 
     /**
      * The attributes that aren't mass assignable.
@@ -45,4 +52,19 @@ class Sale extends Model
      * @var array
      */
     protected $appends = [];
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Prodcut::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(SaleStatus::class);
+    }
 }
