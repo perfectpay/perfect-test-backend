@@ -234,7 +234,7 @@ class VendaService
             'idProduto'         => $venda['idProduto'] ?? null,
             'dataVenda'         => isset($venda['dataVenda']) && $venda['dataVenda'] != null ? $this->helper->formatarDataBanco($venda['dataVenda']) : null,
             'quantidadeVenda'   => $venda['quantidadeVenda'] ?? null,
-            'descontoVenda'     => $venda['descontoVenda'] ?? null,
+            'descontoVenda'     => $this->helper->numeroFormatoBrParaSql($venda['descontoVenda']) ?? null,
             'statusVenda'       => $venda['statusVenda'] ?? null,
         ];
     }

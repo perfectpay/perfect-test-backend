@@ -5,7 +5,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
+                <a href='/sales/cadastrar' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
             <form>
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
@@ -62,7 +62,7 @@
                             {{ $venda['valorVenda'] }}
                         </td>
                         <td>
-                            <a href='' class='btn btn-primary'>Editar</a>
+                            <a href='/sales/detalhar/{{ $venda['idVenda'] }}' class='btn btn-primary'>Editar</a>
                         </td>
                     </tr>
                 @endforeach

@@ -26,7 +26,7 @@ class VendaRepository
 
     public function detalharVenda($idVenda){
         $model = $this->model
-        ->where('id', '=', $idVenda)
+        ->where('venda.id', '=', $idVenda)
         ->join('produto', 'venda.id_produto', '=', 'produto.id')
         ->groupBy('venda.id')
         ->selectRaw('(preco * SUM(quantidade)) - SUM(desconto) as somaValores, venda.id, venda.id_produto, venda.id_cliente, venda.data_venda, venda.quantidade, venda.desconto, venda.status')
