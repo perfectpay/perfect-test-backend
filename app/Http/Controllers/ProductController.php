@@ -82,8 +82,7 @@ class ProductController extends Controller
         } catch (ModelNotFoundException $me) {
             return redirect()
                 ->route('dashboard.index')
-                ->with('info', 'Esse registro não consta na nossa base de dados')
-                ->withInput();
+                ->with('info', 'Esse registro não consta na nossa base de dados');
         } catch (\Throwable $th) {
             return redirect()
                 ->route('dashboard.index')
@@ -112,7 +111,7 @@ class ProductController extends Controller
                 ->withInput();
         } catch (\Throwable $th) {
             return back()
-                ->with('danger', 'Internal Error Server: ' . $th->getMessage())
+                ->with('danger', 'Internal Error Server')
                 ->withInput();
         }
     }
@@ -125,6 +124,16 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $qtRegistersDeleted = $this->productRepository->destroy($id);
+
+            if ($qtRegistersDeleted === 0) {
+                return response()->json('', 404);
+            }
+
+            return response()->json('', 204);
+        } catch (\Throwable $th) {
+            return response()->json('Internal Error Server', 500);
+        }
     }
 }

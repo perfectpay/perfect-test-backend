@@ -76,4 +76,15 @@ class ProductRepository implements ProductRepositoryInterface
 
         return $product;
     }
+
+    /**
+     * Remove the specified product from storage
+     *
+     * @param int $id
+     * @return int
+     */
+    public function destroy(int $id): int
+    {
+        return $this->model->destroy($id);
+    }
 }

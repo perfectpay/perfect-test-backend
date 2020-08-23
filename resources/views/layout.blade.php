@@ -11,6 +11,10 @@
         .wrapper #wrapperContent.closed {
             padding: 0;
         }
+        .btn-edit {
+            float: right;
+            margin-left: 1rem;
+        }
     </style>
 </head>
 
@@ -26,7 +30,8 @@
     </div>
     <script src="{{ url('/js/app.js') }}"></script>
     <script src="https://kit.fontawesome.com/d712964458.js" crossorigin="anonymous"></script>
-    @yield('script')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    @stack('script')
 </body>
 
 </html>

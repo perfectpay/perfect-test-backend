@@ -174,7 +174,16 @@
                     <td>{{ $product->name }}</td>
                     <td>R$ {{ number_format($product->price, 2, ',', ' ') }}</td>
                     <td>
-                        <a href="{{ route('products.edit', $product->id) }}" class='btn btn-primary'>Editar</a>
+                        <a
+                            href="{{ route('products.edit', $product->id) }}"
+                            class='btn btn-sm btn-primary'
+                            role="button"
+                        >Editar</a>
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-danger btn-product-destroy"
+                            data-url="{{ route('products.destroy', $product->id) }}"
+                        >Excluir</button>
                     </td>
                 </tr>
             @empty
@@ -186,3 +195,42 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+<script>
+    document.addEventListener('DOMContentLoaded', event => {
+        const btnsProductDestroy = document.querySelectorAll('.btn-product-destroy');
+
+        btnsProductDestroy.forEach(btn => {
+            btn.addEventListener('click', event => {
+                destroyItem(event.target.dataset.url);
+            });
+        });
+    });
+
+    function destroyItem(url) {
+        if(confirm('Deseja realmente excluir este item?')) {
+            const _token = '{{ csrf_token() }}';
+
+            axios.delete(url, {
+                data: { _token },
+                headers: {
+                    'Content-type': 'application/json',
+                }
+            })
+                .then(response => {
+                    if(response.status === 204) {
+                        alert('Item excluído com sucesso');
+                        location.reload();
+                    } else {
+                        throw new Error();
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                    alert('Ocorreu um erro ao realizar esta operação');
+                })
+        }
+    }
+</script>
+@endpush
