@@ -4,6 +4,11 @@ namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class StoreFormRequest
+ *
+ * @package App\Http\Requests\Product
+ */
 class StoreFormRequest extends FormRequest
 {
     /**
@@ -26,7 +31,7 @@ class StoreFormRequest extends FormRequest
         return [
             'name' => 'required|unique:products|min:3|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric|min:0'
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Product\StoreFormRequest;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -40,12 +41,22 @@ class ProductController extends Controller
     /**
      * Store a newly created product in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFormRequest $request)
     {
-        //
+        try {
+            $product = $this->productRepository->create($request->all());
+
+            return redirect()
+                ->route('products.create')
+                ->with('success', 'Registro adicionado com sucesso');
+        } catch (\Throwable $th) {
+            return back()
+                ->withInputs()
+                ->withErrors();
+        }
     }
 
     /**

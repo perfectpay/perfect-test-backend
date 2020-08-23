@@ -12,11 +12,10 @@ class DashBoardController extends Controller
     /**
      * Return dashboard view
      *
-     * @return \Illuminate\Support\Facades\View
-     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard.index');
     }
 }
