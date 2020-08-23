@@ -88,19 +88,19 @@ class VendaService
     public function cadastrarVenda($dados){
         try{
             // Obs.: Não está sendo feita nenhuma verificação mais profunda, como por exemplo se o desconto é válido, se todos os campos estão sendo preenchidos, etc.
-            $a = strtotime($dados['dataVenda']);
-            $b = strtotime("05/10/2011 16:53:00");
             $dados = $this->formatarDadosVenda($dados);
 
             $venda = $this->repository->cadastrarVenda($dados);
 
-            $venda->nomeProduto = $this->buscarNomeProduto($venda->id_produto);
-            $venda->nomeCliente = $this->buscarNomeCliente($venda->id_cliente);
+            $vendaCadastrada = $this->repository->detalharVenda($venda->id);
+
+            $vendaCadastrada->nomeProduto = $this->buscarNomeProduto($vendaCadastrada->id_produto);
+            $vendaCadastrada->nomeCliente = $this->buscarNomeCliente($vendaCadastrada->id_cliente);
 
             return [
                 'success'   => true,
                 'message'   => 'Venda cadastrada com sucesso',
-                'data'      => VendaResource::make($venda)
+                'data'      => VendaResource::make($vendaCadastrada)
             ];
 
         } catch(Exception $e){
@@ -162,6 +162,44 @@ class VendaService
             return [
                 'success'   => false,
                 'message'   => 'Falha ao cancelar a venda. Erro: ' . $e->getMessage(),
+                'data'      => []
+            ];
+        }
+    }
+
+    public function gerarRelatorioResultadoVendas($dados){
+        try{
+            $vendas = $this->repository->gerarRelatorioResultadoVendas();
+
+            if(empty($vendas)){
+                return [
+                    'success'   => true,
+                    'message'   => 'Nenhuma venda encontrada.',
+                    'data'      => []
+                ];
+            }
+
+            $vendasAux = [];
+
+            foreach($vendas as &$venda){
+                $venda->somaValores = $this->helper->formatarValorMoedaBr($venda->somaValores);
+
+                $venda = collect($venda);
+                $venda = $venda->toArray($venda);
+
+                array_push($vendasAux, $venda);
+            }
+
+            return [
+                'success'   => true,
+                'message'   => 'Relatório de vendas gerado com sucesso.',
+                'data'      => $vendasAux
+            ];
+
+        } catch(Exception $e){
+            return [
+                'success'   => false,
+                'message'   => 'Falha ao gerar relatório de vendas. Erro: ' . $e->getMessage(),
                 'data'      => []
             ];
         }

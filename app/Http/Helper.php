@@ -31,4 +31,8 @@ class Helper
 
         return $dataModificada->format('Y-m-d H:i:s');
     }
+
+    public function formatarValorMoedaBr($valor){
+        return "R$ " . number_format($valor, 2, ",", ".");
+    }
 }

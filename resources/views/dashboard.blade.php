@@ -14,12 +14,9 @@
                                 <div class="input-group-text">Clientes</div>
                             </div>
                             <select class="form-control" id="inlineFormInputName">
-                                <option>Clientes</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                @foreach($clientes as $cliente)
+                                    <option value="{{ $cliente['idCliente'] }}">{{ $cliente['nomeCliente'] }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -53,48 +50,22 @@
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h15
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                @foreach($vendas as $venda)
+                    <tr>
+                        <td>
+                            {{ $venda['nomeProduto'] }}
+                        </td>
+                        <td>
+                            {{ $venda['dataVenda'] }}
+                        </td>
+                        <td>
+                            {{ $venda['valorVenda'] }}
+                        </td>
+                        <td>
+                            <a href='' class='btn btn-primary'>Editar</a>
+                        </td>
+                    </tr>
+                @endforeach
             </table>
         </div>
     </div>
@@ -113,39 +84,19 @@
                         Valor Total
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Vendidos
-                    </td>
-                    <td>
-                        100
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Cancelados
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Devoluções
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
+                @foreach($relatorioVendas as $relatorio)
+                    <tr>
+                        <td>
+                            {{ $relatorio['status'] }}
+                        </td>
+                        <td>
+                            {{ $relatorio['quantidadeVendas'] }}
+                        </td>
+                        <td>
+                            {{ $relatorio['somaValores'] }}
+                        </td>
+                    </tr>
+                @endforeach
             </table>
         </div>
     </div>
@@ -153,7 +104,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Produtos
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
+                <a href='/products' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -166,39 +117,19 @@
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        R$ 120,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        R$ 150,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                @foreach($produtos as $produto)
+                    <tr>
+                        <td>
+                            {{ $produto['nomeProduto'] }}
+                        </td>
+                        <td>
+                            {{ $produto['precoProduto'] }}
+                        </td>
+                        <td>
+                            <a href="/products/{{ $produto['idProduto'] }}" class='btn btn-primary'>Editar</a>
+                        </td>
+                    </tr>
+                @endforeach
             </table>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Http\Models\VendaModel;
+use Illuminate\Support\Facades\DB;
 
 class VendaRepository
 {
@@ -15,6 +16,9 @@ class VendaRepository
 
     public function listarVendas(){
         $model = $this->model
+        ->join('produto', 'venda.id_produto', '=', 'produto.id')
+        ->groupBy('venda.id')
+        ->selectRaw('(preco * SUM(quantidade)) - SUM(desconto) as somaValores, venda.id, venda.id_produto, venda.id_cliente, venda.data_venda, venda.quantidade, venda.desconto, venda.status')
         ->get();
 
         return $model;
@@ -23,6 +27,9 @@ class VendaRepository
     public function detalharVenda($idVenda){
         $model = $this->model
         ->where('id', '=', $idVenda)
+        ->join('produto', 'venda.id_produto', '=', 'produto.id')
+        ->groupBy('venda.id')
+        ->selectRaw('(preco * SUM(quantidade)) - SUM(desconto) as somaValores, venda.id, venda.id_produto, venda.id_cliente, venda.data_venda, venda.quantidade, venda.desconto, venda.status')
         ->first();
 
         return $model;
@@ -62,5 +69,16 @@ class VendaRepository
         ]);
 
         return $model;
-	}
+    }
+
+    public function gerarRelatorioResultadoVendas(){
+        // SELECT COUNT(*), v.status, SUM(v.quantidade) as quant, (p.preco * SUM(v.quantidade)) - SUM(v.desconto) as valorTotal FROM `venda` v, produto p WHERE v.id_produto = p.id GROUP BY status
+        $model = DB::table('venda')
+        ->join('produto', 'venda.id_produto', '=', 'produto.id')
+        ->groupByRaw('status')
+        ->selectRaw('COUNT(*) as quantidadeVendas, status, SUM(quantidade) as somaItens, (preco * SUM(quantidade)) - SUM(desconto) as somaValores')
+        ->get();
+
+        return $model;
+    }
 }

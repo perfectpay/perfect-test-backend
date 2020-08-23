@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Helper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProdutoResource extends JsonResource
@@ -14,6 +15,10 @@ class ProdutoResource extends JsonResource
      */
     public function toArray($request)
     {
+        $helper = new Helper;
+
+        $this->preco = $this->preco != null ? $helper->formatarValorMoedaBr($this->preco) : null;
+
         return [
             'idProduto'         => $this->id ?? null,
             'nomeProduto'       => $this->nome ?? null,

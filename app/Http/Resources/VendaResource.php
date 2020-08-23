@@ -17,7 +17,8 @@ class VendaResource extends JsonResource
     {
         $helper = new Helper;
 
-        $this->data_venda = $this->data_venda != null ? $helper->formatarDataBr($this->data_venda) : null;
+        $this->data_venda   = $this->data_venda != null ? $helper->formatarDataBr($this->data_venda) : null;
+        $this->somaValores  = $this->somaValores != null ? $helper->formatarValorMoedaBr($this->somaValores) : null;
 
         return [
             'idVenda'           => $this->id ?? null,
@@ -27,6 +28,7 @@ class VendaResource extends JsonResource
             'quantidadeVenda'   => $this->quantidade ?? null,
             'descontoVenda'     => $this->desconto ?? null,
             'statusVenda'       => $this->status ?? null,
+            'valorVenda'        => $this->somaValores ?? null,
             'nomeProduto'       => $this->nomeProduto ?? null,
             'nomeCliente'       => $this->nomeCliente ?? null
         ];
