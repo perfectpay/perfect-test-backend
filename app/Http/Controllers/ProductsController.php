@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Product\StoreFormRequest;
-use App\Http\Requests\Product\UpdateFormRequest;
+use App\Http\Requests\Products\{
+    StoreFormRequest,
+    UpdateFormRequest
+};
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ use Illuminate\Http\Request;
  *
  * @package App\Http\Controllers
  */
-class ProductController extends Controller
+class ProductsController extends Controller
 {
     /**
      * The product repository instance

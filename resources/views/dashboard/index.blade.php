@@ -10,7 +10,13 @@
 <div class='card mt-3'>
     <div class='card-body'>
         <h5 class="card-title mb-5">Tabela de vendas
-            <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i> Nova venda</a></h5>
+            <a
+                href="{{ route('sales.create') }}"
+                class='btn btn-secondary float-right btn-sm rounded-pill'
+            >
+                <i class='fa fa-plus'></i> Nova venda
+            </a>
+        </h5>
         <form>
             <div class="form-row align-items-center">
                 <div class="col-sm-5 my-1">

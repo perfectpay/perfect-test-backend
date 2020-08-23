@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class StoreFormRequest
  *
- * @package App\Http\Requests\Product
+ * @package App\Http\Requests\Products
  */
 class StoreFormRequest extends FormRequest
 {

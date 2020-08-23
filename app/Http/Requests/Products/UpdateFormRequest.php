@@ -1,9 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\Products;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class UpdateFormRequest
+ *
+ * @package App\Http\Requests\Products
+ */
 class UpdateFormRequest extends FormRequest
 {
     /**
