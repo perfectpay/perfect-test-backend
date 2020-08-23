@@ -1,3 +1,5 @@
+# PARTE DA EMPRESA
+
  # Você quer ser um desenvolvedor Backend na Perfectpay? 
  O desafio é desenvolver um sistema de vendas onde consiste um cadastro de produtos, o próprio cadastro de vendas onde será preenchido alguns dados também referente a cliente, uma dashboard onde estará
 centralizado os dados de produtos, consulta de vendas e um relatório simplificado de vendas.
@@ -34,3 +36,16 @@ centralizado os dados de produtos, consulta de vendas e um relatório simplifica
  - Crie uma branch com o nome desafio
  
  Qualquer dúvida sobre o teste, fique a vontade para entrar em contato conosco.
+
+
+# PARTE DO DESENVOLVEDOR
+
+# Como rodar o projeto
+- Para facilitar o entendimento e execução desse projeto, o arquivo **.env** ficará disponível aqui nesse repositório com as informações necessárias para fazer o projeto funcionar.
+- Se certificar que o computador que está rodando o projeto possui a versão 7.3 ou superior do PHP
+- Executar o comando `composer install`
+- Rodar o servidor PHP. Para esse projeto eu rodei o servidor na porta 8001 com o comando `php -S 0.0.0.0:8001 -t public`
+- Rodar o servidor de banco de dados. Para esse projeto eu usei o banco MySQL, e configurei ele através do **xampp**
+- Para criar as tabelas é necessário criar o banco `perfectpay` (conforme consta no **.env**) e rodar o comando `php artisan migrate` no terminal
+- Obs.: Como está tudo dentro de um projeto só, para obter o resultado de Produto, por exemplo, estou chamando a função de detalhar produto, ao invés de chamar a rota da api de detalhar produto. Quando for acessar essa api de um sistema diferente (ou de um aplicativo mobile, por exemplo, lembrar de fazer a chamada das rotas corretamente)
+- Obs2.: Caso vá testar em um local com informações diferentes das que estão nesse arquivo **README**, lembrar de alterar as variáveis do arquivo **.env** também.
