@@ -1,16 +1,18 @@
 @extends('layout')
 
-@section('title', 'Adicionar Produto')
+@section('title', 'Alterar Produto')
 
 @section('content')
-<h1>Adicionar Produto</h1>
+<h1>Alterar Produto</h1>
 
 <div class='card'>
     <div class='card-body'>
 
         @include('components.alerts.status')
 
-        <form method="POST" action="{{ route('products.store') }}">
+        <form method="POST" action="{{ route('products.update', $product->id) }}">
+
+            @method('PUT')
 
             @csrf
 
@@ -21,7 +23,7 @@
                     class="form-control @error('name') is-invalid @enderror"
                     name="name"
                     id="name"
-                    value="{{ old('name') }}"
+                    value="{{ old('name') ?? $product->name }}"
                     required autofocus
                 >
             </div>
@@ -36,7 +38,7 @@
                     name="description"
                     id="description"
                     required
-                >{{ old('description') }}</textarea>
+                >{{ old('description')  ?? $product->description}}</textarea>
             </div>
             @include('components.forms.error-field', ['fieldName' => 'description'])
 
@@ -48,13 +50,13 @@
                     name="price"
                     id="price"
                     placeholder="100,00 ou maior"
-                    value="{{ old('price') }}"
+                    value="{{ old('price') ?? $product->price }}"
                     required
                 >
             </div>
             @include('components.forms.error-field', ['fieldName' => 'price'])
 
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="submit" class="btn btn-primary">Alterar</button>
         </form>
     </div>
 </div>

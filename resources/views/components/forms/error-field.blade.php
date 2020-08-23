@@ -1,5 +1,5 @@
 @error($fieldName)
-<div class="col-sm-9 col-sm-offset-3">
+<div class="col-sm-12">
     <span role="alert">
         <small><strong class="text-danger">{{ $message }}</strong></small>
     </span>

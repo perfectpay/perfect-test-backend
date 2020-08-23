@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Product\StoreFormRequest;
+use App\Http\Requests\Product\UpdateFormRequest;
 use App\Repositories\Contracts\ProductRepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 /**
@@ -13,19 +15,20 @@ use Illuminate\Http\Request;
  */
 class ProductController extends Controller
 {
+    /**
+     * The product repository instance
+     */
     private $productRepository;
 
+    /**
+     * Create a new controller instance.
+     *
+     * @param ProductRepositoryInterface $productRepository
+     * @return void
+     */
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
-    }
-    /**
-     * Display a listing of the product.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
     }
 
     /**
@@ -50,24 +53,13 @@ class ProductController extends Controller
             $product = $this->productRepository->create($request->all());
 
             return redirect()
-                ->route('products.create')
-                ->with('success', 'Registro adicionado com sucesso');
+                ->route('dashboard.index')
+                ->with('success', 'Produto adicionado com sucesso');
         } catch (\Throwable $th) {
             return back()
-                ->withInputs()
-                ->withErrors();
+                ->with('danger', 'Internal Error Server')
+                ->withInput();
         }
-    }
-
-    /**
-     * Display the specified product.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -78,7 +70,25 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $product = $this->productRepository->findById($id);
+
+            if (is_null($product)) {
+                return redirect()
+                    ->route('dashboard.index')
+                    ->with('info', 'Produto não encontrado');
+            }
+            return view('products.edit', compact('product'));
+        } catch (ModelNotFoundException $me) {
+            return redirect()
+                ->route('dashboard.index')
+                ->with('info', 'Esse registro não consta na nossa base de dados')
+                ->withInput();
+        } catch (\Throwable $th) {
+            return redirect()
+                ->route('dashboard.index')
+                ->with('danger', 'Internal Error Server');
+        }
     }
 
     /**
@@ -86,11 +96,25 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return UpdateFormRequest
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFormRequest $request, $id)
     {
-        //
+        try {
+            $product = $this->productRepository->update($request->all(), $id);
+
+            return redirect()
+                ->route('dashboard.index')
+                ->with('success', 'Produto alterado com sucesso');
+        } catch (ModelNotFoundException $me) {
+            return back()
+                ->with('info', 'Esse registro não consta na nossa base de dados')
+                ->withInput();
+        } catch (\Throwable $th) {
+            return back()
+                ->with('danger', 'Internal Error Server: ' . $th->getMessage())
+                ->withInput();
+        }
     }
 
     /**

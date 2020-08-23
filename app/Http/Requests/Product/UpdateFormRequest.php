@@ -4,12 +4,7 @@ namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class StoreFormRequest
- *
- * @package App\Http\Requests\Product
- */
-class StoreFormRequest extends FormRequest
+class UpdateFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +24,7 @@ class StoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255|unique:products',
+            'name' => 'required|min:3|max:255|unique:products,id,' . $this->route()->parameter('product'),
             'description' => 'required|string',
             'price' => 'required|numeric|min:0'
         ];
