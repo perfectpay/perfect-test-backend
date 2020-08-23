@@ -17,7 +17,7 @@ class Helper
     }
 
     public function filtrarSomenteNumeros($string){
-        return preg_replace("/[^0-9]/", "", $string);
+        return preg_replace('/[^0-9]/', '', (string)$string);
     }
 
     public function formatarDataBr($data){
@@ -34,5 +34,26 @@ class Helper
 
     public function formatarValorMoedaBr($valor){
         return "R$ " . number_format($valor, 2, ",", ".");
+    }
+
+    public function numeroFormatoBrParaSql($numero)
+    {
+        $numeroAux = explode('R$ ',  $numero);
+        $numero = $numeroAux[1];
+
+        //Retira espaços
+        $numero = trim($numero);
+
+        //Retira separador de milhar com o ponto
+        $numero = str_replace(".", "", $numero);
+
+        //Substitui separador de decimal de virgula para ponto
+        $numero = str_replace(",", ".", $numero);
+
+        if (!is_numeric($numero)) {
+            return false;
+        }
+
+        return $numero;
     }
 }

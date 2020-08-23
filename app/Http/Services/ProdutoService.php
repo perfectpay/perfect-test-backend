@@ -149,7 +149,7 @@ class ProdutoService
             'idProduto'         => $produto['idProduto'] ?? null,
             'nomeProduto'       => $produto['nomeProduto'] ?? null,
             'descricaoProduto'  => $produto['descricaoProduto'] ?? null,
-            'precoProduto'      => $produto['precoProduto'] ?? null,
+            'precoProduto'      => $this->helper->numeroFormatoBrParaSql($produto['precoProduto']) ?? null,
             'blobImagemProduto' => $produto['blobImagemProduto'] ?? null,
             'situacao'          => $produto['situacao'] ?? null,
         ];

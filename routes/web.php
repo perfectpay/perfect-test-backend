@@ -13,6 +13,11 @@ Route::get('/sales', function () {
     return view('crud_sales');
 });
 
-Route::get('/products', function () {
-    return view('crud_products');
+Route::group(['prefix' => 'products'], function () {
+    Route::get('cadastrar', function () {
+        return view('cadastrar_produto');
+    });
+    Route::get('detalhar/{idProduto}',    ['uses' => 'ProdutoController@detalharProduto']);
+    Route::post('cadastrar',                        'ProdutoController@cadastrarProduto');
+    Route::post('alterar',                          'ProdutoController@alterarProduto');
 });

@@ -104,7 +104,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Produtos
-                <a href='/products' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
+                <a href='/products/cadastrar' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -126,7 +126,7 @@
                             {{ $produto['precoProduto'] }}
                         </td>
                         <td>
-                            <a href="/products/{{ $produto['idProduto'] }}" class='btn btn-primary'>Editar</a>
+                            <a href="/products/detalhar/{{ $produto['idProduto'] }}" class='btn btn-primary'>Editar</a>
                         </td>
                     </tr>
                 @endforeach
