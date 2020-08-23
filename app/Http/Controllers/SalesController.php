@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Sales\StoreFormRequest;
 use App\Repositories\Contracts\{
+    ClientRepositoryInterface,
     ProductRepositoryInterface,
+    SaleRepositoryInterface,
     SaleStatusRepositoryInterface
 };
+use App\Traits\SaleTrait;
 use Illuminate\Http\Request;
 
 /**
@@ -16,10 +19,22 @@ use Illuminate\Http\Request;
  */
 class SalesController extends Controller
 {
+    use SaleTrait;
+
+    /**
+     * The product repository instance
+     */
+    private $clientRepository;
+
     /**
      * The product repository instance
      */
     private $productRepository;
+
+    /**
+     * The sale status instance
+     */
+    private $saleRepository;
 
     /**
      * The sale status repository instance
@@ -29,15 +44,21 @@ class SalesController extends Controller
     /**
      * Create a new controller instance.
      *
+     * @param ClientRepositoryInterface $clientRepository
      * @param ProductRepositoryInterface $productRepository
+     * @param SaleRepositoryInterface $saleRepository
      * @param SaleStatusRepositoryInterface $saleStatusRepository
      * @return void
      */
     public function __construct(
+        ClientRepositoryInterface $clientRepository,
         ProductRepositoryInterface $productRespository,
+        SaleRepositoryInterface $saleRepository,
         SaleStatusRepositoryInterface $saleStatusRepository
     ) {
+        $this->clientRepository = $clientRepository;
         $this->productRepository = $productRespository;
+        $this->saleRepository = $saleRepository;
         $this->saleStatusRepository = $saleStatusRepository;
     }
 
@@ -60,16 +81,7 @@ class SalesController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreFormRequest $request)
-    {
-        dd($request->all());
-    }
+
 
     /**
      * Display the specified resource.

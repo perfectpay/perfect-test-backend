@@ -15,6 +15,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class ProductRepository implements ProductRepositoryInterface
 {
     /**
+     * The model instance
+     */
+    private $model;
+
+    /**
      * Create a new repository instance
      *
      * @param Product $model

@@ -14,6 +14,11 @@ use Illuminate\Database\Eloquent\Collection;
 class SaleStatusRepository implements SaleStatusRepositoryInterface
 {
     /**
+     * The model instance
+     */
+    private $model;
+
+    /**
      * Create a new repository instance
      *
      * @param SaleStatus $model
