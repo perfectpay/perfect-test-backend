@@ -2,17 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', 'DashBoardController@index')->name('dashboard.index');
 
+Route::resource('products', 'ProductController');
 
-/*
-Telas para ver o funcionamento sem dados
-*/
-Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('/sales', function () {
-    return view('crud_sales');
-});
-Route::get('/products', function () {
-    return view('crud_products');
-});
+Route::resource('sales', 'ProductController');
