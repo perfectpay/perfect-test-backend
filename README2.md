@@ -2,7 +2,7 @@
 
 ## Criando as tabelas
 
-Para criar a as tabelas e fazer a inserção de dados iniciais do sistema, rode
+Para criar as tabelas e fazer a inserção de dados iniciais do sistema, rode
 o seguinte comando no terminal:
 
 ``` bash
