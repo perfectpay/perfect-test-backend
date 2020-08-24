@@ -4,7 +4,7 @@ namespace App\Http\Requests\Sales;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFormRequest extends FormRequest
+class UpdateFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,11 @@ class StoreFormRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->all());
         return [
             // Clients fields
             'name'  => 'required|min:3',
-            'email' => 'required|email|unique:clients',
+            'email' => 'required|email|unique:clients,id,' . $this['client_id'],
             'cpf'   => 'required|regex:/(\d{11})/',
 
             // Sales fields

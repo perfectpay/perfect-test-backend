@@ -105,7 +105,7 @@ class ProductsController extends Controller
                 ->with('success', 'Produto alterado com sucesso');
         } catch (ModelNotFoundException $me) {
             return back()
-                ->with('info', 'Esse registro não consta na nossa base de dados')
+                ->with('info', 'Registro não encontrado')
                 ->withInput();
         } catch (\Throwable $th) {
             return back()

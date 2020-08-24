@@ -13,6 +13,8 @@
 
             @method('PUT')
 
+            <input type="hidden" name="client_id" value="{{ $sale->client_id }}">
+
             <fieldset>
                 <legend>Informações do cliente</legend>
 
@@ -23,7 +25,7 @@
                         class="form-control @error('name') is-invalid @enderror"
                         name="name"
                         id="name"
-                        value="{{ $sale->client->name ?? old('name') }}"
+                        value="{{ old('name') ?? $sale->client->name }}"
                         required autofocus
                     >
                 </div>
@@ -36,7 +38,7 @@
                         class="form-control @error('email') is-invalid @enderror"
                         name="email"
                         id="email"
-                        value="{{ $sale->client->email ?? old('email') }}"
+                        value="{{ old('email') ?? $sale->client->email }}"
                         required
                     >
                 </div>
@@ -51,7 +53,7 @@
                         id="cpf"
                         minlength="11"
                         maxlength="11"
-                        value="{{ $sale->client->cpf ?? old('cpf') }}"
+                        value="{{ old('cpf') ?? $sale->client->cpf }}"
                         placeholder="99999999999"
                         required>
                 </div>
@@ -70,11 +72,9 @@
                             @php
                                 $productSelected = false;
 
-                                if($product->id === $sale->product->id) {
-                                    $productSelected = true;
-                                }
-
                                 if(old('product_id') === $product->id) {
+                                    $productSelected = true;
+                                } elseif($product->id === $sale->product->id) {
                                     $productSelected = true;
                                 }
                             @endphp
@@ -97,7 +97,7 @@
                         class="form-control @error('sale_date') is-invalid @enderror"
                         name="sale_date"
                         id="sale_date"
-                        value="{{ date('Y-m-d\TH:i:s', strtotime($sale->sale_date)) ?? old('sale_date') }}"
+                        value="{{ old('sale_date') ?? date('Y-m-d\TH:i:s', strtotime($sale->sale_date)) }}"
                     >
                 </div>
                 @include('components.forms.error-field', ['fieldName' => 'sale_date'])
@@ -113,7 +113,7 @@
                         min="1"
                         max="10"
                         step="1"
-                        value="{{ $sale->qt_product ?? old('qt_product') }}"
+                        value="{{ old('qt_product') ?? $sale->qt_product }}"
                         required
                     >
                 </div>
@@ -127,7 +127,7 @@
                         name="discount"
                         id="discount"
                         placeholder="100 ou menor"
-                        value="{{ $sale->discount ?? old('discount') }}"
+                        value="{{ old('discount') ?? $sale->discount }}"
                         min="0"
                         max="100"
                         step="1"
@@ -146,11 +146,9 @@
                             @php
                                 $saleStatusSelected = false;
 
-                                if($product->id === $sale->product->id) {
-                                    $saleStatusSelected = true;
-                                }
-
                                 if(old('product_id') === $product->id) {
+                                    $saleStatusSelected = true;
+                                } elseif($product->id === $sale->product->id) {
                                     $saleStatusSelected = true;
                                 }
                             @endphp

@@ -2,7 +2,11 @@
 
 namespace App\Traits;
 
-use App\Http\Requests\Sales\StoreFormRequest;
+use App\Http\Requests\Sales\{
+    StoreFormRequest,
+    UpdateFormRequest
+};
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -43,6 +47,7 @@ trait SaleTrait
                     ->route('dashboard.index')
                     ->with('success', 'Venda registrada com sucesso');
             }
+
             DB::rollBack();
 
             return back()
@@ -55,7 +60,39 @@ trait SaleTrait
         }
     }
 
-    public function update()
+    /**
+     * Update the specified product in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return UpdateFormRequest
+     */
+    public function update(UpdateFormRequest $request, int $id)
     {
+        try {
+            DB::transaction(function () use ($request, $id) {
+                $sale = $this->saleRepository->update(
+                    $request->only($this->saleRepository->getFillable()),
+                    $id
+                );
+
+                $client = $this->clientRepository->update(
+                    $request->only($this->clientRepository->getFillable()),
+                    $sale->client_id
+                );
+            });
+
+            return redirect()
+                ->route('dashboard.index')
+                ->with('success', 'Venda alterada com sucesso');
+        } catch (ModelNotFoundException $me) {
+            return back()
+                ->with('info', 'Registro não encontrado')
+                ->withInput();
+        } catch (\Throwable $th) {
+            return back()
+                ->with('danger', 'Internal Error Server')
+                ->withInput();
+        }
     }
 }
