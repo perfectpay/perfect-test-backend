@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 trait SaleTrait
 {
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created sale in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -50,9 +50,12 @@ trait SaleTrait
                 ->withInput();
         } catch (\Throwable $th) {
             return back()
-                // ->with('danger', 'Internal Error Server')
-                ->with('danger', $th->getMessage())
+                ->with('danger', 'Internal Error Server')
                 ->withInput();
         }
+    }
+
+    public function update()
+    {
     }
 }

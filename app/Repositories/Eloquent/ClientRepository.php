@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Client;
 use App\Repositories\Contracts\ClientRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class clientRepository
@@ -47,6 +48,27 @@ class ClientRepository implements ClientRepositoryInterface
     public function create(array $attributes): Client
     {
         return $this->model->create($attributes);
+    }
+
+    /**
+     * Update the specified client in storage
+     *
+     * @param array $attributes
+     * @param int $id
+     * @return Client
+     */
+    public function update(array $attributes, int $id): ?Client
+    {
+        $client = $this->model->find($id);
+
+        if (is_null($client)) {
+            throw new ModelNotFoundException();
+        }
+
+        $client->fill($attributes);
+        $client->save();
+
+        return $client;
     }
 
     /**

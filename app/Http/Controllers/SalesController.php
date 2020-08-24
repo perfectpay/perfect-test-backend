@@ -102,19 +102,27 @@ class SalesController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        try {
+            $sale = $this->saleRepository
+                ->with(['client'])
+                ->find($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+            if (is_null($sale)) {
+                return redirect()
+                    ->route('dashboard.index')
+                    ->with('info', 'Produto não encontrado');
+            }
+
+            $saleStatus = $this->saleStatusRepository->getAll();
+            $products = $this->productRepository->getAll();
+
+            return view('sales.edit', compact('products', 'sale', 'saleStatus'));
+        } catch (\Throwable $th) {
+            return redirect()
+                ->route('dashboard.index')
+                // ->with('danger', 'Internal Error Server');
+                ->with('danger', $th->getMessage());
+        }
     }
 
     /**

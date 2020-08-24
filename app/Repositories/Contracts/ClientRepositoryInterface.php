@@ -28,6 +28,15 @@ interface ClientRepositoryInterface
     public function create(array $attributes): Model;
 
     /**
+     * Update the specified client in storage
+     *
+     * @param array $attributes
+     * @param int $id
+     * @return Model
+     */
+    public function update(array $attributes, int $id): ?Model;
+
+    /**
      * Return fillable fields of client model
      *
      * @return array

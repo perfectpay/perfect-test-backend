@@ -81,10 +81,6 @@ class ProductsController extends Controller
                     ->with('info', 'Produto não encontrado');
             }
             return view('products.edit', compact('product'));
-        } catch (ModelNotFoundException $me) {
-            return redirect()
-                ->route('dashboard.index')
-                ->with('info', 'Esse registro não consta na nossa base de dados');
         } catch (\Throwable $th) {
             return redirect()
                 ->route('dashboard.index')

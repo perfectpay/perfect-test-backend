@@ -4,7 +4,9 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Sale;
 use App\Repositories\Contracts\SaleRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class SaleRepository
@@ -56,7 +58,28 @@ class SaleRepository implements SaleRepositoryInterface
     }
 
     /**
-     * Remove the specified product from storage
+     * Update the specified product in storage
+     *
+     * @param array $attributes
+     * @param int $id
+     * @return Sale
+     */
+    public function update(array $attributes, int $id): ?Sale
+    {
+        $sale = $this->model->find($id);
+
+        if (is_null($sale)) {
+            throw new ModelNotFoundException();
+        }
+
+        $sale->fill($attributes);
+        $sale->save();
+
+        return $sale;
+    }
+
+    /**
+     * Remove the specified sale from storage
      *
      * @param int $id
      * @return int
@@ -74,5 +97,16 @@ class SaleRepository implements SaleRepositoryInterface
     public function getFillable(): array
     {
         return $this->model->getFillable();
+    }
+
+    /**
+     * Add relationships in the search
+     *
+     * @param array $relationships
+     * @return Builder
+     */
+    public function with(array $relationships): Builder
+    {
+        return $this->model->with($relationships);
     }
 }
