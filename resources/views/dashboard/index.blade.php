@@ -16,18 +16,40 @@
             ><i class='fa fa-plus'></i> Nova venda</a>
         </h5>
 
-        <form>
+        <form action="{{ route('dashboard.search') }}" method="GET">
+            @csrf
+
             <div class="form-row align-items-center">
+                <div class="col-sm-12 my-1">
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                </div>
+
                 <div class="col-sm-5 my-1">
 
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text">Escolha</div>
                         </div>
-                        <select class="form-control" id="inlineFormInputName" name="inlineFormInputName">
+
+                        <select class="form-control" id="client_id" name="client_id" required value="">
                             <option value="" disabled hidden selected>Escolha ...</option>
                             @forelse ($clients as $client)
-                                <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                <option
+                                    value="{{ $client->id }}"
+                                    {{ isset($clientId) && $clientId === $client->id ? 'selected': '' }}
+                                >{{ $client->name }}</option>
                             @empty
 
                             @endforelse
@@ -36,12 +58,20 @@
                 </div>
 
                 <div class="col-sm-6 my-1">
+
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text">Período</div>
                         </div>
-                        <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
+                        <input
+                            type="text"
+                            class="form-control date_range"
+                            name="date_range"
+                            id="date_range"
+                            value="{{ isset($dataRange) ? "{$dataRange[0]} - {$dataRange[1]}" : '' }}"
+                        >
                     </div>
+
                 </div>
                 <div class="col-sm-1 my-1">
                     <button type="submit" class="btn btn-primary" style='padding: 14.5px 16px;'>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Dashboard\SearchFormRequest;
 use App\Repositories\Contracts\{
     ClientRepositoryInterface,
     ProductRepositoryInterface,
     SaleRepositoryInterface,
     SaleStatusRepositoryInterface
 };
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
@@ -72,6 +74,48 @@ class DashBoardController extends Controller
             return view('dashboard.index', compact('clients', 'products', 'sales', 'saleStatus'));
         } catch (\Throwable $th) {
             abort(500, 'Internal Error');
+        }
+    }
+
+    /**
+     * Return results of search
+     *
+     * @param SearchFormRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(SearchFormRequest $request)
+    {
+        try {
+            $dateRange = preg_split('/ - /', $request['date_range']);
+            $clientId = $request['client_id'];
+
+            $fnExplodeReverseDate = function ($item) {
+                $arrExplodeReverseDate = array_reverse(explode('/', $item));
+                return date(
+                    'Y-m-d H:i:s',
+                    strtotime(
+                        "{$arrExplodeReverseDate[0]}-{$arrExplodeReverseDate[1]}-{$arrExplodeReverseDate[2]}"
+                    )
+                );
+            };
+
+            $arrDateRange = array_map($fnExplodeReverseDate, $dateRange);
+
+            $sales = $this->saleRepository
+                ->with(['product', 'client', 'saleStatus'])
+                ->where('client_id', '=',  $clientId)
+                ->whereBetween('sale_date', $arrDateRange)
+                ->get();
+
+            $clients    = $this->clientRepository->getAll();
+            $products   = $this->productRepository->getAll();
+            $saleStatus = $this->formartSaleStatusResourceForPresent();
+
+            return view('dashboard.index', compact('clients', 'products', 'sales', 'saleStatus', 'dateRange', 'clientId'));
+        } catch (\Throwable $th) {
+            return redirect()
+                ->route('dashboard.index')
+                ->with('danger', $th->getMessage());
         }
     }
 
