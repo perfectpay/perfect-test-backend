@@ -46,9 +46,16 @@
                         <select class="form-control" id="client_id" name="client_id" required value="">
                             <option value="" disabled hidden selected>Escolha ...</option>
                             @forelse ($clients as $client)
+                                @php
+                                    $clientSelected = false;
+
+                                    if(isset($clientId) && $clientId == $client->id) {
+                                        $clientSelected = true;
+                                    }
+                                @endphp
                                 <option
                                     value="{{ $client->id }}"
-                                    {{ isset($clientId) && $clientId === $client->id ? 'selected': '' }}
+                                    {{ $clientSelected ? 'selected': '' }}
                                 >{{ $client->name }}</option>
                             @empty
 
@@ -210,6 +217,22 @@
             });
         });
     });
+
+    @if(isset($arrDateRange))
+        const startDate = new Date('{{ $arrDateRange[0] }}');
+        const endDate = new Date ('{{ $arrDateRange[1] }}');
+
+        startDate.setDate(startDate.getDate() + 1);
+        endDate.setDate(endDate.getDate() + 1);
+
+        $('#date_range').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
+            startDate   : startDate,
+            endDate     : endDate
+        });
+    @endif
 
     function destroyItem(url) {
         if(confirm('Deseja realmente excluir este item?')) {

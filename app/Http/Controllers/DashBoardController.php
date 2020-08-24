@@ -92,7 +92,7 @@ class DashBoardController extends Controller
             $fnExplodeReverseDate = function ($item) {
                 $arrExplodeReverseDate = array_reverse(explode('/', $item));
                 return date(
-                    'Y-m-d H:i:s',
+                    'Y-m-d',
                     strtotime(
                         "{$arrExplodeReverseDate[0]}-{$arrExplodeReverseDate[1]}-{$arrExplodeReverseDate[2]}"
                     )
@@ -104,14 +104,14 @@ class DashBoardController extends Controller
             $sales = $this->saleRepository
                 ->with(['product', 'client', 'saleStatus'])
                 ->where('client_id', '=',  $clientId)
-                ->whereBetween('sale_date', $arrDateRange)
+                ->whereBetween('sale_date', [$arrDateRange])
                 ->get();
 
             $clients    = $this->clientRepository->getAll();
             $products   = $this->productRepository->getAll();
             $saleStatus = $this->formartSaleStatusResourceForPresent();
 
-            return view('dashboard.index', compact('clients', 'products', 'sales', 'saleStatus', 'dateRange', 'clientId'));
+            return view('dashboard.index', compact('clients', 'products', 'sales', 'saleStatus', 'arrDateRange', 'clientId'));
         } catch (\Throwable $th) {
             return redirect()
                 ->route('dashboard.index')

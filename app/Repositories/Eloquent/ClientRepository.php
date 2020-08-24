@@ -47,7 +47,10 @@ class ClientRepository implements ClientRepositoryInterface
      */
     public function create(array $attributes): Client
     {
-        return $this->model->create($attributes);
+        return $this->model->updateOrCreate(
+            ['email' => $attributes['email']],
+            [$attributes],
+        );
     }
 
     /**

@@ -26,7 +26,7 @@ class StoreFormRequest extends FormRequest
         return [
             // Clients fields
             'name'  => 'required|min:3',
-            'email' => 'required|email|unique:clients',
+            'email' => 'required|email',
             'cpf'   => 'required|regex:/(\d{11})/',
 
             // Sales fields
