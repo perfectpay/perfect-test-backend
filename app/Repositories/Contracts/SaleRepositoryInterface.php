@@ -28,6 +28,14 @@ interface SaleRepositoryInterface
     public function create(array $attributes): Model;
 
     /**
+     * Remove the specified product from storage
+     *
+     * @param int $id
+     * @return int
+     */
+    public function destroy(int $id): int;
+
+    /**
      * Return fillable fields of model
      *
      * @return array

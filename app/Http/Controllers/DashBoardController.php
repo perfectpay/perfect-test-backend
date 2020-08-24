@@ -87,16 +87,16 @@ class DashBoardController extends Controller
             ->get()
             ->all();
 
-        $fnTotalValue = function ($sum, $sale) {
-            $saleTotalValue = $sale->product->price * $sale->qt_product;
+        $fnTotalValue = function ($carry, $item) {
+            $totalValue = $item->product->price * $item->qt_product;
 
-            if ($sale->discount != 0) {
-                $saleTotalValue -= $saleTotalValue * ($sale->discount / 100);
+            if ($item->discount != 0) {
+                $totalValue -= $totalValue * ($item->discount / 100);
             }
 
-            $sum += $saleTotalValue;
+            $carry += $totalValue;
 
-            return $sum += $saleTotalValue;
+            return $carry;
         };
 
         return array_map(function ($item) use ($fnTotalValue) {
@@ -107,6 +107,6 @@ class DashBoardController extends Controller
                 'quantity' => $item->sales->count(),
                 'totalValue' => array_reduce($sales, $fnTotalValue, 0)
             ];
-        }, $arraySaleStatus,);
+        }, $arraySaleStatus);
     }
 }

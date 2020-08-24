@@ -118,13 +118,23 @@ class SalesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified product from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        try {
+            $qtRegistersDeleted = $this->saleRepository->destroy($id);
+
+            if ($qtRegistersDeleted === 0) {
+                return response()->json('', 404);
+            }
+
+            return response()->json('', 204);
+        } catch (\Throwable $th) {
+            return response()->json('Internal Error Server', 500);
+        }
     }
 }

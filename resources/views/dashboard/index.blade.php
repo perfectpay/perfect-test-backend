@@ -13,9 +13,7 @@
             <a
                 href="{{ route('sales.create') }}"
                 class='btn btn-secondary float-right btn-sm rounded-pill'
-            >
-                <i class='fa fa-plus'></i> Nova venda
-            </a>
+            ><i class='fa fa-plus'></i> Nova venda</a>
         </h5>
 
         <form>
@@ -24,10 +22,10 @@
 
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">Clientes</div>
+                            <div class="input-group-text">Escolha</div>
                         </div>
                         <select class="form-control" id="inlineFormInputName" name="inlineFormInputName">
-                            <option value="" disabled hidden selected>Clientes</option>
+                            <option value="" disabled hidden selected>Escolha ...</option>
                             @forelse ($clients as $client)
                                 <option value="{{ $client->id }}">{{ $client->name }}</option>
                             @empty
@@ -58,7 +56,7 @@
                 <tr>
                     <th scope="col">Produto</th>
                     <th scope="col">Data</th>
-                    <th scope="col">Valor</th>
+                    <th scope="col">Valor Total</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
@@ -90,7 +88,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">Não há registros</td>
+                        <td colspan="6">Não há registros</td>
                     </tr>
                 @endforelse
             </tbody>
