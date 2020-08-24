@@ -45,4 +45,12 @@ class Client extends Model
      * @var array
      */
     protected $appends = [];
+
+    /**
+     * Get the sales for the client
+     */
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
 }

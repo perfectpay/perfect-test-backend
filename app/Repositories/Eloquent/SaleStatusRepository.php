@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\SaleStatus;
 use App\Repositories\Contracts\SaleStatusRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -36,5 +37,16 @@ class SaleStatusRepository implements SaleStatusRepositoryInterface
     public function getAll(): Collection
     {
         return $this->model->all();
+    }
+
+    /**
+     * Add relationships in the search
+     *
+     * @param array $relationships
+     * @return Builder
+     */
+    public function with(array $relationships): Builder
+    {
+        return $this->model->with($relationships);
     }
 }

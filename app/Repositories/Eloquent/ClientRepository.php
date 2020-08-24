@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Client;
 use App\Repositories\Contracts\ClientRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class clientRepository
@@ -28,6 +29,16 @@ class ClientRepository implements ClientRepositoryInterface
     }
 
     /**
+     * Return a listing of the clients
+     *
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return $this->model->all();
+    }
+
+    /**
      * Create a new client
      *
      * @param array $attributes
@@ -39,7 +50,7 @@ class ClientRepository implements ClientRepositoryInterface
     }
 
     /**
-     * Return fillable fields of client
+     * Return fillable fields of client model
      *
      * @return array
      */

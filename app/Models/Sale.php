@@ -53,17 +53,26 @@ class Sale extends Model
      */
     protected $appends = [];
 
+    /**
+     * Get the client of the sale
+     */
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
+    /**
+     * Get the product of the sale
+     */
     public function product()
     {
-        return $this->belongsTo(Prodcut::class);
+        return $this->belongsTo(Product::class);
     }
 
-    public function status()
+    /**
+     * Get the status of the sale
+     */
+    public function saleStatus()
     {
         return $this->belongsTo(SaleStatus::class);
     }

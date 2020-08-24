@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,7 +13,14 @@ use Illuminate\Database\Eloquent\Model;
 interface SaleRepositoryInterface
 {
     /**
-     * Create a new product
+     * Return a listing of the sales
+     *
+     * @return Collection
+     */
+    public function getAll(): Collection;
+
+    /**
+     * Create a new sale
      *
      * @param array $attributes
      * @return Model

@@ -45,4 +45,12 @@ class SaleStatus extends Model
      * @var array
      */
     protected $appends = [];
+
+    /**
+     * Get the sales for the status
+     */
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
 }

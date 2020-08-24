@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 interface ClientRepositoryInterface
 {
     /**
+     * Return a listing of the clients
+     *
+     * @return Collection
+     */
+    public function getAll(): Collection;
+
+    /**
      * Create a new client
      *
      * @param array $attributes
@@ -20,7 +28,7 @@ interface ClientRepositoryInterface
     public function create(array $attributes): Model;
 
     /**
-     * Return fillable fields of model
+     * Return fillable fields of client model
      *
      * @return array
      */

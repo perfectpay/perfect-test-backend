@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 interface ProductRepositoryInterface
 {
     /**
-     * Return a listing of the disciplines
+     * Return a listing of the products
      *
      * @return Collection
      */
@@ -36,7 +36,7 @@ interface ProductRepositoryInterface
     public function findById(int $id): ?Model;
 
     /**
-     * Update the specified discipline in storage
+     * Update the specified product in storage
      *
      * @param array $attributes
      * @param int $id

@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Sale;
 use App\Repositories\Contracts\SaleRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class SaleRepository
@@ -25,6 +26,22 @@ class SaleRepository implements SaleRepositoryInterface
     public function __construct(Sale $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * Return a listing of the sales
+     *
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return $this->model
+            ->with([
+                'client',
+                'product',
+                'saleStatus'
+            ])
+            ->get();
     }
 
     /**
