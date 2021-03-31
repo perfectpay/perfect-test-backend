@@ -1,4 +1,4 @@
-Desafio desenvolvido no php projeto foi desenvolvido utilizando php 7.3.9, mysql e laravel 8.
+Desafio desenvolvido utilizando php 7.3.9, mysql e laravel 8.
 ## Instruções de uso
 - execute o comando para atualizar as dependências do projeto:
 ```
