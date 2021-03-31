@@ -7,7 +7,7 @@ composer install
 - Editar o arquivo .env com as credenciais do banco
 - Rodar o comando para gerar as tabelas:
 ```
-php artisan migrate --seed
+php artisan migrate
 ```
 - Iniciar o servidor:
 ```
