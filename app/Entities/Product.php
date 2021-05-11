@@ -29,4 +29,9 @@ class Product extends Model
         'description',
         'price',
     ];
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
 }

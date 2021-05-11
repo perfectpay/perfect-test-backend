@@ -31,4 +31,9 @@ class Sale extends Model
         'status',
         'discount',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
