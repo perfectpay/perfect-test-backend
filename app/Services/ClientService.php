@@ -6,13 +6,8 @@ namespace App\Services;
 
 use App\Repository\Contracts\IClientRepository;
 
-class ClientService
+class ClientService extends StandardService
 {
-    /**
-     * @var IClientRepository
-     */
-    private $repository;
-
     public function __construct(IClientRepository $repository)
     {
         $this->repository = $repository;

@@ -6,13 +6,8 @@ namespace App\Services;
 
 use App\Repository\Contracts\ISaleRepository;
 
-class SaleService
+class SaleService extends StandardService
 {
-    /**
-     * @var ISaleRepository
-     */
-    private $repository;
-
     public function __construct(ISaleRepository $repository)
     {
         $this->repository = $repository;
