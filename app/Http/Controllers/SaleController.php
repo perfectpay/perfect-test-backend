@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaleFormRequest;
 use App\Http\Resources\SaleResource;
 use App\Services\SaleService;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class SaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaleFormRequest $request)
     {
         return $this->service->register($request->all());
     }
@@ -54,7 +55,7 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaleFormRequest $request, $id)
     {
         return $this->service->update($id, $request->all());
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClientFormRequest;
 use App\Http\Resources\ClientResource;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientFormRequest $request)
     {
         return $this->service->register($request->all());
     }
@@ -54,8 +55,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientFormRequest $request, $id)
     {
+
         return $this->service->update($id, $request->all());
     }
 
