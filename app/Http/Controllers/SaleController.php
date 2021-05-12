@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SaleResource;
+use App\Services\SaleService;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
+    private $service;
+
+    public function __construct(SaleService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,17 +22,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return SaleResource::collection($this->service->getAll());
     }
 
     /**
@@ -34,7 +33,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->service->register($request->all());
     }
 
     /**
@@ -45,18 +44,7 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new SaleResource($this->service->findById($id));
     }
 
     /**
@@ -68,7 +56,7 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->service->update($id, $request->all());
     }
 
     /**
@@ -79,6 +67,6 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->service->delete($id);
     }
 }
