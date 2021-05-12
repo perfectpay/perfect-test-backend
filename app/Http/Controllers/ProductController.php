@@ -9,16 +9,24 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    /**
+     * @var ProductService
+     */
     private $service;
 
+    /**
+     * ProductController constructor.
+     * @param ProductService $service
+     */
     public function __construct(ProductService $service)
     {
         $this->service = $service;
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -28,8 +36,8 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ProductFormRequest $request
+     * @return object
      */
     public function store(ProductFormRequest $request)
     {
@@ -39,8 +47,8 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return ProductResource
      */
     public function show($id)
     {
@@ -50,9 +58,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ProductFormRequest $request
+     * @param $id
+     * @return mixed
      */
     public function update(ProductFormRequest $request, $id)
     {
@@ -62,8 +70,8 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
     public function destroy($id)
     {

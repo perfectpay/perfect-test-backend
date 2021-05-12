@@ -9,17 +9,24 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-
+    /**
+     * @var ClientService
+     */
     private $service;
 
+    /**
+     * ClientController constructor.
+     * @param ClientService $service
+     */
     public function __construct(ClientService $service)
     {
         $this->service = $service;
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -29,8 +36,8 @@ class ClientController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ClientFormRequest $request
+     * @return object
      */
     public function store(ClientFormRequest $request)
     {
@@ -40,8 +47,8 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return ClientResource
      */
     public function show($id)
     {
@@ -51,9 +58,9 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ClientFormRequest $request
+     * @param $id
+     * @return mixed
      */
     public function update(ClientFormRequest $request, $id)
     {
@@ -64,8 +71,8 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
     public function destroy($id)
     {

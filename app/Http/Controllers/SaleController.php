@@ -9,8 +9,15 @@ use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
+    /**
+     * @var SaleService
+     */
     private $service;
 
+    /**
+     * SaleController constructor.
+     * @param SaleService $service
+     */
     public function __construct(SaleService $service)
     {
         $this->service = $service;
@@ -19,7 +26,7 @@ class SaleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -29,8 +36,8 @@ class SaleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param SaleFormRequest $request
+     * @return object
      */
     public function store(SaleFormRequest $request)
     {
@@ -40,8 +47,8 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return SaleResource
      */
     public function show($id)
     {
@@ -51,9 +58,9 @@ class SaleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param SaleFormRequest $request
+     * @param $id
+     * @return mixed
      */
     public function update(SaleFormRequest $request, $id)
     {
@@ -63,8 +70,8 @@ class SaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
     public function destroy($id)
     {
