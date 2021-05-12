@@ -8,6 +8,10 @@ use App\Repository\Contracts\IProductRepository;
 
 class ProductService extends StandardService
 {
+    /**
+     * ProductService constructor.
+     * @param IProductRepository $repository
+     */
     public function __construct(IProductRepository $repository)
     {
         $this->repository = $repository;
