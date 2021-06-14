@@ -34,3 +34,16 @@ centralizado os dados de produtos, consulta de vendas e um relatório simplifica
  - Crie uma branch com o nome desafio
  
  Qualquer dúvida sobre o teste, fique a vontade para entrar em contato conosco.
+
+ # Como fazer a instalação desse projeto 
+
+ - Instale as dependencias com **composer install** no CLI do seu sistema, nessa ação é necessário ter o composer previamente instalado em sua máquina.
+
+ - no diretorio raiz do projeto procure por o arquivo de extensão .env para ajustar a configuração com o Bando de dados.
+ - note que nesse arquivo da linha 9 a 14 temos nosso acesso ao banco danielLiberatoDesafio que está  localhost.
+ - configure o usuario e senha do seu banco localhost e adicione o banco danielLiberatoDesafio.
+
+ - Com a conexão criada execute o comando **php artisan migrate** para que sejam executas nossas Migrations
+ - isso fará a criação automática de nossas tabelas e colunas 
+
+ -Feito isso , após tudo ajustado você pode usar o comando **php artisan serve** que você poderá ver o projeto em produção em seu navegador   no endereço http://localhost:8000/
