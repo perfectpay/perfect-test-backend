@@ -39,7 +39,7 @@ Route::get('/about', function(){ return view ('site.about.index');
 });
 // pagina about estatica, entao vai retornar apenas uma view
 Route::get('/contato','ContactController@index');
-Route::post('/contato','ContactController@form')
+Route::post('/contato','ContactController@form');
 //rota post para o formulario em si
 
 }
