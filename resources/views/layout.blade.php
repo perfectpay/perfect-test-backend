@@ -22,7 +22,17 @@
     </div>
 </div>
 <script src="{{ url('/js/app.js') }}"></script>
+
 <script src="https://kit.fontawesome.com/d712964458.js" crossorigin="anonymous"></script>
+<!-- Aqui adicionei uma mascara que geralmente eu costumo usar mascara cpf---------------------------------------------------------------->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+<script>
+	$(document).ready(function () 
+        { 
+            $('#cpf').mask('00000000000');
+        });
+</script>
 @yield('script')
 </body>
 </html>
