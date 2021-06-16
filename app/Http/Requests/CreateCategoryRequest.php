@@ -26,8 +26,8 @@ class CreateCategoryRequest extends FormRequest
         return [
 
             'name' => 'required',
-            'description' => 'required',
-            'image' => 'nullable',
+            'description' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
@@ -35,7 +35,9 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'name.required' => 'É necessário preencher o campo de Nome.',
-            'description.required' => 'É necessário preencher o campo Descrição.',
+            'image.mimes' =>'O arquivo precisa ser uma imagem nas extensões: jpeg, jpg, png, gif',
+            'image.max' =>'O arquivo precisa ser uma imagem de no máximo 2048KB',
+
         ];
         // pela simplificade nao usei minemonicos para depois aplicar em no lang. ja coloquei direto aqui a mensagem customizada
     }
