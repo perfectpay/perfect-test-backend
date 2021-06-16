@@ -1,10 +1,23 @@
 @extends('layouts.layout')
 
 @section('content')
+@if(Session::has('errors'))
+@php($errors = Session::get('errors')->getMessageBag())
+
+@foreach ($errors->all() as $error)
+<p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ $error }}</p>
+ @endforeach
+@endif
 
 @if(Session::has('message'))
 <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
 @endif
+
+@if(Session::has('messagewarn'))
+<p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('messagewarn') }}</p>
+@endif
+
+    <h1>Dashboard de Mensagens</h1>
 
 <div class="row">
 <div class="col-md-5 mr-auto">

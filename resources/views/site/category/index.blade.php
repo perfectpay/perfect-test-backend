@@ -42,7 +42,7 @@
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
       	<a  title="Entrar" href="{{route('site.products.category',['category' => $category])}}"> <button style = "width:20px" type="button" class="btn btn-primary"><i style="margin-left: -7px;" class='fa fa-door-open'></i></button></a>
       	<a title="Editar" href="{{route('site.category.edit',['category' => $category])}}"><button style = "width:20px" type="button" class="btn btn-light"><i style="margin-left: -7px" class='fa fa-pencil'></i></button></a>
-        <a title="Deletar" href="{{route('site.category.delete',['category' => $category])}}"><button style = "width:20px" type="button" class="btn btn-danger"><i style="margin-left: -7px" class='fa fa-trash'></i></button></a>
+        <a title="Deletar" href="{{route('site.category.delete',['category' => $category])}}"><button style = "width:20px" type="button" class="btn btn-danger" onclick="return confirm('Tem Certeza que deseja apagar este cliente?');"><i style="margin-left: -7px" class='fa fa-trash'></i></button></a>
       </div>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
         

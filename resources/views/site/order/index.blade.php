@@ -98,7 +98,7 @@
                         {{$order->order_date}}
                     </td>
                     <td>
-                       <a href="{{route('site.product.show',['product'=>$order->product_id])}}">{{$products->where('id', $order->product_id)->first()['name']}}</a>
+                       <a href="{{route('site.product.edit',['product'=>$order->product_id])}}">{{$products->where('id', $order->product_id)->first()['name']}}</a>
                     </td>    
                     <td>
                         {{$order->quantity}}

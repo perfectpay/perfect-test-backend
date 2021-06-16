@@ -16,7 +16,7 @@
 @endif
 
     <h1>Dashboard dos Clientes</h1>
-    <a href="{{ route('site.costumers')}}">Voltar</a>
+    <a href="{{url()->previous()}}">Voltar</a>
     <div class='card mt-3'>
         <div class='card-body'>
         	@if(isset($costumer))

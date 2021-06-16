@@ -31,4 +31,15 @@ class ContactFormRequest extends FormRequest
             'message' => 'required',
         ];
     }
+
+            public function messages()
+    {
+        return [
+            'name.required' => 'É necessário preencher seu NOME.',
+            'email.required' => 'É necessário preencher seu EMAIL.',
+            'email.email' => 'O camno EMAIL precisa ter um endereço de EMAIL válido.',
+            'message.required' => 'É necessário preencher a MENSAGEM para ser enviada.',
+        ];
+        // pela simplificade nao usei minemonicos para depois aplicar em no lang. ja coloquei direto aqui a mensagem customizada
+    }
 }

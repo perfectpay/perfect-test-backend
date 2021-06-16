@@ -20,7 +20,7 @@ class ContactController extends Controller
         return view('site.contact.index');
     }
 
-    public function form(SendCostumerRequest $request)
+    public function form(ContactFormRequest $request)
         // criei um request especifico para os dados de contato
     {
         //metodo responsavel pelo formulario post da pagina contato

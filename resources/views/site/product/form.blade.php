@@ -18,7 +18,7 @@
 @endif
 
     <h1>Dashboard de Produtos</h1>
-    <a href="{{ route('site.products.category',['category'=>$category->id])}}">Voltar</a>
+    <a href="{{url()->previous()}}">Voltar</a>
     <div class='card mt-3'>
         <div class='card-body'>
         	@if(isset($product))
