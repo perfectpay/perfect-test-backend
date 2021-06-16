@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\PerfectPay;
 
+use App\Contact;
+use Session;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactFormRequest;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -17,11 +20,15 @@ class ContactController extends Controller
         return view('site.contact.index');
     }
 
-        public function form(Request $request)
+    public function form(SendCostumerRequest $request)
+        // criei um request especifico para os dados de contato
     {
         //metodo responsavel pelo formulario post da pagina contato
+        $contact = Contact::create($request->all());
+        // como coloquei todos os parametros necessarios no fillable da classe, coloco os names do formulario de acordo com as colunas dai nao preciso declarar um a um
 
-    ddd($request->all());
+        Session::flash('message','Message info');
+        return redirect()->back()->with('message', 'Mensagem enviada com sucesso!');
     }
 
     

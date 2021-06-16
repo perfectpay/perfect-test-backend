@@ -24,6 +24,17 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
+  'khill/lavacharts' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Khill\\Lavacharts\\Laravel\\LavachartsServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Lava' => 'Khill\\Lavacharts\\Laravel\\LavachartsFacade',
+    ),
+  ),
   'laravel/tinker' => 
   array (
     'providers' => 

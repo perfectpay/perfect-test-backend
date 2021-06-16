@@ -3,7 +3,7 @@
 @section('content')
     <h1>Dashboard de vendas</h1>
     <div class='card mt-3'>
-        <div class='card-body'>
+        <div class='card-body card-dash'>
             <h5 class="card-title mb-5">Tabela de vendas
                 <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
             <form>
@@ -98,6 +98,8 @@
             </table>
         </div>
     </div>
+
+    
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Resultado de vendas</h5>

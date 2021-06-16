@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
+class CreateCostumersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,13 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('costumers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
-            // constraint da foreign key para relacionar o produto com uma categoria
             $table->string('name');
-            $table->string('brief');
-            $table->longtext('description');
-            $table->string('image');
-            $table->decimal('price',10,2);
+            $table->string('email');
+            $table->text('cpf');
             $table->timestamps();
             $table->softDeletes();
-
-
-            
-            
         });
     }
 
@@ -38,6 +30,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('costumers');
     }
 }
