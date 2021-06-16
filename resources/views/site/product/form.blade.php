@@ -62,12 +62,12 @@
 
     <div class="form-group">
     <label for="inputName">Preço</label>
-    <input class="form-control" name="price" id="InputName" aria-describedby="nameHelp" placeholder="100.00 ou maior" value = "{{$product->name ?? ''}}">
+    <input class="form-control" name="price" id="InputName" aria-describedby="nameHelp" placeholder="100.00 ou maior" value = "{{$product->price ?? ''}}">
   </div>
 
     <div class="form-group">
     <label for="inputName">Resumo</label>
-    <input class="form-control" name="brief" id="InputName" aria-describedby="nameHelp" placeholder="Breve Resumo sobre o Produto" value = "{{$product->name ?? ''}}">
+    <input class="form-control" name="brief" id="InputName" aria-describedby="nameHelp" placeholder="Breve Resumo sobre o Produto" value = "{{$product->brief ?? ''}}">
   </div>
 
   <div class="form-group">

@@ -13474,6 +13474,41 @@ form button[type="submit"] {
   padding: 5px;
   
 }
+div.card{
+  max-width: 17rem;
+  min-width: 17rem;
+  margin-top: 1rem;
+}
 
+div.card.mt-3{
+  max-width: 100%;
+  min-width: 25rem;
+  margin-top: 1rem;
+}
+
+div.btn-group.btn-group-toggle > a{
+  max-width: 120px;
+  margin-left: -5px;
+  margin-right: 20px;
+}
+
+div.row.header2{
+  margin-left:  0.5rem;
+  margin-top:  3rem;
+  margin-bottom: -2rem;
+}
+.product-name{
+font-size: 40px;
+}
+
+.product-price{
+  font-size: 40px;
+  color: blue;
+  margin-bottom: 6rem;
+}
+
+div.acao.dash-cliente > a.btn.btn-primary{
+  font-size: 11px;
+}
 
 

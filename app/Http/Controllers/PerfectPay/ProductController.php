@@ -70,8 +70,8 @@ class ProductController extends Controller
     {
                  
 
-        return view('site.category.form',[
-            'category' => $category,
+        return view('site.product.form',[
+            'product' => $product,'category' => Category::find($product->category_id),
 
         ]);
           
@@ -79,14 +79,16 @@ class ProductController extends Controller
 
          public function update(CreateProductRequest $request)
     {
-        $category = Category::Find($request->id);
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->update();
+        $product = Product::Find($request->id);
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->brief = $request->brief;
+        $product->description = $request->description;
+        $product->update();
         
       Session::flash('message','Message info');
         
-        return redirect()->route('site.products')->with('message', 'Categoria Modificada com sucesso!');
+        return redirect()->route('site.products.category',['category'=>$product->category_id])->with('message', 'Produto Modificado com sucesso!');
     }
 
 
