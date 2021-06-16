@@ -18,7 +18,7 @@
 @endif
 
     <h1>Dashboard de Produtos</h1>
-    <a href="{{ route('site.products')}}">Voltar</a>
+    <a href="{{ route('site.products')}}"><i class="fa fa-arrow-alt-circle-left" aria-hidden="true"></i> Voltar</a>
     <div class='card mt-3'>
         <div class='card-body'>
         	@if(isset($category))

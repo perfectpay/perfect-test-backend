@@ -16,7 +16,7 @@
 @endif
 
     <h1>Dashboard dos Clientes</h1>
-    <a href="{{url()->previous()}}">Voltar</a>
+    <a href="{{url()->previous()}}"><i class="fa fa-arrow-alt-circle-left" aria-hidden="true"></i> Voltar</a>
     <div class='card mt-3'>
         <div class='card-body'>
         	@if(isset($costumer))

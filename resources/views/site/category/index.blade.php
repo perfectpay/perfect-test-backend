@@ -24,33 +24,39 @@
 
     <h1>Categorias<a href="{{route('site.category.form')}}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova Categoria</a></h1>
 
-<div class="card-deck">
-	@foreach($categories as $category)
+  <div class="card-deck">
+    <div class="card-deck row">
+  	@foreach($categories as $category)
 
-  <div class="card main-wrapper">
-  	@if($category->image)
-   <a href="{{route('site.products.category',['category' => $category])}}"> <img class="card-img-top" src="{{asset($category->image)}}" alt="Card image cap"></a>
-    @else
-    @php($defaultimage="img/No_Image_Available.jpg")
-    <a href="{{route('site.products.category',['category' => $category])}}"><img class="card-img-top" src="{{asset($defaultimage)}}" alt="Card image cap"></a>
-    @endif
-    <div class="card-body">
-      <h5 class="card-title">{{$category->name}}</h5>
-      <p class="card-text">{{$category->description}}</p>
-    </div>
-    <div class="card-footer">
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      	<a  title="Entrar" href="{{route('site.products.category',['category' => $category])}}"> <button style = "width:20px" type="button" class="btn btn-primary"><i style="margin-left: -7px;" class='fa fa-door-open'></i></button></a>
-      	<a title="Editar" href="{{route('site.category.edit',['category' => $category])}}"><button style = "width:20px" type="button" class="btn btn-light"><i style="margin-left: -7px" class='fa fa-pencil'></i></button></a>
-        <a title="Deletar" href="{{route('site.category.delete',['category' => $category])}}"><button style = "width:20px" type="button" class="btn btn-danger" onclick="return confirm('Tem Certeza que deseja apagar este cliente?');"><i style="margin-left: -7px" class='fa fa-trash'></i></button></a>
+    <div class="card main-wrapper">
+    	@if($category->image)
+     <a href="{{route('site.products.category',['category' => $category])}}"> <img class="card-img-top" src="{{asset($category->image)}}" alt="Card image cap"></a>
+      @else
+      @php($defaultimage="img/No_Image_Available.jpg")
+      <a href="{{route('site.products.category',['category' => $category])}}"><img class="card-img-top" src="{{asset($defaultimage)}}" alt="Card image cap"></a>
+      @endif
+      <div class="card-body">
+        <h5 class="card-title">{{$category->name}}</h5>
+        <p class="card-text">{{$category->description}}</p>
       </div>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        
-        
+      <div class="card-footer">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        	<a  title="Entrar" href="{{route('site.products.category',['category' => $category])}}"> <button style = "width:20px" type="button" class="btn btn-primary"><i style="margin-left: -7px;" class='fa fa-door-open'></i></button></a>
+        	<a title="Editar" href="{{route('site.category.edit',['category' => $category])}}"><button style = "width:20px" type="button" class="btn btn-light"><i style="margin-left: -7px" class='fa fa-pencil'></i></button></a>
+          <a title="Deletar" href="{{route('site.category.delete',['category' => $category])}}"><button style = "width:20px" type="button" class="btn btn-danger" onclick="return confirm('Tem Certeza que deseja apagar este cliente?');"><i style="margin-left: -7px" class='fa fa-trash'></i></button></a>
+        </div>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          
+        </div>
       </div>
     </div>
+
+    @endforeach
+    </div>
+</div>
+
+    <div class="pagination row">
+    {{$categories->links()}}
   </div>
 
-  @endforeach
-</div>
 @endsection

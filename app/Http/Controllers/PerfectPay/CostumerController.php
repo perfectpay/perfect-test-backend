@@ -18,7 +18,7 @@ class CostumerController extends Controller
     public function index()
     {
           return view('site.costumer.index',[
-            'costumers' => Costumer::all(),
+            'costumers' => Costumer::paginate(5),
             ]);
     }
 

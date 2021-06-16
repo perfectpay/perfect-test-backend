@@ -49,3 +49,20 @@ max-height: 600px;
 }
 
 
+div.links_pagination{
+  display: nline-block;
+  margin:  0 auto;
+  text-align: center;
+  padding:  3px;
+}
+
+div.card-deck{
+display: nline-block;
+  justify-content: center;
+}
+
+div.pagination{
+  display: nline-block;
+  margin-top: 1rem;
+  justify-content: center;
+}

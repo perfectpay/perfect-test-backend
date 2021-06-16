@@ -18,7 +18,7 @@
 @endif
 
     <h1>Dashboard dos Clientes</h1>
-    <a href="{{ route('site.home')}}">Voltar</a>
+    <a href="{{ route('site.home')}}"><i class="fa fa-arrow-alt-circle-left" aria-hidden="true"></i> Voltar</a>
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Clientes
@@ -67,4 +67,8 @@
             </table>
         </div>
     </div>
+
+        <div class="pagination row">
+    {{$costumers->links()}}
+  </div>
 @endsection

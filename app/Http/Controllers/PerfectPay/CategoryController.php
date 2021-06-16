@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('site.category.index',[
-            'categories' => Category::all(),
+            'categories' => Category::paginate(3),
 
         ]);
     }
@@ -30,7 +30,10 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
 
-        return view('site.category.show',['category'=>  $category->load('products')]); 
+        $category2 = Category::all();
+        $products = Product::where(['category_id'=>$category->id])->paginate(3);
+        
+        return view('site.category.show',['category'=>  $category,'products'=>  $products]); 
 
           }
       

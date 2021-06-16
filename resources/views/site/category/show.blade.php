@@ -21,7 +21,7 @@
 <p class="alert {{ Session::get('alert-class', 'alert-warning') }}">{{ Session::get('messagewarn2') }}</p>
 @endif
     <h1>{{$category->name}}</h1>
-<h4><a href="{{route('site.products')}}">Voltar Para Categorias</a></h4>
+<h4><a href="{{route('site.products')}}"><i class="fa fa-arrow-alt-circle-left" aria-hidden="true"></i> Voltar Para Categorias</a></h4>
     <div class="card-deck card-header main-wrapper">
     	<div class= "row">
     	<div class= "col-sm">
@@ -46,7 +46,7 @@
 
 <div class="card-deck">
 
-@foreach($category->products as $product)
+@foreach($products as $product)
   <div class="card main-wrapper">
   	@if($product->image)
    <a href="{{route('site.product.edit',['product' => $product])}}"> <img class="card-img-top" src="{{asset($product->image)}}" alt="Card image cap"></a>
@@ -69,7 +69,9 @@
 @endforeach
 
 </div>
-
+    <div class="pagination row">
+    {{$products->links()}}
+  </div>
 
 @endsection
 
