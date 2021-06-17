@@ -2,7 +2,16 @@
     <div class="container-fluid">
         <!-- Brand -->
         <a class="" href="{{ url('/') }}">Teste Back End</a>
+
         <!-- User -->
+        <a href="{{ url('/orders') }}">Pedidos</a>
+        <a href="{{ url('/products') }}">Produtos</a>
+        <a href="{{ url('/costumers') }}">Clientes</a>
+        <a href="{{ url('/about') }}">Sobre Nós</a>
+        <a href="{{ url('/contact') }}">Contato</a>
+
+
+
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a id="bell" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -93,9 +93,10 @@ h6 {
   margin-bottom: 0.5rem;
 }
 
-p {
+a,p,ul,li {
   margin-top: 0;
   margin-bottom: 1rem;
+  font-size: 14px;
 }
 
 abbr[title],
@@ -3350,8 +3351,8 @@ fieldset:disabled a.btn {
 
 .btn-sm,
 .btn-group-sm > .btn {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
+  padding: 0.25rem 0.25rem;
+  font-size: 0.55rem;
   line-height: 1.5;
   border-radius: 4px;
 }
@@ -4566,6 +4567,7 @@ input[type="button"].btn-block {
   display: flex;
   flex-direction: column;
   padding-left: 0;
+  padding-top: 15px;
   margin-bottom: 0;
   list-style: none;
 }
@@ -12459,7 +12461,7 @@ h1 {
 .wrapper #main {
   padding: 2rem;
   transition: all 0.3s;
-  max-width: 992px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -13465,4 +13467,13 @@ form button[type="submit"] {
 .alert-dismissible .close {
   padding: 0.55rem 1.25rem;
 }
+
+.card-img-top{
+
+  border-radius: 4px;
+  padding: 5px;
+  
+}
+
+
 

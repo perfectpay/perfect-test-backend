@@ -4,7 +4,9 @@
     <title>Perfect Pay - Teste - @yield('title')</title>
     <link href="{{ asset('/images/brand/favicon.png') }}" rel="icon" type="image/png"/>
     <link rel='stylesheet' href="{{ url('/css/app.css') }}">
+    <link rel='stylesheet' href="{{ asset('css/app_mod.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+
     <style>
         .wrapper #wrapperContent, .wrapper #wrapperContent.closed {
             padding: 0;
@@ -13,7 +15,8 @@
 </head>
 <body>
 <!-- NAVBAR TOP -->
-@include('layout_header')
+@include('layouts.layout_header')
+
 <div class='wrapper'>
     <div id='wrapperContent' class='content container-fluid'>
         <div id='main'>
