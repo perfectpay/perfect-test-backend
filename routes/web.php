@@ -26,8 +26,8 @@ Route::get('/clients', function () {
 Route::group(['namespace' => 'PerfectPay'], function()
 {
     // por costume separo os controller em route groups e "app/pasta"
-Route::get('/','HomeController')->name('site.home');;
-    // rota get enviando requisicao para o controller como usei invoke, nao é utilizado o @
+Route::get('/','OrderController@index')->name('site.home');;
+    // pagina inicial mudada para linkar direto no dashboard de vendas
 
 
 Route::get('/category/{category}','CategoryController@show')->name('site.products.category');
@@ -39,7 +39,6 @@ Route::get('/category/{category}/delete','CategoryController@delete')->name('sit
 
 Route::get('/products','CategoryController@index')->name('site.products');
 
-Route::get('/product/{category}','ProductController@show')->name('site.product.show');
 
 Route::get('/products/{category}/create','ProductController@form')->name('site.product.form');
 Route::post('/products/{category}/create','ProductController@create')->name('site.product.create');

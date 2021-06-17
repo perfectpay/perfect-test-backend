@@ -4,9 +4,8 @@
         <a class="" href="{{ url('/') }}">Teste Back End</a>
 
         <!-- User -->
-        <a href="{{ url('/') }}">DashBoard</a>
-        <a href="{{ url('/products') }}">Produtos</a>
         <a href="{{ url('/orders') }}">Pedidos</a>
+        <a href="{{ url('/products') }}">Produtos</a>
         <a href="{{ url('/costumers') }}">Clientes</a>
         <a href="{{ url('/about') }}">Sobre Nós</a>
         <a href="{{ url('/contact') }}">Contato</a>

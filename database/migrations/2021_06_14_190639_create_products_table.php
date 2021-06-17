@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained();
             // constraint da foreign key para relacionar o produto com uma categoria
             $table->string('name');
-            $table->string('brief');
-            $table->longtext('description');
+            $table->string('brief')->nullable();
+            $table->longtext('description')->nullable();
             $table->string('image');
             $table->decimal('price',10,2);
             $table->timestamps();
