@@ -22,7 +22,8 @@ class OrderController extends Controller
     {
       
           return view('site.order.index',[
-            'orders' => Order::all(),
+            'orders_paginated' => Order::paginate(6),
+            'orders' => Order::All(),
             'costumers' => Costumer::all(),
             'products' => Product::all(),
             'calculation' => ['sold_qtt'=>Order::where('status','Vendido')->count(),'cancel_qtt'=>Order::where('status','Cancelado')->count(),'return_qtt'=>Order::where('status','Devolvido')->count(),'sold_total'=>Order::where('status','Vendido')->sum('id'),'cancel_total'=>5,'return_total'=>5],
@@ -91,6 +92,52 @@ public function form(Order $order)
 
         return redirect()->route('site.orders')->with('messagewarn', 'Pedido Deletado com sucesso!');
     }
+
+        public function search(Request $request)
+    {
+            $costumer_id = $request->costumer;
+            $datePeriod = $request->datePeriod;
+
+            $orders_paginated = Order::All();
+
+            if($costumer_id==0){
+            $orders_paginated = Order::All();
+            }
+            else {
+            $orders_paginated = Order::where(['costumer_id' => $costumer_id])->paginate(6);
+
+            }
+
+            if(isset($datePeriod)){
+            (int)$dateSeparator = strpos($datePeriod,' - ');
+            $dateMinor = Carbon::createFromFormat('d/m/Y',substr($datePeriod,0,$dateSeparator));
+            $dateMajor = Carbon::createFromFormat('d/m/Y',substr($datePeriod,$dateSeparator+3,strlen($datePeriod)));
+            // carbon para colocar no modelo de data padrao
+
+            $orders_paginated = $orders_paginated->where('order_date', '>=' , $dateMinor->addDays(-1))->where('order_date', '<=' , $dateMajor->addDays(1));
+            // adicionado data a cima do limite superior e abaixo do limite inferior para invalidar o resto do timestamp(horas,minutos e segundos) nas datas.
+ }
+            if($orders_paginated->count()<1){
+            Session::flash('messagewarn','Não foram encontrados pedidos com os dados selecionados.');
+
+            }
+
+
+            
+            
+            return view('site.order.index',[
+            'orders_paginated' => $orders_paginated,
+            'orders' => Order::All(),
+            'costumers' => Costumer::all(),
+            'products' => Product::all(),
+            'calculation' => ['sold_qtt'=>Order::where('status','Vendido')->count(),'cancel_qtt'=>Order::where('status','Cancelado')->count(),'return_qtt'=>Order::where('status','Devolvido')->count(),'sold_total'=>Order::where('status','Vendido')->sum('id'),'cancel_total'=>5,'return_total'=>5],
+            
+            ]);
+             
+
+
+    }
+
 
 
 }

@@ -57,6 +57,7 @@ Route::get('/costumer/{costumer}/delete','CostumerController@delete')->name('sit
 
 
 Route::get('/orders','OrderController@index')->name('site.orders');
+Route::get('/orders/search','OrderController@search')->name('site.orders.search');
 Route::get('/orders/create','OrderController@form')->name('site.order.form');
 Route::post('/orders/create','OrderController@create')->name('site.order.create');
 Route::get('/orders/{order}/edit','OrderController@edit')->name('site.order.edit');
