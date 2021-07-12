@@ -153,7 +153,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Produtos
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
+                <a href="{{ route('products.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -166,18 +166,20 @@
                         Ações
                     </th>
                 </tr>
+                @foreach($products as $product)
                 <tr>
                     <td>
-                        Perfect Caps
+                        {{$product->name}}
                     </td>
                     <td>
-                        R$ 100,00
+                        R$ {{$product->price}}
                     </td>
                     <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
+                        <a href="{{ route('products.edit', ['product' => $product->id]) }}" class='btn btn-primary'>Editar</a>
                     </td>
                 </tr>
-                <tr>
+                @endforeach
+                <!-- <tr>
                     <td>
                         Nature Caps
                     </td>
@@ -198,7 +200,7 @@
                     <td>
                         <a href='' class='btn btn-primary'>Editar</a>
                     </td>
-                </tr>
+                </tr> -->
             </table>
         </div>
     </div>
