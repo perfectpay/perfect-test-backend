@@ -13,3 +13,5 @@ Route::get('/sales', function () {
 });
 
 Route::resource('/products', 'ProductController');
+
+Route::resource('/clients', 'ClientController');

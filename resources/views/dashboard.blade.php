@@ -5,6 +5,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
+                <a href="{{ route('clients.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo cliente</a>
                 <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
             <form>
                 <div class="form-row align-items-center">
@@ -15,11 +16,9 @@
                             </div>
                             <select class="form-control" id="inlineFormInputName">
                                 <option>Clientes</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                @foreach($clients as $client)
+                                <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
