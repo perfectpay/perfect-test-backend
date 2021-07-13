@@ -6,7 +6,7 @@
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
                 <a href="{{ route('clients.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo cliente</a>
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
+                <a href="{{ route('sales.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
             <form>
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
@@ -52,21 +52,23 @@
                         Ações
                     </th>
                 </tr>
+                @foreach($lastTenSales as $ltsale)
                 <tr>
                     <td>
-                        Perfect Caps
+                        {{$ltsale->product->name}}
                     </td>
                     <td>
-                        20/07/2019 19h15
+                        {{$ltsale->created_at}}
                     </td>
                     <td>
-                        R$ 100,00
+                        R$ {{ number_format(($ltsale->quantity * str_replace(',', '.', str_replace('.', '', $ltsale->product->price))) - $ltsale->discount, 2, ',', '.') }}
                     </td>
                     <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
+                        <a href="{{ route('sales.edit', ['sale' => $ltsale->id]) }}" class='btn btn-primary'>Editar</a>
                     </td>
                 </tr>
-                <tr>
+                @endforeach
+                <!-- <tr>
                     <td>
                         Nature Caps
                     </td>
@@ -93,7 +95,7 @@
                     <td>
                         <a href='' class='btn btn-primary'>Editar</a>
                     </td>
-                </tr>
+                </tr> -->
             </table>
         </div>
     </div>
@@ -117,7 +119,7 @@
                         Vendidos
                     </td>
                     <td>
-                        100
+                        {{$sold}}
                     </td>
                     <td>
                         R$ 100,00
@@ -128,7 +130,7 @@
                         Cancelados
                     </td>
                     <td>
-                        120
+                        {{$canceled}}
                     </td>
                     <td>
                         R$ 100,00
@@ -139,7 +141,7 @@
                         Devoluções
                     </td>
                     <td>
-                        120
+                        {{$returns}}
                     </td>
                     <td>
                         R$ 100,00
@@ -178,28 +180,7 @@
                     </td>
                 </tr>
                 @endforeach
-                <!-- <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        R$ 120,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        R$ 150,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr> -->
+                
             </table>
         </div>
     </div>
