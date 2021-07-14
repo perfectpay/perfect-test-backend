@@ -34,3 +34,15 @@ centralizado os dados de produtos, consulta de vendas e um relatório simplifica
  - Crie uma branch com o nome desafio
  
  Qualquer dúvida sobre o teste, fique a vontade para entrar em contato conosco.
+
+ # Para Rodar o Projeto
+ - Após extrair, basta você entrar na pasta raiz do projeto e rodar o comando: 
+ ```
+ composer install
+ ```
+ - Na  raiz do projeto copie o .env.example e cole no mesmo diretorio e renomeie-o para .env.
+ - Crie sua base de dados e parametrize no arquivo .env.
+ - Com a base de dados criada execute o seguinte comando para rodae as Migrations e criar as tabelas no BD:
+ ```
+ php artisan migrate
+ ```
