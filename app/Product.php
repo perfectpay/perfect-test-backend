@@ -12,10 +12,6 @@ class Product extends Model
         'price'
     ];
 
-    public function getPriceAttribute($value){
-        return number_format($value, 2, ',', '.');
-    }
-
     public function setPriceAttribute($value){
         if (empty($value)) {
             $this->attributes['price'] = null;

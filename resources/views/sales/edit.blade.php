@@ -43,12 +43,20 @@
                     {{ $sale->created_at }}
                 </div>
                 <div class="form-group">
+                    <label for="date" style="font-weight: bold">Valor do produto: </label>
+                    R$ {{ number_format($sale->product_price, 2, ',', '.') }}
+                </div>
+                <div class="form-group">
                     <label for="quantity" style="font-weight: bold">Quantidade: </label>
                     {{ $sale->quantity }}
                 </div>
                 <div class="form-group">
                     <label for="discount" style="font-weight: bold">Desconto: </label>
-                    R$ {{ $sale->discount }}
+                    R$ {{ number_format($sale->discount, 2, ',', '.') }}
+                </div>
+                <div class="form-group">
+                    <label for="date" style="font-weight: bold">Valor Total da compra: </label>
+                    R$ {{ number_format($sale->total_purchase_amount, 2, ',', '.') }}
                 </div>
                 <div class="form-group">
                     <label for="status" style="font-weight: bold">Status</label>

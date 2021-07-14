@@ -13,7 +13,9 @@ class Sale extends Model
         'product_id',
         'quantity',
         'discount',
-        'status'
+        'status',
+        'product_price',
+        'total_purchase_amount'
     ];
 
     public function client(){
@@ -24,10 +26,6 @@ class Sale extends Model
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
-    // public function getDiscountAttribute($value){
-    //     return number_format($value, 2, ',', '.');
-    // }
-
     public function setDiscountAttribute($value){
         if (empty($value)) {
             $this->attributes['discount'] = 0;
@@ -37,7 +35,7 @@ class Sale extends Model
     }
 
     public function getCreatedAtAttribute($value){
-        return date('d/m/Y', strtotime($value));
+        return date('d/m/Y H:i', strtotime($value));
     }
 
     //Converter para moeda (para enviar o dado para o BD)

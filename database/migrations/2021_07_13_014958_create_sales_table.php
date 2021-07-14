@@ -20,6 +20,8 @@ class CreateSalesTable extends Migration
             $table->integer('quantity');
             $table->decimal('discount',10,2)->nullable()->default('0');
             $table->string('status');
+            $table->decimal('product_price',10,2);
+            $table->decimal('total_purchase_amount',10,2);
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('client')->onDelete('CASCADE');

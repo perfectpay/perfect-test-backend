@@ -13,6 +13,10 @@
         <div class='card-body'>
             <form action="{{ route('clients.store') }}" method="post" enctype="multipart/form-data">
             @csrf
+                <h5 class="card-title mb-5">Informações do cliente
+                    <a href="{{ route('home') }}" class='btn btn-primary float-right btn-sm rounded-pill'><i class='fa fa-home'></i>  Home</a>
+                    <a href="{{ route('sales.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a>
+                </h5>
                 <div class="form-group">
                     <label for="name">Nome do cliente</label>
                     <input type="text" class="form-control " id="name" name="name" value="{{ old('name') }}">

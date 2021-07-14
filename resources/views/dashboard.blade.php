@@ -7,15 +7,16 @@
             <h5 class="card-title mb-5">Tabela de vendas
                 <a href="{{ route('clients.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo cliente</a>
                 <a href="{{ route('sales.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
-            <form>
+            <form action="{{ route('search') }}" method="post">
+            @csrf
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Clientes</div>
                             </div>
-                            <select class="form-control" id="inlineFormInputName">
-                                <option>Clientes</option>
+                            <select class="form-control" id="inlineFormInputName" name="client_id" required>
+                                <option value="">Clientes</option>
                                 @foreach($clients as $client)
                                 <option value="{{ $client->id }}">{{ $client->name }}</option>
                                 @endforeach
@@ -28,7 +29,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Período</div>
                             </div>
-                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
+                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" name="period" placeholder="Username">
                         </div>
                     </div>
                     <div class="col-sm-1 my-1">
@@ -37,6 +38,9 @@
                     </div>
                 </div>
             </form>
+            @if($period != null && $client_name != null)
+               <b>10 Buscas mais recentes pelo cliente:</b> {{$client_name}} <b>no período entre</b> {{$period}}
+            @endif
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -52,50 +56,33 @@
                         Ações
                     </th>
                 </tr>
-                @foreach($lastTenSales as $ltsale)
+                @if($lastTenSales->count() > 0)
+                    @foreach($lastTenSales as $ltsale)
+                    <tr>
+                        <td>
+                            {{$ltsale->product->name}}
+                        </td>
+                        <td>
+                            {{$ltsale->created_at}}
+                        </td>
+                        <td>
+                            R$ {{ number_format($ltsale->total_purchase_amount, 2, ',', '.') }}
+                        </td>
+                        <td>
+                            <a href="{{ route('sales.edit', ['sale' => $ltsale->id]) }}" class='btn btn-primary'>Editar</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                @else
                 <tr>
                     <td>
-                        {{$ltsale->product->name}}
+                        Nenhum registro encontrado!
                     </td>
-                    <td>
-                        {{$ltsale->created_at}}
-                    </td>
-                    <td>
-                        R$ {{ number_format(($ltsale->quantity * str_replace(',', '.', str_replace('.', '', $ltsale->product->price))) - $ltsale->discount, 2, ',', '.') }}
-                    </td>
-                    <td>
-                        <a href="{{ route('sales.edit', ['sale' => $ltsale->id]) }}" class='btn btn-primary'>Editar</a>
-                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                @endforeach
-                <!-- <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr> -->
+                @endif
             </table>
         </div>
     </div>
@@ -122,7 +109,7 @@
                         {{$sold}}
                     </td>
                     <td>
-                        R$ 100,00
+                        R$ {{number_format($amountSold, 2, ',', '.')}}
                     </td>
                 </tr>
                 <tr>
@@ -133,7 +120,7 @@
                         {{$canceled}}
                     </td>
                     <td>
-                        R$ 100,00
+                        R$ {{number_format($amountCanceled, 2, ',', '.')}}
                     </td>
                 </tr>
                 <tr>
@@ -144,7 +131,7 @@
                         {{$returns}}
                     </td>
                     <td>
-                        R$ 100,00
+                        R$ {{number_format($amountReturns, 2, ',', '.')}}
                     </td>
                 </tr>
             </table>
@@ -167,20 +154,29 @@
                         Ações
                     </th>
                 </tr>
-                @foreach($products as $product)
+                @if($lastTenSales->count() > 0)
+                    @foreach($products as $product)
+                    <tr>
+                        <td>
+                            {{$product->name}}
+                        </td>
+                        <td>
+                            R$ {{number_format($product->price, 2, ',', '.')}}
+                        </td>
+                        <td>
+                            <a href="{{ route('products.edit', ['product' => $product->id]) }}" class='btn btn-primary'>Editar</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                @else
                 <tr>
                     <td>
-                        {{$product->name}}
+                        Nenhum registro encontrado!
                     </td>
-                    <td>
-                        R$ {{$product->price}}
-                    </td>
-                    <td>
-                        <a href="{{ route('products.edit', ['product' => $product->id]) }}" class='btn btn-primary'>Editar</a>
-                    </td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                @endforeach
-                
+                @endif
             </table>
         </div>
     </div>

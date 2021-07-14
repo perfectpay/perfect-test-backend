@@ -42,13 +42,13 @@ class SaleController extends Controller
      */
     public function store(SaleRequest $request)
     {
-        /** Para testar a persistencia */
-        // $sale = new Sale();
-        // $sale->fill($request->all());
+        $product = Product::where('id', $request->product_id)->first();
 
-        // var_dump($sale->getAttributes());
+        $requestData = $request->all();
+        $requestData['product_price'] = floatval($product->price);
+        $requestData['total_purchase_amount'] = (floatval($product->price) * $request->quantity) - floatval($request->discount);
 
-        $createSale = Sale::create($request->all());
+        $createSale = Sale::create($requestData);
 
         return redirect()->route('sales.edit', ['sale' => $createSale->id])->with(['color'=>'success', 'message'=>'Venda cadastrada com sucesso!']);
     }
@@ -87,9 +87,7 @@ class SaleController extends Controller
     public function update(SaleEditRequest $request, $id)
     {
         $sale = Sale::where('id', $id)->first();
-        // $sale->update([
-        //     'status' => $request('status'),
-        // ]);
+
         $sale->fill($request->all());
 
         $sale->save();

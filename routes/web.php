@@ -17,3 +17,5 @@ Route::resource('/products', 'ProductController');
 Route::resource('/clients', 'ClientController');
 
 Route::resource('/sales', 'SaleController');
+
+Route::post('/search', 'DashboardController@search')->name('search');
