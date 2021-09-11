@@ -6,13 +6,24 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    /* public function index()
+    public function cadastroProduto()
     {
-
-        $hello = 'Hello World!';
-        return view('hello.telaInicial');
+        
+        return view('cadastro.cadastrarProduto');
             
-    } */
+    }
+
+    public function store(Request $request)
+    {
+        if(empty($request->nomeProduto) || empty($request->descricao) || empty($request->preco) )
+        {
+            return back()->withInput();
+        }
+        else
+        {
+            dd($request);
+        }
+    }
 }
 
 ?>

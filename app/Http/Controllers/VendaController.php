@@ -14,13 +14,6 @@ class VendaController extends Controller
             
     }
 
-    public function cadastroProduto()
-    {
-        
-        return view('cadastro.cadastrarProduto');
-            
-    }
-
     public function cadastroVenda()
     {
         

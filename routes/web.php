@@ -8,7 +8,8 @@ Route::get('/', function () {
 
 Route::get('telaInicial', 'VendaController@index');
 
-Route::get('telaDeCadastro', 'VendaController@cadastroProduto');
+Route::get('telaDoProduto', 'ProdutoController@cadastroProduto');
+Route::post('Cadastrarprodutos', 'ProdutoController@store')->name('store');
 
 Route::get('telaDeVenda', 'VendaController@cadastroVenda');
 
