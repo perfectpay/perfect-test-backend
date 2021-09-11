@@ -27,23 +27,35 @@ MEUS PENSAMENTOS:
 MODELS
 {
 
-Cliente-> Nome(string) && Email(string)[Se der tempo: mascara] && CPF(int)[Se der tempo: mascara];
+Produto -> atributos:
+Nome(string) && Descrição(string) && Preço(double)[Se der tempo: mascara];
 
-Produto-> Nome(string) && Descrição(string) && Preço(double)[Se der tempo: mascara].
-
-Venda-> Produto(Produto) && Data da venda(timestamp) &&  Quantidade do produto(int), Desconto(double)[Se der tempo: mascara], Status da venda(String).
+Venda -> atributos:
+Produto(idProduto) && Data da venda(timestamp) &&  Quantidade do produto(int) && Desconto(double)[Se der tempo: mascara] && 
+Status da venda(String) && NomeCliente(string) && Email(string)[Se der tempo: mascara] && CPF(int)[Se der tempo: mascara];
 
 }
 Controllers:
 {
   
 
-   ControllerBotaoNovaVenda
+   ProdutoController
 
-   ControllerBotaoNovaProduto
+   VendaController
 
 
 }
+
+Banco de dados: 
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+2 tabelas - Produto e Venda
 
 VERSÃO ou DATA: 10/09/2021 18:30
 COMO INICIAR O PROJETO:
