@@ -8,6 +8,8 @@ Route::get('/', function () {
 
 Route::get('telaInicial', 'VendaController@index');
 
+Route::get('retornoProdutos', 'ProdutoController@comboboxShow');
+
 Route::get('telaDoProduto', 'ProdutoController@cadastroProduto');
 Route::post('Cadastrarprodutos', 'ProdutoController@store')->name('store');
 

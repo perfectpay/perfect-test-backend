@@ -15,9 +15,9 @@ class AlterTableVendasAddColumnProdutosId extends Migration
     {
         Schema::table('vendas', function (Blueprint $table) {
             
-            $table->unsignedBigInteger('produtos_id')->after('id');
+         /*    $table->unsignedBigInteger('produtos_id')->after('id');
             $table->foreign('produtos_id')->references('id')->on('produtos');
-
+ */
         });
     }
 
@@ -29,8 +29,8 @@ class AlterTableVendasAddColumnProdutosId extends Migration
     public function down()
     {
         Schema::table('vendas', function (Blueprint $table) {
-            $table->$table->dropForeign('vendas_produtos_id_foreign');
-            $table->drop('produtos_id');
+           /*  $table->$table->dropForeign('vendas_produtos_id_foreign');
+            $table->drop('produtos_id'); */
             
         });
     }

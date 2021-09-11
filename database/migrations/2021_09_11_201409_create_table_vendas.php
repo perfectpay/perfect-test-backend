@@ -22,7 +22,7 @@ class CreateTableVendas extends Migration
             $table->string('IdProduto');
             $table->string('Quantidade');
             $table->string('Desconto');
-            $table->timestamps('');
+            $table->timestamps();
 
         });
     }
