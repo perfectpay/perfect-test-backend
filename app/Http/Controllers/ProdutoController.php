@@ -12,7 +12,7 @@ class ProdutoController extends Controller
     public function comboboxShow()
     {
         
-        //
+        return Produto::all();
             
     }
 
@@ -35,8 +35,7 @@ class ProdutoController extends Controller
             $post->Nome = $request->nomeProduto;
             $post->Descricao = $request->descricao;
             $post->Preco = $request->preco;
-            
-
+            //
             $post->save();
 
             return view('cadastro.cadastrarProduto');

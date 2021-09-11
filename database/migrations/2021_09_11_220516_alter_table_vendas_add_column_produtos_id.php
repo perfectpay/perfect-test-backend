@@ -15,9 +15,9 @@ class AlterTableVendasAddColumnProdutosId extends Migration
     {
         Schema::table('vendas', function (Blueprint $table) {
             
-         /*    $table->unsignedBigInteger('produtos_id')->after('id');
-            $table->foreign('produtos_id')->references('id')->on('produtos');
- */
+            /*  $table->unsignedBigInteger('produtos_id')->after('Id');
+            $table->foreign('produtos_id')->references('Id')->on('produtos'); */
+ 
         });
     }
 

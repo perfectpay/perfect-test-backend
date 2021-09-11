@@ -15,8 +15,9 @@
                 </div>
                 <div class="form-group">
                     <label for="preco">Preço</label>
-                    <input type="decimal" class="form-control" id="preco" name = "preco" value="{{old('preco')}}" placeholder="100,00 ou maior">
-                <button type="submit" class="btn btn-sucess">Salvar</button>
+                    <input type="text" class="form-control" id="preco" name = "preco" value="{{old('preco')}}" placeholder="100,00 ou maior">
+                    <br>
+                <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
         </div>
     </div>
