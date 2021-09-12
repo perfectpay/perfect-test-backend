@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+
     <h1>Dashboard de vendas</h1>
     <div class='card mt-3'>
         <div class='card-body'>
@@ -14,13 +15,45 @@
                                 <div class="input-group-text">Clientes</div>
                             </div>
                             <select class="form-control" id="inlineFormInputName">
-                                <option>Clientes</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
+                            <?php 
+                                     $print = "";
+                                     $print2 = "";
+                                     $z = 0;
+                                     $array = array();
+                                     $array2 = array();
+
+                                     $tamanhoVendas = count($vendas);
+                                    
+                                    for($o = 0; $o < $tamanhoVendas; $o++)
+                                    {
+                                        if($o == 0)
+                                        {
+                                        $nomeAtual = $vendas[0]->Nome;          
+                                        array_push($array, $nomeAtual);
+                                        }
+                                        for($i = 1; $i < $tamanhoVendas;$i++)
+                                        {
+                                            $tamanhoArray = count($array);
+                                            $nomeAtual = $vendas[$i]->Nome; 
+                                            if(!in_array($nomeAtual, $array))
+                                            {        
+                                            array_push($array, $nomeAtual);
+                                            
+                                            }  
+                                           
+                                        }
+                                                              
+                                    }
+                                    $tamanhoResposta = count($array);
+                                    for($i = 0; $i < $tamanhoResposta; $i++ )
+                                    {
+                                        $print = $array[$i];
+                                        ?> <option id="<?php $i;?>"> <?php   /*  var_dump($array)  */   echo $print ?></option> <?php                                                      
+                                    }        
+                                       
+                                
+                            ?>
+                                </select>
                         </div>
                     </div>
                     <div class="col-sm-6 my-1">
@@ -142,19 +175,20 @@
                              {
                                 $idProduto = $vendas[$i]->IdProduto;
                                 $qtd = $vendas[$i]->Quantidade;
-                                $desc = $vendas[$i]->Desconto;
+                                
                                 for($o = 0; $o < $tamanhoProduto; $o++)
                                 {
                                     if($idProduto == $produtos[$o]->Id)
                                     {
-                                        $precoTotal += $produtos[$o]->Preco - $desc;//$precoTotal += $produtos[$o]->Preco;
+                                        $precoTotal += ($produtos[$o]->Preco * $vendas[$i]->Quantidade);
+                                        $desc += $vendas[$i]->Desconto;
                                     }
                                 }
                                
                                
                              }
                          }
-                        echo "R$"; echo $precoTotal;
+                        echo "R$"; echo $precoTotal - $desc;
                     echo "</td></tr>";
  
                 echo "<tr><td>";

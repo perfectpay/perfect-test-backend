@@ -5,16 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Produto;
+use App\Venda;
 
 class ProdutoController extends Controller
 {
-
-    public function comboboxShow()
-    {
-        
-        return Produto::all();
-            
-    }
 
     public function cadastroProduto()
     {

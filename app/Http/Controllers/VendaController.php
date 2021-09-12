@@ -16,7 +16,8 @@ class VendaController extends Controller
         //$hello = 'Hello World!';
         $produtos = Produto::all();
         $vendas = Venda::all();
-
+        back()->withInput();
+        //view('hello.telaInicial', $produtos, $vendas);
         return view('hello.telaInicial', compact('produtos', 'vendas'));
             
     }
@@ -27,20 +28,22 @@ class VendaController extends Controller
         return view('cadastro.cadastrarVenda', compact('produtos'));
             
     }
-
+    
     public function storeVenda(Request $request)
     {
 
         $verificaEmail   = '@';
         $pos = strpos($request->email, $verificaEmail);
        
-         if( empty($request->nome) || empty($request->email) || !$pos || empty($request->cpf) || empty($request->status) || $request->status == 'Escolha...' || empty($request->idProduto) || $request->idProduto == 'Escolha...' || empty($request->quantidade) || empty($request->desconto) || empty($request->updated_at) ) 
+         if( empty($request->nome) || empty($request->email) || !$pos || empty($request->cpf) || empty($request->status) || (!empty($request->desconto) && !$request->status == "Devolvido") || $request->status == 'Escolha...' || empty($request->idProduto) || $request->idProduto == 'Escolha...' || empty($request->quantidade) || empty($request->updated_at) ) 
         {
+        
             //
             back()->withInput();
             $produtos = Produto::all();
             $erro = "Favor, preencher todos os campos da venda.";
 
+            
             if(!$pos)
             {
                $erro = "Favor, informe um email valido.";
@@ -64,8 +67,7 @@ class VendaController extends Controller
                     $id = $produtos[$i]->Id;
                 } 
             }
-            $vowels = array(".", "-");
-            $real = array(",");
+            $vowels = array(".", "-",",");
             
             $venda = new Venda();
             $venda->Nome = $request->nome;
@@ -74,7 +76,7 @@ class VendaController extends Controller
             $venda->Status = $request->status;
             $venda->IdProduto = $id;
             $venda->Quantidade = $request->quantidade;
-            $venda->Desconto = str_replace($real,".", $request->desconto);
+            $venda->Desconto = str_replace($vowels,".", $request->desconto);
             $venda->updated_at = $request->updated_at;
             
             //

@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/', 'VendaController@index');
 
-Route::get('retornoProdutos', 'ProdutoController@comboboxShow');
-
 Route::get('telaDoProduto', 'ProdutoController@cadastroProduto');
 Route::post('cadastrarProdutos', 'ProdutoController@store')->name('store');
 
