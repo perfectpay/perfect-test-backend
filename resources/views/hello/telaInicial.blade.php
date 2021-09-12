@@ -104,7 +104,7 @@
                                         
                                         $nome = $produtos[$y]->Nome;
                                         $descricao = $produtos[$y]->Descricao;
-                                        $preco = $produtos[$y]->Preco;
+                                        $preco = intval($produtos[$y]->Preco);
                                     }
                                 }
                             }
@@ -113,9 +113,9 @@
                         echo"</td> <td>";
                              echo $vendas[$i]->created_at; 
                         echo"</td> <td>";
-                            $qtd = $vendas[$i]->Quantidade;
-                            $desconto = $vendas[$i]->Desconto;
-                             echo "R$"; echo $preco * $qtd - $desconto; 
+                            $qtd = intval($vendas[$i]->Quantidade);
+                            $desconto = intval($vendas[$i]->Desconto);
+                             echo "R$"; echo $preco * $qtd - $desconto;  
                         echo"</td><td>";
                             echo "<a href='' class='btn btn-primary'>Editar</a>";
                             echo "</td></tr>";
@@ -151,16 +151,16 @@
                     $precoTotal = 0;
                     $desc = 0;
                    for($i = 0; $i < $tamanhoVenda; $i++)
-                         {
-                                
-                             if($vendas[$i]->Status == "Aprovado")
-                             {
-                                
-                                $qtd++;
+                    {
                             
-                               
-                             }
-                         }
+                            if($vendas[$i]->Status == "Aprovado")
+                            {
+                            
+                            $qtd++;
+                        
+                            
+                            }
+                    }
                          echo $qtd;
                     echo "</td><td>";
                         $tamanhoVenda = count($vendas); 
@@ -174,19 +174,23 @@
                              if($vendas[$i]->Status == "Aprovado")
                              {
                                 $idProduto = $vendas[$i]->IdProduto;
-                                $qtd = $vendas[$i]->Quantidade;
+                                $qtd = intval($vendas[$i]->Quantidade);
                                 
                                 for($o = 0; $o < $tamanhoProduto; $o++)
                                 {
                                     if($idProduto == $produtos[$o]->Id)
                                     {
-                                        $precoTotal += ($produtos[$o]->Preco * $vendas[$i]->Quantidade);
-                                        $desc += $vendas[$i]->Desconto;
+                                      
+                                         $precoTotal += (intval($produtos[$o]->Preco) * $qtd);
+                                         $desc += intval($vendas[$i]->Desconto);
                                     }
+                                    
                                 }
                                
                                
                              }
+
+
                          }
                         echo "R$"; echo $precoTotal - $desc;
                     echo "</td></tr>";
