@@ -53,48 +53,42 @@
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h15
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                <?php    
+                   
+                    $tamanhoVenda = count($vendas); 
+                    $tamanhoProduto = count($produtos); 
+                   for($i = 0; $i < $tamanhoVenda; $i++)
+                         {
+                    
+                    echo"<tr>";
+                        echo"<td>";
+                            for($y = 0; $y < $tamanhoProduto; $y++)
+                            {
+                                for($z = 0; $z < $tamanhoVenda; $z++)
+                                {
+                                    if($produtos[$y]->Id == $vendas[$i]->IdProduto)
+                                    {
+                                        
+                                        $nome = $produtos[$y]->Nome;
+                                        $descricao = $produtos[$y]->Descricao;
+                                        $preco = $produtos[$y]->Preco;
+                                    }
+                                }
+                            }
+
+                            echo $nome; echo " "; echo $descricao;
+                        echo"</td> <td>";
+                             echo $vendas[$i]->created_at; 
+                        echo"</td> <td>";
+                            $qtd = $vendas[$i]->Quantidade;
+                            $desconto = $vendas[$i]->Desconto;
+                             echo "R$"; echo $preco * $qtd - $desconto; 
+                        echo"</td><td>";
+                            echo "<a href='' class='btn btn-primary'>Editar</a>";
+                            echo "</td></tr>";
+
+                         } ?>
+                
             </table>
         </div>
     </div>
@@ -113,39 +107,150 @@
                         Valor Total
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Vendidos
-                    </td>
-                    <td>
-                        100
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Cancelados
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Devoluções
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
+                <?php
+                echo "<tr><td>";
+                        echo "Vendidos";
+                    echo "</td><td>";
+                        
+                    $tamanhoVenda = count($vendas); 
+                    $tamanhoProduto = count($produtos); 
+                    $qtd = 0;
+                    $precoTotal = 0;
+                    $desc = 0;
+                   for($i = 0; $i < $tamanhoVenda; $i++)
+                         {
+                                
+                             if($vendas[$i]->Status == "Aprovado")
+                             {
+                                
+                                $qtd++;
+                            
+                               
+                             }
+                         }
+                         echo $qtd;
+                    echo "</td><td>";
+                        $tamanhoVenda = count($vendas); 
+                        $tamanhoProduto = count($produtos); 
+                        $qtd = 0;
+                        $precoTotal = 0;
+                        $desc = 0;
+                        for($i = 0; $i < $tamanhoVenda; $i++)
+                        {
+                                
+                             if($vendas[$i]->Status == "Aprovado")
+                             {
+                                $idProduto = $vendas[$i]->IdProduto;
+                                $qtd = $vendas[$i]->Quantidade;
+                                $desc = $vendas[$i]->Desconto;
+                                for($o = 0; $o < $tamanhoProduto; $o++)
+                                {
+                                    if($idProduto == $produtos[$o]->Id)
+                                    {
+                                        $precoTotal += $produtos[$o]->Preco - $desc;//$precoTotal += $produtos[$o]->Preco;
+                                    }
+                                }
+                               
+                               
+                             }
+                         }
+                        echo "R$"; echo $precoTotal;
+                    echo "</td></tr>";
+ 
+                echo "<tr><td>";
+                        echo "Cancelados";
+                    echo "</td><td>";
+                            
+                    $tamanhoVenda = count($vendas); 
+                    $tamanhoProduto = count($produtos); 
+                    $qtd = 0;
+                    $precoTotal = 0;
+                    $desc = 0;
+                   for($i = 0; $i < $tamanhoVenda; $i++)
+                         {
+                                
+                             if($vendas[$i]->Status == "Cancelado")
+                             {
+                                
+                                $qtd++;
+                               
+                             }
+                         }
+                         echo $qtd;
+                    echo "</td> <td>";
+                        $tamanhoVenda = count($vendas); 
+                        $tamanhoProduto = count($produtos); 
+                        $qtd = 0;
+                        $precoTotal = 0;
+                        $desc = 0;
+                        for($i = 0; $i < $tamanhoVenda; $i++)
+                        {
+                                
+                             if($vendas[$i]->Status == "Cancelado")
+                             {
+                                $idProduto = $vendas[$i]->IdProduto;
+                                $qtd = $vendas[$i]->Quantidade;
+                                $desc = $vendas[$i]->Desconto;
+                                for($o = 0; $o < $tamanhoProduto; $o++)
+                                {
+                                    if($idProduto == $produtos[$o]->Id)
+                                    {
+                                        $precoTotal += $produtos[$o]->Preco - $desc;//$precoTotal += $produtos[$o]->Preco;
+                                    }
+                                }
+                               
+                               
+                             }
+                         }
+                        echo "R$"; echo $precoTotal;
+                    echo "</td></tr>";
+                echo "<tr><td>";
+                        echo "Devoluções";
+                    echo "</td><td>";
+                        $tamanhoVenda = count($vendas); 
+                        $tamanhoProduto = count($produtos); 
+                        $qtd = 0;
+                        $precoTotal = 0;
+                        $desc = 0;
+                   for($i = 0; $i < $tamanhoVenda; $i++)
+                         {
+                                
+                             if($vendas[$i]->Status == "Devolvido")
+                             {
+                                
+                                $qtd++;
+                               
+                             }
+                         }
+                         echo $qtd;
+                    echo "</td><td>";
+                        $tamanhoVenda = count($vendas); 
+                        $tamanhoProduto = count($produtos); 
+                        $qtd = 0;
+                        $precoTotal = 0;
+                        $desc = 0;
+                        for($i = 0; $i < $tamanhoVenda; $i++)
+                        {
+                                
+                             if($vendas[$i]->Status == "Devolvido")
+                             {
+                                $idProduto = $vendas[$i]->IdProduto;
+                                $qtd = $vendas[$i]->Quantidade;
+                                $desc = $vendas[$i]->Desconto;
+                                for($o = 0; $o < $tamanhoProduto; $o++)
+                                {
+                                    if($idProduto == $produtos[$o]->Id)
+                                    {
+                                        $precoTotal += $produtos[$o]->Preco - $desc;//$precoTotal += $produtos[$o]->Preco;
+                                    }
+                                }
+                               
+                               
+                             }
+                         }
+                        echo "R$"; echo $precoTotal;
+                    echo "</td></tr>";
+                ?>
             </table>
         </div>
     </div>
@@ -160,45 +265,37 @@
                         Nome
                     </th>
                     <th scope="col">
+                        Data
+                    </th>
+                    <th scope="col">
                         Valor
                     </th>
                     <th scope="col">
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        R$ 120,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        R$ 150,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                <?php    
+                   
+                    $tamanho = count($produtos); 
+                   for($i = 0; $i < $tamanho; $i++)
+                         {
+                    
+                    echo"<tr>";
+                        echo"<td>";
+                            echo $produtos[$i]->Nome; echo " "; echo $produtos[$i]->Descricao; 
+                        echo"</td>";
+                        echo"<td>";
+                             echo $produtos[$i]->created_at; 
+                        echo"</td>";
+                        echo"<td>";
+                             echo "R$"; echo $produtos[$i]->Preco; 
+                        echo"</td>";
+                        echo"<td>";
+                            echo "<a href='' class='btn btn-primary'>Editar</a>";
+                        echo"</td>";
+                    echo"</tr>";
+
+                         } ?>
             </table>
         </div>
     </div>

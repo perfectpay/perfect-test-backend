@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('hello.telaInicial');
 });
-
-Route::get('telaInicial', 'VendaController@index');
+ */
+Route::get('/', 'VendaController@index');
 
 Route::get('retornoProdutos', 'ProdutoController@comboboxShow');
 

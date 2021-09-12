@@ -14,7 +14,10 @@ class VendaController extends Controller
     {
         
         //$hello = 'Hello World!';
-        return view('hello.telaInicial');
+        $produtos = Produto::all();
+        $vendas = Venda::all();
+
+        return view('hello.telaInicial', compact('produtos', 'vendas'));
             
     }
 
@@ -28,20 +31,27 @@ class VendaController extends Controller
     public function storeVenda(Request $request)
     {
 
+        $verificaEmail   = '@';
+        $pos = strpos($request->email, $verificaEmail);
        
-         if( empty($request->nome) || empty($request->email) || empty($request->cpf) || empty($request->status) || empty($request->idProduto) /* || $request->idProduto == 'Escolha...' */ || empty($request->quantidade) || empty($request->desconto) || empty($request->updated_at) ) 
+         if( empty($request->nome) || empty($request->email) || !$pos || empty($request->cpf) || empty($request->status) || $request->status == 'Escolha...' || empty($request->idProduto) || $request->idProduto == 'Escolha...' || empty($request->quantidade) || empty($request->desconto) || empty($request->updated_at) ) 
         {
             //
             back()->withInput();
             $produtos = Produto::all();
             $erro = "Favor, preencher todos os campos da venda.";
-            return view('cadastro.cadastrarVenda', compact('erro', 'produtos'));
-            
-               
+
+            if(!$pos)
+            {
+               $erro = "Favor, informe um email valido.";
+            }
+
+            return view('cadastro.cadastrarVenda', compact('erro', 'produtos'));       
              
         }
         else
         {
+            $vendas = Venda::all();
             $produtos = Produto::all();
             $tamanhoProduto = count($produtos);
                 
@@ -54,23 +64,23 @@ class VendaController extends Controller
                     $id = $produtos[$i]->Id;
                 } 
             }
+            $vowels = array(".", "-");
+            $real = array(",");
             
-
             $venda = new Venda();
             $venda->Nome = $request->nome;
             $venda->Email = $request->email;
-            $venda->Cpf = $request->cpf;
+            $venda->Cpf = str_replace($vowels, "", $request->cpf);
             $venda->Status = $request->status;
             $venda->IdProduto = $id;
             $venda->Quantidade = $request->quantidade;
-            $venda->Desconto = $request->desconto;
+            $venda->Desconto = str_replace($real,".", $request->desconto);
             $venda->updated_at = $request->updated_at;
             
             //
             $venda->save();
-
-            
-            return view('cadastro.cadastrarVenda', compact('produtos'));
+    
+            return view('hello.telaInicial', compact('produtos', 'vendas'));
         }  
     }
 }

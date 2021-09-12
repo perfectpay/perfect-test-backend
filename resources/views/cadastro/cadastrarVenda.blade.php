@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <input type="text" class="form-control" id="cpf" name = "cpf" value="{{old('cpf')}}" placeholder="99999999999">
+                    <input type="text" class="form-control" onKeyPress="MascaraGenerica(this, 'CPF')" id="cpf" name = "cpf" value="{{old('cpf')}}" placeholder="99999999999">
                 </div>
                 <h5 class='mt-5'>Informações da venda</h5>
                 <div class="form-group">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="updated_at">Data</label>
-                    <input type="text" class="form-control single_date_picker" id="updated_at" name = "updated_at" value="{{old('updated_at')}}" >
+                    <input type="text" class="form-control single_date_picker" onKeyPress="MascaraGenerica(this, 'DATA')" id="updated_at" name = "updated_at" value="{{old('updated_at')}}" >
                 </div>
                 <div class="form-group">
                     <label for="quantidade">Quantidade</label>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <label for="desconto">Desconto</label>
-                    <input type="text" class="form-control" id="desconto" name = "desconto" value="{{old('desconto')}}" placeholder="100,00 ou menor" >
+                    <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="desconto" name = "desconto" value="{{old('desconto')}}" placeholder="100,00 ou menor" >
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
@@ -75,4 +75,104 @@
     function phpAlert($erro) {
         echo '<script type="text/javascript">alert("' . $erro . '")</script>';
     }
+    
 ?>
+
+<script>
+
+ //formata de forma generica os campos
+function formataCampo(campo, Mascara) {
+    var er = /[^0-9/ (),.-]/;
+    er.lastIndex = 0;
+
+    if (er.test(campo.value)) {///verifica se é string, caso seja então apaga
+        var texto = $(campo).val();
+        $(campo).val(texto.substring(0, texto.length - 1));
+    }
+    var boleanoMascara;
+    var exp = /\-|\.|\/|\(|\)| /g
+    var campoSoNumeros = campo.value.toString().replace(exp, "");
+    var posicaoCampo = 0;
+    var NovoValorCampo = "";
+    var TamanhoMascara = campoSoNumeros.length;
+    for (var i = 0; i <= TamanhoMascara; i++) {
+        boleanoMascara = ((Mascara.charAt(i) == "-") || (Mascara.charAt(i) == ".")
+                || (Mascara.charAt(i) == "/"))
+        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) == "(")
+                || (Mascara.charAt(i) == ")") || (Mascara.charAt(i) == " "))
+        if (boleanoMascara) {
+            NovoValorCampo += Mascara.charAt(i);
+            TamanhoMascara++;
+        } else {
+            NovoValorCampo += campoSoNumeros.charAt(posicaoCampo);
+            posicaoCampo++;
+        }
+    }
+    campo.value = NovoValorCampo;
+    ////LIMITAR TAMANHO DE CARACTERES NO CAMPO DE ACORDO COM A MASCARA//
+    if (campo.value.length > Mascara.length) {
+        var texto = $(campo).val();
+        $(campo).val(texto.substring(0, texto.length - 1));
+    }
+    //////////////
+    return true;
+}
+
+function MascaraGenerica(seletor, tipoMascara) {
+    setTimeout(function () {
+        if (tipoMascara == 'CPFCNPJ') {
+            if (seletor.value.length <= 14) { //cpf
+                formataCampo(seletor, '000.000.000-00');
+            } else { //cnpj
+                formataCampo(seletor, '00.000.000/0000-00');
+            }
+        } else if (tipoMascara == 'DATA') {
+            formataCampo(seletor, '00/00/0000');
+        } else if (tipoMascara == 'CEP') {
+            formataCampo(seletor, '00.000-000');
+        } else if (tipoMascara == 'TELEFONE') {
+            formataCampo(seletor, '(00) 000000000');
+        }  else if (tipoMascara == 'CPF') {
+            formataCampo(seletor, '000.000.000-00');
+        } else if (tipoMascara == 'CNPJ') {
+            formataCampo(seletor, '00.000.000/0000-00');
+        } 
+    }, 200);
+}
+
+function onlynumber(evt) {
+var theEvent = evt || window.event;
+var key = theEvent.keyCode || theEvent.which;
+key = String.fromCharCode( key );
+//var regex = /^[0-9.,]+$/;
+var regex = /^[0-9.]+$/;
+if( !regex.test(key) ) {
+  theEvent.returnValue = false;
+  if(theEvent.preventDefault) theEvent.preventDefault();
+}
+ 
+}
+
+String.prototype.reverse = function(){
+return this.split('').reverse().join(''); 
+};
+
+function mascaraMoeda(campo,evento){
+var tecla = (!evento) ? window.event.keyCode : evento.which;
+var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+var resultado  = "";
+var mascara = "##.###.###,##".reverse();
+for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+if (mascara.charAt(x) != '#') {
+  resultado += mascara.charAt(x);
+  x++;
+} else {
+  resultado += valor.charAt(y);
+  y++;
+  x++;
+}
+}
+campo.value = resultado.reverse();
+}
+
+</script>

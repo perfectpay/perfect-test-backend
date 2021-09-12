@@ -27,10 +27,16 @@ class ProdutoController extends Controller
     {
         if(empty($request->nomeProduto) || empty($request->descricao) || empty($request->preco) )
         {
-            return back()->withInput();
+            
+            back()->withInput();
+            
+            $erro = "Favor, preencher todos os campos do produto!";
+            return view('cadastro.cadastrarProduto', compact('erro'));
         }
         else
         {
+            $vendas = Venda::all();
+            $produtos = Produto::all();
             $post = new Produto();
             $post->Nome = $request->nomeProduto;
             $post->Descricao = $request->descricao;
@@ -38,7 +44,7 @@ class ProdutoController extends Controller
             //
             $post->save();
 
-            return view('cadastro.cadastrarProduto');
+            return view('hello.telaInicial', compact('produtos', 'vendas'));
         }
     }
 }
