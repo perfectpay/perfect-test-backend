@@ -33,7 +33,6 @@ Route::post('cadastrarVenda', 'VendaController@storeVenda')->name('storeVenda');
 
 
 
-
 //http://test-backend.devppay.com.br
 
 

@@ -1,7 +1,9 @@
-@extends('layout')
 
+
+@extends('layout')
 @section('content')
-    <h1>Adicionar / Editar Venda</h1>
+
+    <h1>Adicionar / Editar Vendas</h1>
     <div class='card'>
         <div class='card-body'>
             <form action="{{ route('storeVenda') }}" method="post">
@@ -9,7 +11,7 @@
                 <h5>Informações do cliente</h5>
                 <div class="form-group">
                     <label for="nome">Nome do cliente</label>
-                    <input type="text" class="form-control " id="nome" name = "nome" value="{{old('preco')}}" >
+                    <input type="text" class="form-control " id="nome" name = "nome" value="{{old('nome')}}" >
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -22,9 +24,19 @@
                 <h5 class='mt-5'>Informações da venda</h5>
                 <div class="form-group">
                     <label for="idProduto">Produto</label>
-                    <select id="idProduto" name = "idProduto" value="{{old('idProduto')}}"  class="form-control">
-                        <option selected>Escolha...</option>
-                        <option>...</option>
+                    <select id="idProduto" name = "idProduto"  class="form-control">
+                        <option id="0" >Escolha...</option>
+                        <?php 
+                         $tamanho = count($produtos);
+                         for($i = 0; $i < $tamanho; $i++)
+                         {?>
+                         <option id="<?php $produtos[$i]->Id;?>"> 
+                         <?php echo "Nome: ";
+                          echo $produtos[$i]->Nome;
+                          echo " Descrição: ";
+                          echo $produtos[$i]->Descricao; 
+                          ?></option>
+                   <?php } ?>
                     </select>
                 </div>
                 <div class="form-group">
@@ -53,3 +65,14 @@
         </div>
     </div>
 @endsection
+
+<?php 
+    if(isset($erro))
+    {
+        phpAlert($erro);
+    }
+
+    function phpAlert($erro) {
+        echo '<script type="text/javascript">alert("' . $erro . '")</script>';
+    }
+?>
