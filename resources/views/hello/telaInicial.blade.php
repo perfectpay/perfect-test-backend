@@ -6,8 +6,9 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
+                <?php $id =1;?>
                 <a href='telaDeVenda' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
-            <form>
+            <form >
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
                         <div class="input-group">
@@ -108,7 +109,7 @@
                                     }
                                 }
                             }
-
+                            
                             echo $nome; echo " "; echo $descricao;
                         echo"</td> <td>";
                              echo $vendas[$i]->created_at; 
@@ -117,7 +118,9 @@
                             $desconto = intval($vendas[$i]->Desconto);
                              echo "R$"; echo $preco * $qtd - $desconto;  
                         echo"</td><td>";
-                            echo "<a href='' class='btn btn-primary'>Editar</a>";
+                            $venda = $vendas[$i]->Id;
+                            
+                            echo "<a href='editarVenda/{".$venda."}' class='btn btn-primary'>Editar</a>";
                             echo "</td></tr>";
 
                          } ?>

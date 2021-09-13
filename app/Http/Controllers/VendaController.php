@@ -25,17 +25,44 @@ class VendaController extends Controller
     public function cadastroVenda()
     {
         $produtos = Produto::all();
-        return view('cadastro.cadastrarVenda', compact('produtos'));
+        $id = 1;
+        back()->withInput();
+        return view('cadastro.cadastrarVenda', compact('produtos', 'id'));
             
     }
     
+    public function editarVenda(Request $request)
+    {
+        $produtos = Produto::all();
+        
+        $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
+        $resultado = Venda::find($idVenda);
+        
+        back()->withInput();
+        return view('cadastro.cadastrarVenda', compact('produtos', 'idVenda','resultado'));
+        
+    }
+    public function vendaEditada(Request $request)
+    {
+        back()->withInput();
+        $produtos = Produto::all();
+        /* dd($_SERVER); */
+        $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
+        $resultado = Venda::find($idVenda);
+       
+        dd($request);
+
+        
+        return view('cadastro.cadastrarVenda', compact('produtos', 'idVenda','resultado'));
+        
+    }
     public function storeVenda(Request $request)
     {
-
+        
         $verificaEmail   = '@';
         $pos = strpos($request->email, $verificaEmail);
        
-         if( empty($request->nome) || empty($request->email) || !$pos || empty($request->cpf) || empty($request->status) || (!empty($request->desconto) && !$request->status == "Devolvido") || $request->status == 'Escolha...' || empty($request->idProduto) || $request->idProduto == 'Escolha...' || empty($request->quantidade) || empty($request->updated_at) ) 
+         if( empty($request->nome) || empty($request->email) || !$pos || empty($request->cpf) || empty($request->status) || $request->status == 'Escolha...' || empty($request->idProduto) || $request->idProduto == 'Escolha...' || empty($request->quantidade) || empty($request->updated_at) ) 
         {
         
             //
@@ -78,10 +105,10 @@ class VendaController extends Controller
             $venda->Quantidade = $request->quantidade;
             $venda->Desconto = str_replace($vowels,".", $request->desconto);
             $venda->updated_at = $request->updated_at;
-            
+            back()->withInput();
             //
             $venda->save();
-    
+            
             return view('hello.telaInicial', compact('produtos', 'vendas'));
         }  
     }
