@@ -21,6 +21,34 @@ class VendaController extends Controller
         return view('hello.telaInicial', compact('produtos', 'vendas'));
             
     }
+    public function indexPesquisa(Request $request)
+    {
+        
+        $datas = $request->datas;
+        $cliente = $request->inlineFormInputName;
+        $datas = explode("-", $datas);
+        $data1 = preg_replace("/[^0-9]/"," ",$datas[0]);
+        $data2 = preg_replace("/[^0-9]/"," ",$datas[1]);
+                
+        
+        $vtdt1 = explode(' ', $data1);
+        $data1 = $vtdt1[2].'-'.$vtdt1[1].'-'.$vtdt1[0];
+        $vtdt2 = explode(' ', $data2);
+        $data2 = $vtdt2[2].'-'.$vtdt2[1].'-'.$vtdt2[0];
+        
+        $vendas = Venda::select('select :tabela from vendas where Nome = :nome and created_at > :data1 and created_at < :data2', ['tabela' => 1],['nome' => $cliente], ['data1' => $data1], ['data2' => $data2] );   
+        
+        /* 
+        $vendas = Venda::all();  */
+        
+        //$hello = 'Hello World!';
+         $produtos = Produto::all(); 
+
+        back()->withInput();
+        //view('hello.telaInicial', $produtos, $vendas);
+        return view('hello.telaInicial', compact('produtos', 'vendas'));
+            
+    }
 
     public function cadastroVenda()
     {
@@ -34,17 +62,22 @@ class VendaController extends Controller
     public function editarVenda(Request $request)
     {
         $produtos = Produto::all();
-        
+        if(isset($_SERVER['PATH_INFO']))
+        {
         $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
         $resultado = Venda::find($idVenda);
         
         back()->withInput();
         return view('cadastro.cadastrarVenda', compact('produtos', 'idVenda','resultado'));
-        
+        }
+        else{
+        back()->withInput();
+        return view('cadastro.cadastrarVenda', compact('produtos'));
+        }
     }
     public function vendaEditada(Request $request)
     {
-        back()->withInput();
+       
         $produtos = Produto::all();
         /* dd($_SERVER); */
         $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
@@ -53,7 +86,7 @@ class VendaController extends Controller
         dd($request);
 
         
-        return view('cadastro.cadastrarVenda', compact('produtos', 'idVenda','resultado'));
+        return view('hello.telaInicial', compact('produtos', 'idVenda','resultado'));
         
     }
     public function storeVenda(Request $request)

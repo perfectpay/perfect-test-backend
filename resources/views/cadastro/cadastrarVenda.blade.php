@@ -6,7 +6,11 @@
     <h1>Adicionar / Editar Vendas</h1>
     <div class='card'>
         <div class='card-body'>
-            <?php $method = $_SERVER['REQUEST_METHOD'];  $URL = $_SERVER['PATH_INFO']; 
+            <?php 
+            $method = $_SERVER['REQUEST_METHOD'];  
+            /* dd($_SERVER); */
+            /* if(isset($_SERVER['PATH_INFO'])  */
+            $URL = $_SERVER['PATH_INFO']; 
             $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
             $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']);
            /*  dd($resultado->Nome); */ ?>

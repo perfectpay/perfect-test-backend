@@ -16,9 +16,36 @@ class ProdutoController extends Controller
         return view('cadastro.cadastrarProduto');
             
     }
+    public function editarProduto(Request $request)
+    {
+         $produtos = Produto::all();
+         
+         $IdProduto = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']); 
+         $resultado = Produto::find($IdProduto);
+         /* dd($resultado); */
+        back()->withInput();
+        return view('cadastro.cadastrarProduto', compact('produtos', 'IdProduto','resultado'));
+        
+    }
+    public function produtoEditado(Request $request)
+    {
+        
+        $produtos = Produto::all();
+        dd($request);
+        $idProduto = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
+        $resultado = Venda::find($idProduto);
+       
+        /* dd($resultado); */
+
+        
+        return view('cadastro.cadastrarProduto', compact('produtos', 'idProduto','resultado'));
+        
+    }
 
     public function store(Request $request)
     {
+
+       /*  dd($_SESSION); */
         if(empty($request->nomeProduto) || empty($request->descricao) || empty($request->preco) )
         {
             

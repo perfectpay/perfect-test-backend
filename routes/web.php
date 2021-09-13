@@ -7,12 +7,16 @@ use Illuminate\Support\Facades\Route;
 });
  */
 Route::get('/', 'VendaController@index');
+Route::get('pesquisa', 'VendaController@indexPesquisa')->name('pesquisa');
+
 Route::get('editarVenda/{idVenda}' , 'VendaController@editarVenda')->name('editarVenda');
 Route::get('editarVenda/Edit/{idVenda}', 'VendaController@vendaEditada')->name('vendaEditada');
 Route::get('telaDeVenda/', 'VendaController@cadastroVenda');
 Route::post('cadastrarVenda/', 'VendaController@storeVenda')->name('storeVenda');
 
 Route::get('telaDoProduto', 'ProdutoController@cadastroProduto');
+Route::get('editarProduto/{idProduto}' , 'ProdutoController@editarProduto')->name('editarProduto');
+Route::get('editarProduto/Edit/{idProduto}', 'ProdutoController@produtoEditado')->name('produtoEditado');
 Route::post('cadastrarProdutos', 'ProdutoController@store')->name('store');
 
 

@@ -8,21 +8,21 @@
             <h5 class="card-title mb-5">Tabela de vendas
                 <?php $id =1;?>
                 <a href='telaDeVenda' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
-            <form >
+             <form action="{{ route('pesquisa') }}" method="get"> 
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Clientes</div>
                             </div>
-                            <select class="form-control" id="inlineFormInputName">
+                            <select name="inlineFormInputName" class="form-control" id="inlineFormInputName">
                             <?php 
                                      $print = "";
                                      $print2 = "";
                                      $z = 0;
                                      $array = array();
                                      $array2 = array();
-
+                                        dd($vendas);
                                      $tamanhoVendas = count($vendas);
                                     
                                     for($o = 0; $o < $tamanhoVendas; $o++)
@@ -52,7 +52,7 @@
                                         ?> <option id="<?php $i;?>"> <?php   /*  var_dump($array)  */   echo $print ?></option> <?php                                                      
                                     }        
                                        
-                                
+                                    /* $_POST['inlineFormInputName']; */
                             ?>
                                 </select>
                         </div>
@@ -63,7 +63,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Período</div>
                             </div>
-                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
+                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username" name='datas'>
                         </div>
                     </div>
                     <div class="col-sm-1 my-1">
@@ -332,7 +332,9 @@
                              echo "R$"; echo $produtos[$i]->Preco; 
                         echo"</td>";
                         echo"<td>";
-                            echo "<a href='' class='btn btn-primary'>Editar</a>";
+                            $IdProduto = $produtos[$i]->Id;
+                            echo "<a href='editarProduto/{".$IdProduto."}' class='btn btn-primary'>Editar</a>";
+                            /* dd($IdProduto); */
                         echo"</td>";
                     echo"</tr>";
 
