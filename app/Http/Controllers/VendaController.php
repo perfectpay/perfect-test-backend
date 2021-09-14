@@ -16,11 +16,8 @@ class VendaController extends Controller
     public function index()
     {
         
-        //$hello = 'Hello World!';
         $produtos = Produto::all();
         $vendas = Venda::all();
-        back()->withInput();
-        //view('hello.telaInicial', $produtos, $vendas);
         return view('hello.index', compact('produtos', 'vendas'));
             
     }
@@ -32,26 +29,20 @@ class VendaController extends Controller
         $datas = explode("-", $datas);
         $data1 = preg_replace("/[^0-9]/"," ",$datas[0]);
         $data2 = preg_replace("/[^0-9]/"," ",$datas[1]);
-                
-        
+            
         $vtdt1 = explode(' ', $data1);
-        $data1 = $vtdt1[2].'-'.$vtdt1[1].'-'.$vtdt1[0];
+        $data1 = $vtdt1[2].'-'.$vtdt1[1].'-'.$vtdt1[0] . " 00:00:00";
         $data2 = substr($data2,1);
-        $vtdt2 = explode(' ', $data2);
+        $vtdt2 = explode(' ', $data2);        
+        $data2 = $vtdt2[2].'-'.$vtdt2[1].'-'.$vtdt2[0] . " 23:59:59";
         
-        $data2 = $vtdt2[2].'-'.$vtdt2[1].'-'.$vtdt2[0];
-        $id = DB::table('vendas')->where('Nome', $cliente)->pluck('Id');
-        $venda = array();
+        $cliente = preg_replace('/[0-9\@\.\;\" "]+/', ' ', $cliente);
         
-        foreach ($id as $ids ) {
-            $vendas = Venda::find($id);
-        }
+        $vendas = DB::select("select * from vendas where Nome = '$cliente' and created_at >= '$data1' and created_at <= '$data2';"); 
+       
         $todasVendas = Venda::all();
-
-         $produtos = Produto::all(); 
-
+         $produtos = Produto::all();
         back()->withInput();
-        //view('hello.telaInicial', $produtos, $vendas);
         return view('hello.index', compact('produtos', 'vendas','todasVendas'));
             
     }
@@ -76,12 +67,26 @@ class VendaController extends Controller
     }
     public function atualizar(Request $request, $id)
     {
+        $verificaEmail   = '@';
+        $pos = strpos($request->email, $verificaEmail);
+         
+        if( empty($request->nome) || empty($request->email) || !$pos || empty($request->cpf) || empty($request->status) || $request->status == 'Escolha...' || empty($request->idProduto) || $request->idProduto == 'Escolha...' || empty($request->quantidade) || empty($request->updated_at) ) 
+        {
+            
+            $resultado = Venda::find($id);
+            $produtos = Produto::all();
+            $erro = "Favor, preencher todos os campos da venda.";
+            
+            if(!$pos)
+            {
+               $erro = "Favor, informe um email valido.";
+            }
 
-/* 
-        dd($request->all());
-
- */
-       
+            return view('cadastro.editarVenda', compact('erro', 'produtos','resultado', 'id'));       
+             
+        }
+        else
+        {
         $dados = $request->all();
    
         $produtoid = $dados['IdProduto'];
@@ -93,17 +98,12 @@ class VendaController extends Controller
        
         $idProduto = DB::table('produtos')->where('Nome', $nomeProduto[1])->where('Descricao', $nomeDescricao)->pluck('Id');
     
-        $data = $request->updated_at;
-        $vtdt = explode("/", $data);
-        $data = $vtdt[2].'-'.$vtdt[1].'-'.$vtdt[0];
-        $dados['updated_at'] = $data . " 00:00:00";
         $dados['idProduto'] = "$idProduto[0]"; 
-       /*  dd($dados); */
-       
-        DB::update('update vendas set Nome = ?, Email = ?, Cpf = ?, IdProduto = ?, updated_at = ?, Quantidade = ?, Desconto = ?, Status = ? where Id = ?', [$dados['Nome'], $dados['Email'], $dados['Cpf'], $dados['idProduto'],$dados['idProduto'], $dados['updated_at'],$dados['Quantidade'],$dados['Desconto'], $dados['Status'], $id]);
-       
+        
+        DB::update('update vendas set Nome = ?, Email = ?, Cpf = ?, Status = ?, IdProduto = ?, Quantidade = ?, Desconto = ? where Id = ?', [$dados['Nome'], $dados['Email'], $dados['Cpf'], $dados['Status'],$dados['idProduto'],$dados['Quantidade'],$dados['Desconto'], $id]);
+        
         return redirect()->route('hello.index');
-
+        }
     }
     public function storeVenda(Request $request)
     {

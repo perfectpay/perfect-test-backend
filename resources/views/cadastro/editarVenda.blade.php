@@ -25,23 +25,21 @@
                 <h5>Informações do cliente</h5>
                 <div class="form-group">
                     <label for="nome">Nome do cliente</label>
-                    @if($URL == 'detalheVenda')
-                    <input type="text" class="form-control " id="Nome" name = "Nome" value="<?php echo $resultado->Nome ?>" >
-                    @endif
+
+                  <input type="text" class="form-control " id="Nome" name = "Nome" value="<?php echo $resultado->Nome ?>" >
+
                   
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    @if($URL == 'detalheVenda')
                     <input type="text" class="form-control" id="Email" name = "Email" value="<?php echo $resultado->Email ?>{{old('email')}}" >
-                    @endif
+            
                    
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    @if($URL == 'detalheVenda')
                     <input type="text" class="form-control" onKeyPress="MascaraGenerica(this, 'CPF')" id="Cpf" name = "Cpf" value="<?php echo $resultado->Cpf ?>{{old('cpf')}}" placeholder="99999999999">
-                    @endif
+                  
 
                 </div>
                 <h5 class='mt-5'>Informações da venda</h5>
@@ -69,16 +67,16 @@
                 </div>
                 <div class="form-group">
                     <label for="quantidade">Quantidade</label>
-                    @if($URL == 'detalheVenda')
+
                     <input type="text" class="form-control" id="Quantidade" name = "Quantidade" value="<?php echo $resultado->Quantidade ?>{{old('quantidade')}}"  placeholder="1 a 10" >
-                    @endif
+
 
                 </div>
                 <div class="form-group">
                     <label for="desconto">Desconto</label>
-                    @if($URL == 'detalheVenda')
+                  
                     <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="Desconto" name = "Desconto" value="<?php echo $resultado->Desconto ?>{{old('desconto')}}" placeholder="100,00 ou menor" >
-                    @endif
+               
 
 
                 </div>
