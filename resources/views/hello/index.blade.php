@@ -24,10 +24,10 @@
                     $URL = preg_replace("/[^A-z]/","", $_SERVER['PHP_SELF']); /* dd($URL) */ /* dd($todasVendas) */
 
                 }
-              /*   dd($URL);  */
+                /* dd($idVenda);  */
              /*  dd($todasVendas);   */?>
                 <a href='telaDeVenda' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
-             <form action="{{ route('pesquisa') }}" method="get"> 
+            <form action="{{ route('pesquisa') }}" method="get"> 
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
                         <div class="input-group">
@@ -126,6 +126,9 @@
                     </div>
                 </div>
             </form>
+            <?php /* dd($id) */ ?>
+        
+            @csrf
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -173,8 +176,9 @@
                              echo "R$"; echo $preco * $qtd - $desconto;  
                         echo"</td><td>";
                             $id = $vendas[$i]->Id;
-                            
-                            echo "<a href='detalheVenda/{".$id."}' class='btn btn-primary'>Editar</a>";
+                            ?>
+                           <a href='{{route('venda.detalheVenda', $id)}}' class='btn btn-primary'>Editar</a>
+                           <?php
                             echo "</td></tr>";
 
                          } ?>
@@ -387,8 +391,8 @@
                         echo"</td>";
                         echo"<td>";
                             $IdProduto = $produtos[$i]->Id;
-                            echo "<a href='editarProduto/{".$IdProduto."}' class='btn btn-primary'>Editar</a>";
-                            /* dd($IdProduto); */
+                           ?> <a href='{{route('produto.detalheProduto', $IdProduto)}}' class='btn btn-primary'>Editar</a> <?php
+                        
                         echo"</td>";
                     echo"</tr>";
 

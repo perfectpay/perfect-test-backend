@@ -6,42 +6,48 @@
     <h1>Adicionar / Editar Vendas</h1>
     <div class='card'>
         <div class='card-body'>
-            <?php 
-            $method = $_SERVER['REQUEST_METHOD'];  
-           
-            /* if(isset($_SERVER['PATH_INFO'])  */
-            $URL = $_SERVER['PATH_INFO']; 
+
+                <?php 
+                $method = $_SERVER['REQUEST_METHOD'];  
             
-            $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']);
-          /*    dd($resultado);
-             */
-            /* dd($URL);  */?>
-             
-            <form action='{{ route('storeVenda') }}' method='post'>
-                @csrf
-            
-             
-               {{-- editarVendaEdit --}}
+                /* if(isset($_SERVER['PATH_INFO'])  */
+                $URL = $_SERVER['PATH_INFO']; 
+                
+                $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']);
+                /*    dd($resultado);
+                    */
+                    /* dd($id); */  /* '{{route ('venda.vendaEditada', $id)}}' */?>
+                <form method="post" action="{{route ('venda.atualizar', $id)}}">  
+                    @csrf          
+                    <input type="hidden" name="_method" value="PUT">
+                     
                 
                 <h5>Informações do cliente</h5>
                 <div class="form-group">
                     <label for="nome">Nome do cliente</label>
-                    <input type="text" class="form-control " id="nome" name = "nome" value="{{old('nome')}}" >
-                      
+                    @if($URL == 'detalheVenda')
+                    <input type="text" class="form-control " id="Nome" name = "Nome" value="<?php echo $resultado->Nome ?>" >
+                    @endif
+                  
                 </div>
                 <div class="form-group">
-                    <label for="nome">Email</label>
-                    <input type="text" class="form-control" id="email" name = "email" value="{{old('email')}}" >
+                    <label for="email">Email</label>
+                    @if($URL == 'detalheVenda')
+                    <input type="text" class="form-control" id="Email" name = "Email" value="<?php echo $resultado->Email ?>{{old('email')}}" >
+                    @endif
+                   
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <input type="text" class="form-control" onKeyPress="MascaraGenerica(this, 'CPF')" id="cpf" name = "cpf" value="{{old('cpf')}}" placeholder="99999999999">
+                    @if($URL == 'detalheVenda')
+                    <input type="text" class="form-control" onKeyPress="MascaraGenerica(this, 'CPF')" id="Cpf" name = "Cpf" value="<?php echo $resultado->Cpf ?>{{old('cpf')}}" placeholder="99999999999">
+                    @endif
 
                 </div>
                 <h5 class='mt-5'>Informações da venda</h5>
                 <div class="form-group">
-                    <label for="idProduto">Produto</label>
-                    <select id="idProduto" name = "idProduto"  class="form-control">
+                    <label for="IdProduto">Produto</label>
+                    <select id="IdProduto" name = "IdProduto"  class="form-control">
                         <?php
                         
                          echo "<option id='0' >Escolha...</option>";
@@ -63,30 +69,31 @@
                 </div>
                 <div class="form-group">
                     <label for="quantidade">Quantidade</label>
-                    <input type="text" class="form-control" id="quantidade" name = "quantidade" value="{{old('quantidade')}}"  placeholder="1 a 10" >
-                    
+                    @if($URL == 'detalheVenda')
+                    <input type="text" class="form-control" id="Quantidade" name = "Quantidade" value="<?php echo $resultado->Quantidade ?>{{old('quantidade')}}"  placeholder="1 a 10" >
+                    @endif
+
                 </div>
                 <div class="form-group">
                     <label for="desconto">Desconto</label>
-                    <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="desconto" name = "desconto" value="{{old('desconto')}}" placeholder="100,00 ou menor" >
-                    
+                    @if($URL == 'detalheVenda')
+                    <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="Desconto" name = "Desconto" value="<?php echo $resultado->Desconto ?>{{old('desconto')}}" placeholder="100,00 ou menor" >
+                    @endif
+
 
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select id="status" name = "status" value="{{old('status')}}" class="form-control">
+                    <select id="Status" name = "Status" class="form-control">
                         <option selected>Escolha...</option>
                         <option>Aprovado</option>
                         <option>Cancelado</option>
                         <option>Devolvido</option>
                     </select>
                 </div>
-                    <button type='submit' class='btn btn-primary'>Salvar</button>
-                
-              
-                
-                
-            </form>
+
+                <button type='submit' class='btn btn-primary'>Editar</button>
+            </form>           
         </div>
     </div>
 @endsection

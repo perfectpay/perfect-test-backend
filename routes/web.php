@@ -1,23 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/* Route::get('/', function () {
+/* 
+Route::get('/', function () {
     return view('hello.telaInicial');
 });
  */
-Route::get('/', 'VendaController@index');//
+Route::get('/', ['as' => 'hello.index', 'uses' => 'VendaController@index']);
+
 Route::get('pesquisa', 'VendaController@indexPesquisa')->name('pesquisa');
 
-Route::get('detalheVenda/{idVenda}' , 'VendaController@detalheVenda')->name('detalheVenda');
-Route::put('atualizarVenda/{idVenda}', 'VendaController@vendaEditada')->name('vendaEditada');
-
 Route::get('telaDeVenda/', 'VendaController@cadastroVenda');
+Route::get('detalheVenda/{id}' , ['as' => 'venda.detalheVenda', 'uses' => 'VendaController@detalheVenda']);
+Route::put('atualizarVenda/{id}' , ['as' => 'venda.atualizar', 'uses' => 'VendaController@atualizar']);
 Route::post('cadastrarVenda/', 'VendaController@storeVenda')->name('storeVenda');
 
 Route::get('telaDoProduto', 'ProdutoController@cadastroProduto');
-Route::get('editarProduto/{idProduto}' , 'ProdutoController@editarProduto')->name('editarProduto');
-Route::put('editarProduto/Edit/{idProduto}', 'ProdutoController@produtoEditado')->name('produtoEditado');
+Route::get('detalheProduto/{id}', ['as' => 'produto.detalheProduto', 'uses' => 'ProdutoController@detalheProduto']);
+Route::put('atualizarProduto/{id}', ['as' => 'produto.atualizar', 'uses' =>'ProdutoController@atualizarProduto']);
 Route::post('cadastrarProdutos', 'ProdutoController@store')->name('store');
 
 

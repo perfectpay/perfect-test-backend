@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Produto;
 use App\Venda;
@@ -16,29 +18,25 @@ class ProdutoController extends Controller
         return view('cadastro.cadastrarProduto');
             
     }
-    public function editarProduto(Request $request)
+    public function detalheProduto($id)
     {
+        /* dd($id); */
          $produtos = Produto::all();
          
-         $IdProduto = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']); 
-         $resultado = Produto::find($IdProduto);
+         $resultado = Produto::find($id);
          /* dd($resultado); */
         back()->withInput();
-        return view('cadastro.cadastrarProduto', compact('produtos', 'IdProduto','resultado'));
+        return view('cadastro.editarProduto', compact('produtos','resultado', 'id'));
         
     }
-    public function produtoEditado(Request $request)
+    public function atualizarProduto(Request $request, $id)
     {
-        
-        $produtos = Produto::all();
-        dd($request);
-        $idProduto = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
-        $resultado = Venda::find($idProduto);
-       
-        /* dd($resultado); */
 
-        
-        return view('cadastro.cadastrarProduto', compact('produtos', 'idProduto','resultado'));
+        $resultado = Produto::find($id);
+
+        DB::update('update produtos set Nome = ?, Descricao = ?, Preco = ? where Id = ?', [$request->Nome, $request->Descricao, $request->Preco, $id]);
+
+        return redirect() ->route('hello.index');
         
     }
 
@@ -65,7 +63,7 @@ class ProdutoController extends Controller
             //
             $post->save();
 
-            return view('hello.telaInicial', compact('produtos', 'vendas'));
+            return redirect() ->route('hello.index', compact('produtos', 'vendas'));
         }
     }
 }
