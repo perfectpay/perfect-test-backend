@@ -10,7 +10,7 @@
          <form action="{{ route('store') }}" method="post">
         @endif
         @if($URL == 'editarProduto')
-        <form action="{{ route('editarProduto/{<?php $IdProduto ?>}') }}" method="get">
+        <form action="{{ route('atualizarVenda/{<?php $IdProduto ?>}') }}" method="get">
        @endif
                 @csrf
                 <div class="form-group">

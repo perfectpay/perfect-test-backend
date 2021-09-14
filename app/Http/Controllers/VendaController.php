@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Venda;
 use App\Produto;
 
@@ -33,25 +34,29 @@ class VendaController extends Controller
         
         $vtdt1 = explode(' ', $data1);
         $data1 = $vtdt1[2].'-'.$vtdt1[1].'-'.$vtdt1[0];
+        $data2 = substr($data2,1);
         $vtdt2 = explode(' ', $data2);
+        
         $data2 = $vtdt2[2].'-'.$vtdt2[1].'-'.$vtdt2[0];
+        $id = DB::table('vendas')->where('Nome', $cliente)->pluck('Id');
+        $venda = array();
         
-        $vendas = Venda::select('select :tabela from vendas where Nome = :nome and created_at > :data1 and created_at < :data2', ['tabela' => 1],['nome' => $cliente], ['data1' => $data1], ['data2' => $data2] );   
-        
-        /* 
-        $vendas = Venda::all();  */
-        
-        //$hello = 'Hello World!';
+        foreach ($id as $ids ) {
+            $vendas = Venda::find($id);
+        }
+        $todasVendas = Venda::all();
+
          $produtos = Produto::all(); 
 
         back()->withInput();
         //view('hello.telaInicial', $produtos, $vendas);
-        return view('hello.telaInicial', compact('produtos', 'vendas'));
+        return view('hello.telaInicial', compact('produtos', 'vendas','todasVendas'));
             
     }
 
     public function cadastroVenda()
     {
+        $vendas = Venda::all();
         $produtos = Produto::all();
         $id = 1;
         back()->withInput();
@@ -59,32 +64,26 @@ class VendaController extends Controller
             
     }
     
-    public function editarVenda(Request $request)
+    public function detalheVenda($id)
     {
+        $resultado = Venda::find($id);
         $produtos = Produto::all();
-        if(isset($_SERVER['PATH_INFO']))
-        {
-        $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
-        $resultado = Venda::find($idVenda);
+   
+        return view('cadastro.cadastrarVenda', compact('produtos','resultado'));
         
-        back()->withInput();
-        return view('cadastro.cadastrarVenda', compact('produtos', 'idVenda','resultado'));
-        }
-        else{
-        back()->withInput();
-        return view('cadastro.cadastrarVenda', compact('produtos'));
-        }
     }
-    public function vendaEditada(Request $request)
+    public function atualizarVenda(Request $request, $id)
     {
        
-        $produtos = Produto::all();
         /* dd($_SERVER); */
         $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
+        $venda = Venda::find($idVenda);
+        
+        /* dd($dados); */
+      /*   $produto->update($dados);
+        $produto->categorias()->sync($dados['categoria_id']); */
+        $produtos = Produto::all();
         $resultado = Venda::find($idVenda);
-       
-        dd($request);
-
         
         return view('hello.telaInicial', compact('produtos', 'idVenda','resultado'));
         

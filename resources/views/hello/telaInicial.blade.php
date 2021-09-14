@@ -6,7 +6,26 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
-                <?php $id =1;?>
+                <?php 
+               
+                if(isset($_SERVER['PATH_INFO']) )
+                {
+                    $URL = "";
+                    $URL = $_SERVER['PATH_INFO'];
+                    $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
+                    $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']); /* dd($URL) */ /* dd($todasVendas) */
+
+                }
+                if(isset($_SERVER['PHP_SELF'])) 
+                {
+                    $URL = "";
+                    $URL = $_SERVER['PHP_SELF'];
+                    $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PHP_SELF']);
+                    $URL = preg_replace("/[^A-z]/","", $_SERVER['PHP_SELF']); /* dd($URL) */ /* dd($todasVendas) */
+
+                }
+              /*   dd($URL);  */
+             /*  dd($todasVendas);   */?>
                 <a href='telaDeVenda' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
              <form action="{{ route('pesquisa') }}" method="get"> 
                 <div class="form-row align-items-center">
@@ -22,9 +41,9 @@
                                      $z = 0;
                                      $array = array();
                                      $array2 = array();
-                                        dd($vendas);
+                                      
                                      $tamanhoVendas = count($vendas);
-                                    
+                              ?> @if($URL == 'indexphp') <?php //indexphppesquisa
                                     for($o = 0; $o < $tamanhoVendas; $o++)
                                     {
                                         if($o == 0)
@@ -52,8 +71,43 @@
                                         ?> <option id="<?php $i;?>"> <?php   /*  var_dump($array)  */   echo $print ?></option> <?php                                                      
                                     }        
                                        
+                                    
                                     /* $_POST['inlineFormInputName']; */
-                            ?>
+                            ?>      @endif
+                            
+                            @if($URL == 'indexphppesquisa') <?php //indexphppesquisa
+                            $tamanhoVendas = count($todasVendas);
+                            for($o = 0; $o < $tamanhoVendas; $o++)
+                            {
+                                if($o == 0)
+                                {
+                                $nomeAtual = $todasVendas[0]->Nome;          
+                                array_push($array, $nomeAtual);
+                                }
+                                for($i = 1; $i < $tamanhoVendas;$i++)
+                                {
+                                    $tamanhoArray = count($array);
+                                    $nomeAtual = $todasVendas[$i]->Nome; 
+                                    if(!in_array($nomeAtual, $array))
+                                    {        
+                                    array_push($array, $nomeAtual);
+                                    
+                                    }  
+                                   
+                                }
+                                                      
+                            }
+                            $tamanhoResposta = count($array);
+                            for($i = 0; $i < $tamanhoResposta; $i++ )
+                            {
+                                $print = $array[$i];
+                                ?> <option id="<?php $i;?>"> <?php   /*  var_dump($array)  */   echo $print ?></option> <?php                                                      
+                            }        
+                               
+                            
+                            /* $_POST['inlineFormInputName']; */
+                    ?>      @endif
+                    
                                 </select>
                         </div>
                     </div>
@@ -118,9 +172,9 @@
                             $desconto = intval($vendas[$i]->Desconto);
                              echo "R$"; echo $preco * $qtd - $desconto;  
                         echo"</td><td>";
-                            $venda = $vendas[$i]->Id;
+                            $id = $vendas[$i]->Id;
                             
-                            echo "<a href='editarVenda/{".$venda."}' class='btn btn-primary'>Editar</a>";
+                            echo "<a href='detalheVenda/{".$id."}' class='btn btn-primary'>Editar</a>";
                             echo "</td></tr>";
 
                          } ?>

@@ -12,7 +12,7 @@ class Venda extends Model
      * @var array
      */
     protected $fillable = [
-        'Nome', 'Email', 'Cpf', 'Status', 'IdProduto', 'Quantidade', 'Desconto','updated_at',
+        'Nome', 'Email', 'Cpf', 'Status', 'IdProduto', 'Quantidade', 'Desconto','created_at','updated_at',
     ];
 
 
