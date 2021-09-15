@@ -123,6 +123,9 @@
             <table class='table'>
                 <tr>
                     <th scope="col">
+                        Imagem
+                    </th>
+                    <th scope="col">
                         Produto
                     </th>
                     <th scope="col">
@@ -372,6 +375,10 @@
                 <a href='telaDoProduto' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
             <table class='table'>
                 <tr>
+                    
+                    <th scope="col">
+                        Imagem
+                    </th>
                     <th scope="col">
                         Nome
                     </th>
