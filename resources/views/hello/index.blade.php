@@ -366,15 +366,19 @@
                     $tamanho = count($produtos); 
                    for($i = 0; $i < $tamanho; $i++)
                          {
+                        
                          $imagem = $produtos[$i]->Imagem; 
-                         
+                        
                         ?>
                         <tr>
                         <td>
-                            <img class='rounded-pill' src="{{ asset('storage/'.$imagem) }}" width='40' height='40' > 
-{{--                             <img class='rounded-pill' src='{{ URL::to('public/'.$imagem) }}' width='40' height='40' alt='Albert Einsten'>
- --}}                           {{--  <img id="myImg" src="{{Storage::url('/img/destaque-albert-einstein.jpg<?php /* echo $produtos[$i]->Imagem  */?>?>')}}" width="100"/>     --}}                </td>
-                        <td>
+                            <?php if(!empty($imagem))
+                            {
+                        
+                            ?><img class='rounded-pill' src="{{ asset('storage/'.$imagem) }}" width='40' height='40' > 
+                    <?php   }?>
+                            
+                            <td>
                             <?php
                             echo $produtos[$i]->Nome; echo " "; echo $produtos[$i]->Descricao; 
                         echo"</td>";
