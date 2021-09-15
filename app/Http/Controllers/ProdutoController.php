@@ -20,35 +20,36 @@ class ProdutoController extends Controller
     }
     public function detalheProduto($id)
     {
-        /* dd($id); */
-         $produtos = Produto::all();
-         
+         $produtos = Produto::all(); 
          $resultado = Produto::find($id);
-         /* dd($resultado); */
         back()->withInput();
         return view('cadastro.editarProduto', compact('produtos','resultado', 'id'));
         
     }
     public function atualizarProduto(Request $request, $id)
     {
-
-        $resultado = Produto::find($id);
-
-        DB::update('update produtos set Nome = ?, Descricao = ?, Preco = ? where Id = ?', [$request->Nome, $request->Descricao, $request->Preco, $id]);
-
-        return redirect() ->route('hello.index');
         
+        if(empty($request->Nome) || empty($request->Descricao) || empty($request->Preco) )
+        {  
+            $resultado = Produto::find($id);
+            $erro = "Favor, preencher todos os campos do produto!";
+            return view('cadastro.editarProduto', compact('erro','resultado','id'));
+        }
+        else
+        {
+            $resultado = Produto::find($id);
+            DB::update('update produtos set Nome = ?, Descricao = ?, Preco = ? where Id = ?', [$request->Nome, $request->Descricao, $request->Preco, $id]);
+            return redirect() ->route('hello.index');
+        }
     }
 
     public function store(Request $request)
     {
 
-       /*  dd($_SESSION); */
-        if(empty($request->nomeProduto) || empty($request->descricao) || empty($request->preco) )
+        if(empty($request->Nome) || empty($request->Descricao) || empty($request->Preco) )
         {
             
             back()->withInput();
-            
             $erro = "Favor, preencher todos os campos do produto!";
             return view('cadastro.cadastrarProduto', compact('erro'));
         }
@@ -57,14 +58,22 @@ class ProdutoController extends Controller
             $vendas = Venda::all();
             $produtos = Produto::all();
             $post = new Produto();
-            $post->Nome = $request->nomeProduto;
-            $post->Descricao = $request->descricao;
-            $post->Preco = $request->preco;
+            $post->Nome = $request->Nome;
+            $post->Descricao = $request->Descricao;
+            $post->Preco = $request->Preco;
             //
             $post->save();
 
             return redirect() ->route('hello.index', compact('produtos', 'vendas'));
         }
+    }
+    public function deletarProduto($id)
+    { 
+        $Id = $id;
+        $produtos = Produto::all();
+        $vendas = Venda::all();
+        DB::delete('delete from produtos where id = ?',[$id]);
+        return redirect() ->route('hello.index', compact('produtos', 'vendas'));
     }
 }
 

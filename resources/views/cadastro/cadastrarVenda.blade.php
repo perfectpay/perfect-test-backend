@@ -25,23 +25,23 @@
                 
                 <h5>Informações do cliente</h5>
                 <div class="form-group">
-                    <label for="nome">Nome do cliente</label>
-                    <input type="text" class="form-control " id="nome" name = "nome" value="{{old('nome')}}" >
+                    <label for="Nome">Nome do cliente</label>
+                    <input type="text" class="form-control " id="Nome" name = "Nome" value="{{old('Nome')}}" >
                       
                 </div>
                 <div class="form-group">
                     <label for="nome">Email</label>
-                    <input type="text" class="form-control" id="email" name = "email" value="{{old('email')}}" >
+                    <input type="text" class="form-control" id="Email" name = "Email" value="{{old('Email')}}" >
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <input type="text" class="form-control" onKeyPress="MascaraGenerica(this, 'CPF')" id="cpf" name = "cpf" value="{{old('cpf')}}" placeholder="99999999999">
+                    <input type="text" class="form-control" onKeyPress="MascaraGenerica(this, 'CPF')" id="Cpf" name = "Cpf" value="{{old('Cpf')}}" placeholder="99999999999">
 
                 </div>
                 <h5 class='mt-5'>Informações da venda</h5>
                 <div class="form-group">
-                    <label for="idProduto">Produto</label>
-                    <select id="idProduto" name = "idProduto"  class="form-control">
+                    <label for="IdProduto">Produto</label>
+                    <select id="IdProduto" name = "IdProduto"  class="form-control">
                         <?php
                         
                          echo "<option id='0' >Escolha...</option>";
@@ -62,19 +62,18 @@
                     <input type="text" class="form-control single_date_picker" onKeyPress="MascaraGenerica(this, 'DATA')" id="updated_at" name = "updated_at" value="{{old('updated_at')}}" >
                 </div>
                 <div class="form-group">
-                    <label for="quantidade">Quantidade</label>
-                    <input type="text" class="form-control" id="quantidade" name = "quantidade" value="{{old('quantidade')}}"  placeholder="1 a 10" >
+                    <label for="Quantidade">Quantidade</label>
+                    <input type="text" class="form-control" id="Quantidade" name = "Quantidade" value="{{old('Quantidade')}}"  placeholder="1 a 10" >
                     
                 </div>
                 <div class="form-group">
-                    <label for="desconto">Desconto</label>
-                    <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="desconto" name = "desconto" value="{{old('desconto')}}" placeholder="100,00 ou menor" >
+                    <label for="Desconto">Desconto</label>
+                    <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="Desconto" name = "Desconto" value="{{old('Desconto')}}" placeholder="100,00 ou menor" >
                     
-
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name = "status" value="{{old('status')}}" class="form-control">
+                    <label for="Status">Status</label>
+                    <select id="Status" name = "Status" value="{{old('Status')}}" class="form-control">
                         <option selected>Escolha...</option>
                         <option>Aprovado</option>
                         <option>Cancelado</option>

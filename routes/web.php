@@ -18,6 +18,7 @@ Route::post('cadastrarVenda/', 'VendaController@storeVenda')->name('storeVenda')
 Route::get('telaDoProduto', 'ProdutoController@cadastroProduto');
 Route::get('detalheProduto/{id}', ['as' => 'produto.detalheProduto', 'uses' => 'ProdutoController@detalheProduto']);
 Route::put('atualizarProduto/{id}', ['as' => 'produto.atualizar', 'uses' =>'ProdutoController@atualizarProduto']);
+Route::get('deletarProduto/{id}', ['as' => 'produto.deletarProduto', 'uses' => 'ProdutoController@deletarProduto']);
 Route::post('cadastrarProdutos', 'ProdutoController@store')->name('store');
 
 

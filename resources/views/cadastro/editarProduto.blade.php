@@ -4,9 +4,6 @@
     <div class='card'>
       
         <div class='card-body'>
-        <?php /* dd($id); */ $URL = $_SERVER['PATH_INFO']; 
-        $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
-        $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']); /* dd($URL) */?>
 
             <form method="post" action="{{route ('produto.atualizar', $id)}}">  
                 @csrf

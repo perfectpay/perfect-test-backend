@@ -13,7 +13,7 @@
                     $URL = "";
                     $URL = $_SERVER['PATH_INFO'];
                     $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PATH_INFO']);
-                    $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']); /* dd($URL) */ /* dd($todasVendas) */
+                    $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']); 
 
                 }
                 if(isset($_SERVER['PHP_SELF'])) 
@@ -21,11 +21,9 @@
                     $URL = "";
                     $URL = $_SERVER['PHP_SELF'];
                     $idVenda = preg_replace("/[^0-9]/","", $_SERVER['PHP_SELF']);
-                    $URL = preg_replace("/[^A-z]/","", $_SERVER['PHP_SELF']); /* dd($URL) */ /* dd($todasVendas) */
-
+                    $URL = preg_replace("/[^A-z]/","", $_SERVER['PHP_SELF']); 
                 }
-                /* dd($idVenda);  */
-             /*  dd($todasVendas);   */?>
+          ?>
                 <a href='telaDeVenda' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
             <form action="{{ route('pesquisa') }}" method="get"> 
                 <div class="form-row align-items-center">
@@ -43,7 +41,7 @@
                                      $array2 = array();
                                       
                                      $tamanhoVendas = count($vendas);
-                              ?> @if($URL == 'indexphp') <?php //indexphppesquisa
+                              ?> @if($URL == 'indexphp') <?php 
                                     for($o = 0; $o < $tamanhoVendas; $o++)
                                     {
                                         if($o == 0)
@@ -68,14 +66,12 @@
                                     for($i = 0; $i < $tamanhoResposta; $i++ )
                                     {
                                         $print = $array[$i];
-                                        ?> <option id="<?php $i;?>"> <?php   /*  var_dump($array)  */   echo $print ?></option> <?php                                                      
+                                        ?> <option id="<?php $i;?>"> <?php echo $print ?></option> <?php                                                      
                                     }        
                                        
-                                    
-                                    /* $_POST['inlineFormInputName']; */
                             ?>      @endif
                             
-                            @if($URL == 'indexphppesquisa') <?php //indexphppesquisa
+                            @if($URL == 'indexphppesquisa') <?php 
                             $tamanhoVendas = count($todasVendas);
                             for($o = 0; $o < $tamanhoVendas; $o++)
                             {
@@ -101,11 +97,9 @@
                             for($i = 0; $i < $tamanhoResposta; $i++ )
                             {
                                 $print = $array[$i];
-                                ?> <option id="<?php $i;?>"> <?php   /*  var_dump($array)  */   echo $print ?></option> <?php                                                      
+                                ?> <option id="<?php $i;?>"> <?php echo $print ?></option> <?php                                                      
                             }        
                                
-                            
-                            /* $_POST['inlineFormInputName']; */
                     ?>      @endif
                     
                                 </select>
@@ -126,9 +120,6 @@
                     </div>
                 </div>
             </form>
-            <?php /* dd($id) */ ?>
-        
-            @csrf
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -212,15 +203,11 @@
                     $precoTotal = 0;
                     $desc = 0;
                    for($i = 0; $i < $tamanhoVenda; $i++)
-                    {
-                            
-                            if($vendas[$i]->Status == "Aprovado")
-                            {
-                            
-                            $qtd++;
-                        
-                            
-                            }
+                    {    
+                        if($vendas[$i]->Status == "Aprovado")
+                        {                        
+                            $qtd++;                          
+                        }
                     }
                          echo $qtd;
                     echo "</td><td>";
@@ -294,7 +281,7 @@
                                 {
                                     if($idProduto == $produtos[$o]->Id)
                                     {
-                                        $precoTotal += $produtos[$o]->Preco - $desc;//$precoTotal += $produtos[$o]->Preco;
+                                        $precoTotal += $produtos[$o]->Preco - $desc;
                                     }
                                 }
                                
@@ -391,7 +378,7 @@
                         echo"</td>";
                         echo"<td>";
                             $IdProduto = $produtos[$i]->Id;
-                           ?> <a href='{{route('produto.detalheProduto', $IdProduto)}}' class='btn btn-primary'>Editar</a> <?php
+                           ?> <div><a href='{{route('produto.detalheProduto', $IdProduto)}}' class='btn btn-primary'> Editar </a>  <a href='{{route('produto.deletarProduto', $IdProduto)}}' class='btn btn-primary'>Excluir</a> <?php
                         
                         echo"</td>";
                     echo"</tr>";

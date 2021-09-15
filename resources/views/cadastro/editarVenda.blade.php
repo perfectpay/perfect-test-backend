@@ -7,49 +7,29 @@
     <div class='card'>
         <div class='card-body'>
 
-                <?php 
-                $method = $_SERVER['REQUEST_METHOD'];  
-            
-                /* if(isset($_SERVER['PATH_INFO'])  */
-                $URL = $_SERVER['PATH_INFO']; 
-                
-                $URL = preg_replace("/[^A-z]/","", $_SERVER['PATH_INFO']);
-                /*    dd($resultado);
-                    */
-                    /* dd($id); */  /* '{{route ('venda.vendaEditada', $id)}}' */?>
                 <form method="post" action="{{route ('venda.atualizar', $id)}}">  
                     @csrf          
-                    <input type="hidden" name="_method" value="PUT">
-                     
-                
+                    <input type="hidden" name="_method" value="PUT">                         
                 <h5>Informações do cliente</h5>
                 <div class="form-group">
-                    <label for="nome">Nome do cliente</label>
+                    <label for="Nome">Nome do cliente</label>
 
-                  <input type="text" class="form-control " id="Nome" name = "Nome" value="<?php echo $resultado->Nome ?>" >
-
-                  
+                  <input type="text" class="form-control " id="Nome" name = "Nome" value="<?php echo $resultado->Nome ?>" >          
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="Email">Email</label>
                     <input type="text" class="form-control" id="Email" name = "Email" value="<?php echo $resultado->Email ?>{{old('email')}}" >
-            
-                   
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
                     <input type="text" class="form-control" onKeyPress="MascaraGenerica(this, 'CPF')" id="Cpf" name = "Cpf" value="<?php echo $resultado->Cpf ?>{{old('cpf')}}" placeholder="99999999999">
-                  
-
                 </div>
                 <h5 class='mt-5'>Informações da venda</h5>
                 <div class="form-group">
                     <label for="IdProduto">Produto</label>
                     <select id="IdProduto" name = "IdProduto"  class="form-control">
                         <?php
-                        
-                         echo "<option id='0' >Escolha...</option>";
-                        
+                         echo "<option id='0' >Escolha...</option>";  
                          $tamanho = count($produtos);
                          for($i = 0; $i < $tamanho; $i++)
                          {?>
@@ -66,19 +46,12 @@
                     <input type="text" class="form-control single_date_picker" onKeyPress="MascaraGenerica(this, 'DATA')" id="updated_at" name = "updated_at" value="{{old('updated_at')}}" >
                 </div>
                 <div class="form-group">
-                    <label for="quantidade">Quantidade</label>
-
+                    <label for="Quantidade">Quantidade</label>
                     <input type="text" class="form-control" id="Quantidade" name = "Quantidade" value="<?php echo $resultado->Quantidade ?>{{old('quantidade')}}"  placeholder="1 a 10" >
-
-
                 </div>
                 <div class="form-group">
-                    <label for="desconto">Desconto</label>
-                  
-                    <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="Desconto" name = "Desconto" value="<?php echo $resultado->Desconto ?>{{old('desconto')}}" placeholder="100,00 ou menor" >
-               
-
-
+                    <label for="Desconto">Desconto</label>
+                    <input type="text" class="form-control" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" id="Desconto" name = "Desconto" value="<?php echo $resultado->Desconto ?>{{old('desconto')}}" placeholder="100,00 ou menor" >              
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
@@ -89,7 +62,6 @@
                         <option>Devolvido</option>
                     </select>
                 </div>
-
                 <button type='submit' class='btn btn-primary'>Editar</button>
             </form>           
         </div>
