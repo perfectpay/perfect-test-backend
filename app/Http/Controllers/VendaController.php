@@ -39,16 +39,23 @@ class VendaController extends Controller
         $tamanho = count($vendas);
 
         /* dd($tamanho); */
-        if(empty($vendas) || $tamanho == 1)
+        if(empty($vendas))
         { 
             $erro = 'Não foi encontrado dados para sua pesquisa!';
                 $vendas = Venda::all();
+                $todasVendas = Venda::all();
+                $produtos = Produto::all();
+                
+                return view('hello.index', compact('produtos', 'vendas','todasVendas', 'erro'));
         }
-        
-        $todasVendas = Venda::all();
-        $produtos = Produto::all();
-        
-        return view('hello.index', compact('produtos', 'vendas','todasVendas', 'erro'));
+        else{
+
+            $todasVendas = Venda::all();
+            $produtos = Produto::all();
+            
+            return view('hello.index', compact('produtos', 'vendas','todasVendas'));
+        }
+       
             
     }
 

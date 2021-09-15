@@ -146,15 +146,11 @@
                         echo "<td>";
                             for($y = 0; $y < $tamanhoProduto; $y++)
                             {
-                                for($z = 0; $z < $tamanhoVenda; $z++)
-                                {
-                                    if($produtos[$y]->Id == $vendas[$i]->IdProduto)
+                                if($produtos[$y]->Id == $vendas[$i]->IdProduto)
                                     {
                                         
                                         $imagem = $produtos[$y]->Imagem;
                                     } 
-                                    
-                                }
                             }
                             if(!empty($imagem))
                             {
@@ -167,19 +163,26 @@
                         echo"<td>";
                             for($y = 0; $y < $tamanhoProduto; $y++)
                             {
-                                for($z = 0; $z < $tamanhoVenda; $z++)
-                                {
-                                    if($produtos[$y]->Id == $vendas[$i]->IdProduto)
+                                if($produtos[$y]->Id == $vendas[$i]->IdProduto)
                                     {
                                         
                                         $nome = $produtos[$y]->Nome;
                                         $descricao = $produtos[$y]->Descricao;
                                         $preco = intval($produtos[$y]->Preco);
-                                    }
-                                    
-                                }
-                            }
+                                    }                                
+                    
+                           }
                             
+                           if(empty($nome))
+                           {
+                            
+                                    
+                                $nome = $produtos[$i]->Nome;
+                                $descricao = $produtos[$i]->Descricao;
+                                $preco = intval($produtos[$i]->Preco);
+                                    
+                           }
+
                             echo $nome; echo " "; echo $descricao;
                         echo"</td> <td>";
                              echo $vendas[$i]->created_at; 
