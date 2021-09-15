@@ -143,6 +143,27 @@
                          {
                     
                     echo"<tr>";
+                        echo "<td>";
+                            for($y = 0; $y < $tamanhoProduto; $y++)
+                            {
+                                for($z = 0; $z < $tamanhoVenda; $z++)
+                                {
+                                    if($produtos[$y]->Id == $vendas[$i]->IdProduto)
+                                    {
+                                        
+                                        $imagem = $produtos[$y]->Imagem;
+                                    } 
+                                    
+                                }
+                            }
+                            if(!empty($imagem))
+                            {
+                        
+                            ?><img class='rounded-pill' src="{{ asset('storage/'.$imagem) }}" width='40' height='40' > 
+                    <?php   }
+                            
+
+                        echo "</td>";
                         echo"<td>";
                             for($y = 0; $y < $tamanhoProduto; $y++)
                             {
