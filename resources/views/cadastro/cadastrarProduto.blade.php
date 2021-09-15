@@ -3,7 +3,7 @@
     <h1>Adicionar / Editar Produto</h1>
     <div class='card'>
         <div class='card-body'>
-         <form action="{{ route('store') }}" method="post">
+         <form action="{{ route('store') }}" method="post" enctype="multipart/form-data" >
                 @csrf
                 <div class="form-group">
                     <label for="Nome">Nome do produto</label>
@@ -17,6 +17,14 @@
                     <label for="Preco">Preço</label>
                     <input type="text" onKeyUp="mascaraMoeda(this, event)" onkeypress="return onlynumber()" class="form-control" id="Preco" name = "Preco" value="{{old('preco')}}" placeholder="100,00 ou maior">
                     <br>
+                    <div class="form-group">
+                    <label for="Imagem">Imagem</label><br>
+                    <input type="file" class="form-control" name="image" id="image">
+                   
+                    </div>
+                    </form>
+
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
         </div>

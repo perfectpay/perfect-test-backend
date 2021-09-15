@@ -36,11 +36,19 @@ class VendaController extends Controller
         $data2 = $vtdt2[2].'-'.$vtdt2[1].'-'.$vtdt2[0] . " 23:59:59";  
         $cliente = preg_replace('/[0-9\@\.\;\" "]+/', ' ', $cliente);
         $vendas = DB::select("select * from vendas where Nome = '$cliente' and created_at >= '$data1' and created_at <= '$data2';"); 
-       
+        $tamanho = count($vendas);
+
+        /* dd($tamanho); */
+        if(empty($vendas) || $tamanho == 1)
+        { 
+            $erro = 'Não foi encontrado dados para sua pesquisa!';
+                $vendas = Venda::all();
+        }
+        
         $todasVendas = Venda::all();
-         $produtos = Produto::all();
-        back()->withInput();
-        return view('hello.index', compact('produtos', 'vendas','todasVendas'));
+        $produtos = Produto::all();
+        
+        return view('hello.index', compact('produtos', 'vendas','todasVendas', 'erro'));
             
     }
 

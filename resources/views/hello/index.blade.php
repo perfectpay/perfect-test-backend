@@ -155,6 +155,7 @@
                                         $descricao = $produtos[$y]->Descricao;
                                         $preco = intval($produtos[$y]->Preco);
                                     }
+                                    
                                 }
                             }
                             
@@ -365,9 +366,16 @@
                     $tamanho = count($produtos); 
                    for($i = 0; $i < $tamanho; $i++)
                          {
-                    
-                    echo"<tr>";
-                        echo"<td>";
+                         $imagem = $produtos[$i]->Imagem; 
+                         
+                        ?>
+                        <tr>
+                        <td>
+                            <img class='rounded-pill' src="{{ asset('storage/'.$imagem) }}" width='40' height='40' > 
+{{--                             <img class='rounded-pill' src='{{ URL::to('public/'.$imagem) }}' width='40' height='40' alt='Albert Einsten'>
+ --}}                           {{--  <img id="myImg" src="{{Storage::url('/img/destaque-albert-einstein.jpg<?php /* echo $produtos[$i]->Imagem  */?>?>')}}" width="100"/>     --}}                </td>
+                        <td>
+                            <?php
                             echo $produtos[$i]->Nome; echo " "; echo $produtos[$i]->Descricao; 
                         echo"</td>";
                         echo"<td>";
@@ -378,13 +386,25 @@
                         echo"</td>";
                         echo"<td>";
                             $IdProduto = $produtos[$i]->Id;
-                           ?> <div><a href='{{route('produto.detalheProduto', $IdProduto)}}' class='btn btn-primary'> Editar </a>  <a href='{{route('produto.deletarProduto', $IdProduto)}}' class='btn btn-primary'>Excluir</a> <?php
-                        
-                        echo"</td>";
-                    echo"</tr>";
-
+                           ?> 
+                       </td>
+                       <td><a href='{{route('produto.detalheProduto', $IdProduto)}}' class='btn btn-primary'> Editar </a> </td> 
+                       <td><a href='{{route('produto.deletarProduto', $IdProduto)}}' class='btn btn-primary'> Excluir </a></td> 
+                    </tr>
+<?php
                          } ?>
             </table>
         </div>
     </div>
 @endsection
+<?php 
+    if(isset($erro))
+    {
+        phpAlert($erro);
+    }
+
+    function phpAlert($erro) {
+        echo '<script type="text/javascript">alert("' . $erro . '")</script>';
+    }
+    
+?>

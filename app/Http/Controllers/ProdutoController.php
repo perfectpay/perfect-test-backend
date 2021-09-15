@@ -28,6 +28,7 @@ class ProdutoController extends Controller
     }
     public function atualizarProduto(Request $request, $id)
     {
+       
         
         if(empty($request->Nome) || empty($request->Descricao) || empty($request->Preco) )
         {  
@@ -55,15 +56,39 @@ class ProdutoController extends Controller
         }
         else
         {
+           
             $vendas = Venda::all();
             $produtos = Produto::all();
-            $post = new Produto();
-            $post->Nome = $request->Nome;
-            $post->Descricao = $request->Descricao;
-            $post->Preco = $request->Preco;
-            //
-            $post->save();
+            $produtos = new Produto();
+            $produtos->Nome = $request->Nome;
+            $produtos->Descricao = $request->Descricao;
+            $produtos->Preco = $request->Preco;
+            /* dd($request->all()); */
+            $imagem = $request->file('image');
+            /* dd($imagem); */
+            /* dd($request->all()); */
+            if(!empty($imagem)){
+                $verificacao = $request->validate([
+                    'image' => 'required|mimes:png,jpg,jpeg|max:2048'
+                    ]);
 
+                $imagem = $request->file('image')->getClientOriginalName();
+
+                $extension = $request->file('image')->getClientOriginalExtension();
+                
+                // Filename to store
+                $fileNameToStore= $request->Nome.'.'.$extension;
+              
+                // Upload Image
+                $path = $request->file('image')->move('/img/', $fileNameToStore);           
+             
+            } else {
+                $fileNameToStore = 'noimage.png';
+            }
+           /*  dd($request->all()); */
+            $produtos->Imagem = $fileNameToStore;
+
+            $produtos->save();
             return redirect() ->route('hello.index', compact('produtos', 'vendas'));
         }
     }
