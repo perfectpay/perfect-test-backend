@@ -80,7 +80,7 @@ class ProdutoController extends Controller
                 $fileNameToStore= $request->Nome.'.'.$extension;
               
                 // Upload Image
-                $path = $request->file('image')->move('/img/', $fileNameToStore);           
+                $path = $request->file('image')->move('storage/', $fileNameToStore);           
              
             } else {
                 $fileNameToStore = 'noimage.png';
