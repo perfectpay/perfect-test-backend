@@ -14,4 +14,11 @@ class Venda extends Model
         'status',
         'cliente_id',
     ];
+
+    /**
+     * Retorna todos os produtos da venda.
+     */
+    public function produtosVenda(){
+        return $this->hasMany(Produto::class);
+    }
 }
