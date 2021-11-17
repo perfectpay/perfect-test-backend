@@ -13,6 +13,7 @@ Route::get('/', 'Controller@index')->name('dashboard');
 /*
 Rotas de Vendas
 */
+Route::get('/sales', 'VendaController@index')->name('venda.index');
 Route::get('/sales/create', 'VendaController@create')->name('venda.create');
 Route::post('/sales', 'VendaController@store')->name('venda.store');
 Route::get('/sales/{id}', 'VendaController@show')->name('venda.show');
@@ -23,6 +24,7 @@ Route::delete('/sales/{id}', 'VendaController@destroy')->name('venda.destroy');
 /*
 Rotas de Produtos
 */
+Route::get('/products', 'ProdutoController@index')->name('produto.index');
 Route::get('/products/create', 'ProdutoController@create')->name('produto.create');
 Route::post('/products', 'ProdutoController@store')->name('produto.store');
 Route::get('/products/{id}', 'ProdutoController@show')->name('produto.show');
@@ -34,6 +36,7 @@ Route::delete('/products/{id}', 'ProdutoController@destroy')->name('produto.dest
 /*
 Rotas de Clientes
 */
+Route::get('/clients', 'ClienteController@index')->name('cliente.index');
 Route::get('/clients/create', 'ClienteController@create')->name('cliente.create');
 Route::post('/clients', 'ClienteController@store')->name('cliente.store');
 Route::get('/clients/{id}', 'ClienteController@show')->name('cliente.show');
