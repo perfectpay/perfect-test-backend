@@ -17,6 +17,16 @@ class ClienteController extends Controller
     }
 
     /**
+     * Persiste as informações do cliente.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        return view('crud_clientes');
+    }
+
+    /**
      * Retorna as informações do cliente.
      *
      * @return \Illuminate\Http\Response

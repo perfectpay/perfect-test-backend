@@ -17,6 +17,16 @@ class VendaController extends Controller
     }
 
     /**
+     * Persiste as informações da venda.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        return view('crud_sales');
+    }
+
+    /**
      * Retorna as informações da venda.
      *
      * @return \Illuminate\Http\Response

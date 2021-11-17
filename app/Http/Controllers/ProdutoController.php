@@ -17,6 +17,16 @@ class ProdutoController extends Controller
     }
 
     /**
+     * Persiste as informações do produto.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        return view('crud_products');
+    }
+
+    /**
      * Retorna as informações do produto.
      *
      * @return \Illuminate\Http\Response
