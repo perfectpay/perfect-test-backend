@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     /**
+     * Retorna uma lista de clientes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('crud_clientes');
+    }
+
+    /**
      * Retorna um formulário para cadastrar um cliente.
      *
      * @return \Illuminate\Http\Response

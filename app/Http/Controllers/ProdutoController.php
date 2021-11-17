@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 class ProdutoController extends Controller
 {
     /**
+     * Retorna uma lista de produtos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('crud_products');
+    }
+
+    /**
      * Retorna um formulário para criar um novo produto.
      *
      * @return \Illuminate\Http\Response

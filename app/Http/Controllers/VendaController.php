@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 class VendaController extends Controller
 {
     /**
+     * Retorna uma lista de vendas.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('crud_sales');
+    }
+
+    /**
      * Retorna um formulário para criar uma venda.
      *
      * @return \Illuminate\Http\Response
