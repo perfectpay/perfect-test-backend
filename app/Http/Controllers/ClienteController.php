@@ -35,4 +35,24 @@ class ClienteController extends Controller
     {
         return view('crud_clientes');
     }
+
+    /**
+     * Atualiza um cliente.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        return view('crud_sales');
+    }
+
+    /**
+     * Deleta um cliente.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+
+    }
 }
