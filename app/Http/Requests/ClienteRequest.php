@@ -37,7 +37,7 @@ class ClienteRequest extends FormRequest
         return [
             'name'=>'required|min:3|max:100',
             'email'=> (!empty($this->request->all()['id']) ? 'required|email:rfc,dns|max:100|unique:cliente,email,' . $this->request->all()['id'] : 'required|email:rfc,dns|max:100|unique:cliente,email'),
-            'cpf'=> (!empty($this->request->all()['id']) ? 'required|unique:cliente,email,' . $this->request->all()['id'] : 'required|unique:cliente,email'),
+            'cpf'=> (!empty($this->request->all()['id']) ? 'required|unique:cliente,cpf,' . $this->request->all()['id'] : 'required|unique:cliente,cpf'),
         ];
     }
 }
