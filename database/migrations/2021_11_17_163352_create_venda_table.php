@@ -17,7 +17,7 @@ class CreateVendaTable extends Migration
             $table->id();
             $table->dateTime('data');
             $table->smallInteger('quantidade');
-            $table->smallInteger('desconto')->nullable();
+            $table->decimal('desconto', 10, 2)->nullable();
             $table->string('status', 20);
             $table->foreignId('cliente_id')->references('id')->on('cliente')->onDelete('cascade');
             $table->timestamps();
