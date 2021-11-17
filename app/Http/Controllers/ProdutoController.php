@@ -21,7 +21,7 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
         return view('crud_products');
     }
@@ -31,8 +31,28 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
         return view('crud_products');
+    }
+
+    /**
+     * Atualiza um produto.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        return view('crud_products');
+    }
+
+    /**
+     * Deleta um produto.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+
     }
 }
