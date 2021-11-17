@@ -35,4 +35,24 @@ class VendaController extends Controller
     {
         return view('crud_sales');
     }
+
+    /**
+     * Atualiza uma venda.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        return view('crud_sales');
+    }
+
+    /**
+     * Deleta uma venda.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+
+    }
 }
