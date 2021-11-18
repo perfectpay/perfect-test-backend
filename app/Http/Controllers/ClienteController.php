@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
+
     /**
      * Retorna uma lista de clientes.
      *
@@ -97,4 +98,5 @@ class ClienteController extends Controller
         $cliente = Cliente::where('name', $request->value)->first();
         return $cliente;
     }
+
 }

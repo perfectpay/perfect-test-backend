@@ -37,6 +37,7 @@ Route::delete('/products/{id}', 'ProdutoController@destroy')->name('produto.dest
 /*
 Rotas de Clientes
 */
+Route::post('/clients/vendas', 'ClienteController@vendas')->name('cliente.vendas');
 Route::post('/clients/busca', 'ClienteController@busca')->name('cliente.busca');
 Route::post('/clients', 'ClienteController@store')->name('cliente.store');
 Route::put('/clients/{id}', 'ClienteController@update')->name('cliente.update');

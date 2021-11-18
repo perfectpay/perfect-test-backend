@@ -6,28 +6,17 @@
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
                 <a href='{{ route('venda.create') }}' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
-            <form>
+            <form action="{{ route('cliente.vendas') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="form-row align-items-center">
-                    <div class="col-sm-5 my-1">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Clientes</div>
-                            </div>
-                            <select class="form-control" id="inlineFormInputName">
-                                <option>Clientes</option>
-                                @foreach($clientes as $cliente)
-                                    <option>{{ $cliente->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="col-sm-6 my-1">
                         <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Período</div>
                             </div>
-                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
+                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username" name="periodo">
                         </div>
                     </div>
                     <div class="col-sm-1 my-1">
@@ -42,10 +31,16 @@
                         Produto
                     </th>
                     <th scope="col">
+                        Quant.
+                    </th>
+                    <th scope="col">
                         Data
                     </th>
                     <th scope="col">
                         Valor
+                    </th>
+                    <th scope="col">
+                        Cliente
                     </th>
                     <th scope="col">
                         Ações
@@ -53,11 +48,13 @@
                 </tr>
                 <tbody>
                 @if(!empty($vendas))
-                    @foreach($vendas->take(5) as $venda)
+                    @foreach($vendas as $venda)
                         <tr>
                             <td>{{$venda->produtosVenda->nome}}</td>
+                            <td>{{$venda->quantidade}}</td>
                             <td>{{$venda->data}}</td>
                             <td>{{'R$ '.$venda->quantidade * $venda->produtosVenda->preco}}</td>
+                            <td>{{$venda->clientesVenda->name}}</td>
                             <td>
                                 <a href='{{ route('venda.edit', ['id'=>$venda->id]) }}' class='btn btn-primary'>Editar</a>
                             </td>

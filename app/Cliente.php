@@ -20,11 +20,4 @@ class Cliente extends Model
         return $this->hasMany(Venda::class);
     }
 
-    /**
-     * Retorna todos os produtos comprados pelo cliente.
-     */
-    public function produtosCliente()
-    {
-        return $this->hasManyThrough(Produto::class, Venda::class);
-    }
 }
