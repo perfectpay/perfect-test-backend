@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h1>Lista de Cliente</h1>
+    <h1>Lista de Cliente</h1><a class="btn btn-primary bi bi-plus-circle my-1" href="{{ route('cliente.create') }}"> novo cliente</a>
     <div class="container">
         @if(session()->exists('message'))
             <div class="message message-{{session()->get('color')}}">

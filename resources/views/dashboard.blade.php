@@ -2,6 +2,8 @@
 
 @section('content')
     <h1>Dashboard de vendas</h1>
+    <a class="btn btn-primary bi bi-plus-circle my-1" href="{{ route('cliente.create') }}"> novo cliente</a>
+    <a class="btn btn-warning bi bi-card-list my-1" href="{{ route('cliente.index') }}"> listar clientes</a>
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
@@ -15,11 +17,9 @@
                             </div>
                             <select class="form-control" id="inlineFormInputName">
                                 <option>Clientes</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                @foreach($clientes as $cliente)
+                                    <option>{{ $cliente->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
