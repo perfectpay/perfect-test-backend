@@ -24,6 +24,7 @@ Route::delete('/sales/{id}', 'VendaController@destroy')->name('venda.destroy');
 /*
 Rotas de Produtos
 */
+Route::post('/products/busca', 'ProdutoController@busca')->name('produto.busca');
 Route::get('/products', 'ProdutoController@index')->name('produto.index');
 Route::get('/products/create', 'ProdutoController@create')->name('produto.create');
 Route::post('/products', 'ProdutoController@store')->name('produto.store');
@@ -36,6 +37,7 @@ Route::delete('/products/{id}', 'ProdutoController@destroy')->name('produto.dest
 /*
 Rotas de Clientes
 */
+Route::post('/clients/busca', 'ClienteController@busca')->name('cliente.busca');
 Route::post('/clients', 'ClienteController@store')->name('cliente.store');
 Route::put('/clients/{id}', 'ClienteController@update')->name('cliente.update');
 Route::delete('/clients/{id}', 'ClienteController@destroy')->name('cliente.destroy');

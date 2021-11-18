@@ -86,4 +86,15 @@ class ClienteController extends Controller
         $cliente->delete();
         return redirect()->route('cliente.index')->with(['color' => 'green', 'message' => 'cliente deletado']);
     }
+
+    /**
+     * Retorna busca de um cliente.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function busca(Request $request)
+    {
+        $cliente = Cliente::where('name', $request->value)->first();
+        return $cliente;
+    }
 }
