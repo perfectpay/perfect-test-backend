@@ -36,7 +36,10 @@ class ProdutoController extends Controller
      */
     public function store(ProdutoRequest $request)
     {
-        $produto = Produto::create($request->all());
+        $produto = new Produto();
+        $produto->fill($request->all());
+        $produto->setValorAttribute($request->preco);
+        $produto->save();
         return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);;
     }
 
@@ -47,7 +50,7 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        $produto = Produto::where('id', $id)->get();
+        $produto = Produto::where('id', $id)->first();
         return view('produtos.show', ['produto'=>$produto]);
     }
 
@@ -59,7 +62,7 @@ class ProdutoController extends Controller
     public function edit($id)
     {
         $produto = Produto::find($id);
-        return view('produto.edit', ['produto'=>$produto]);
+        return view('produtos.edit', ['produto'=>$produto]);
     }
 
     /**
@@ -71,6 +74,7 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
         $produto->fill($request->all());
+        $produto->setValorAttribute($request->preco);
         $produto->save();
         return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'atualizado com sucesso']);;
     }

@@ -12,4 +12,29 @@ class Produto extends Model
         'descricao',
         'preco',
     ];
+
+
+    /**
+     * @param $value
+     */
+    public function setValorAttribute($value)
+    {
+        if (empty($value)) {
+            $this->attributes['preco'] = null;
+        } else {
+            $this->attributes['preco'] = floatval($this->convertStringToDouble($value));
+        }
+    }
+
+    /**
+     * @param $param
+     * @return array|string|string[]|null
+     */
+    public function convertStringToDouble($param)
+    {
+        if (empty($param)) {
+            return null;
+        }
+        return str_replace(',', '.', str_replace('.', '', $param));
+    }
 }
