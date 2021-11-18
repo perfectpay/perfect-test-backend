@@ -90,4 +90,16 @@ class ProdutoController extends Controller
         $produto->delete();
         return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'produto deletado']);
     }
+
+
+    /**
+     * Retorna busca de um produto.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function busca(Request $request)
+    {
+        $produto = Produto::where('nome', $request->value)->first();
+        return $produto;
+    }
 }

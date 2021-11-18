@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
 use App\Http\Requests\VendaRequest;
+use App\Produto;
 use App\Venda;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,9 @@ class VendaController extends Controller
      */
     public function create()
     {
-        return view('crud_sales');
+        $clientes = Cliente::orderBy('name', 'asc')->get();
+        $produtos = Produto::orderBy('nome', 'asc')->get();
+        return view('vendas.create', ['clientes'=>$clientes, 'produtos'=>$produtos]);
     }
 
     /**
@@ -37,7 +41,8 @@ class VendaController extends Controller
     public function store(VendaRequest $request)
     {
         $venda = Venda::create($request->all());
-        return redirect()->route('venda.index')->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);
+        $vendas = Venda::with(['produtosVenda', 'clientesVenda'])->get();
+        return redirect()->route('venda.index',['vendas'=>$vendas])->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);
     }
 
     /**
@@ -58,8 +63,9 @@ class VendaController extends Controller
      */
     public function edit($id)
     {
-        $venda = Venda::find($id);
-        return view('crud_sales', ['venda'=>$venda]);
+        $venda = Venda::where('id', $id)->with(['produtosVenda', 'clientesVenda'])->first();
+        $produtos = Produto::all();
+        return view('vendas.edit', ['venda'=>$venda, 'produtos'=>$produtos]);
     }
 
     /**
@@ -86,4 +92,5 @@ class VendaController extends Controller
         $venda->delete();
         return redirect()->route('venda.index')->with(['color' => 'green', 'message' => 'venda deletada']);
     }
+
 }
