@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="cpf">CPF</label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="99999999999" value="{{ old('cpf') ?? $cliente->cpf }}">
+                    <input type="text" class="form-control cpf" id="cpf" name="cpf" placeholder="99999999999" value="{{ old('cpf') ?? $cliente->cpf }}">
                 </div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 <button type="button" id="myModal" class="btn btn-danger bi-trash"
@@ -72,3 +72,9 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script>
+        $('.cpf').mask('000.000.000-00', {reverse: true});
+    </script>
+@endsection
+

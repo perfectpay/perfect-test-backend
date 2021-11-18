@@ -20,13 +20,15 @@
             <tbody>
             @if(!empty($clientes))
                 @foreach($clientes as $cliente)
-                    <td>{{$cliente->name}}</td>
-                    <td>{{$cliente->email}}</td>
-                    <td>{{$cliente->cpf}}</td>
-                    <td class="text-right">
-                        <a class="bi bi-pencil mx-1" href="{{ route('cliente.edit', ['id' => $cliente->id]) }}"></a>
-                        <a class="bi bi-eye mx-1" href="{{ route('cliente.show', ['id' => $cliente->id]) }}"></a>
-                    </td>
+                    <tr>
+                        <td>{{$cliente->name}}</td>
+                        <td>{{$cliente->email}}</td>
+                        <td>{{$cliente->cpf}}</td>
+                        <td class="text-right">
+                            <a class="bi bi-pencil mx-1" href="{{ route('cliente.edit', ['id' => $cliente->id]) }}"></a>
+                            <a class="bi bi-eye mx-1" href="{{ route('cliente.show', ['id' => $cliente->id]) }}"></a>
+                        </td>
+                    </tr>
                 @endforeach
             @endif
             </tbody>
