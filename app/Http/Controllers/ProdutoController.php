@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProdutoRequest;
+use App\Produto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -13,7 +15,8 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        return view('crud_products');
+        $produtos = Produto::all();
+        return view('produtos.index', ['produtos'=>$produtos]);
     }
 
     /**
@@ -23,7 +26,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        return view('crud_products');
+        return view('produtos.create');
     }
 
     /**
@@ -31,9 +34,10 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProdutoRequest $request)
     {
-        return view('crud_products');
+        $produto = Produto::create($request->all());
+        return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);;
     }
 
     /**
@@ -43,7 +47,8 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        return view('crud_products');
+        $produto = Produto::where('id', $id)->get();
+        return view('produtos.show', ['produto'=>$produto]);
     }
 
     /**
@@ -53,7 +58,8 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        return view('crud_products');
+        $produto = Produto::find($id);
+        return view('produto.edit', ['produto'=>$produto]);
     }
 
     /**
@@ -61,9 +67,12 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProdutoRequest $request, $id)
     {
-        return view('crud_products');
+        $produto = Produto::find($id);
+        $produto->fill($request->all());
+        $produto->save();
+        return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'atualizado com sucesso']);;
     }
 
     /**
@@ -73,6 +82,8 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-
+        $produto = Produto::find($id);
+        $produto->delete();
+        return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'produto deletado']);
     }
 }
