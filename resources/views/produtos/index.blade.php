@@ -20,13 +20,15 @@
             <tbody>
             @if(!empty($produtos))
                 @foreach($produtos as $produto)
-                    <td>{{$produto->nome}}</td>
-                    <td>{{$produto->descricao}}</td>
-                    <td>{{$produto->preco}}</td>
-                    <td class="text-right">
-                        <a class="bi bi-pencil mx-1" href="{{ route('produto.edit', ['id' => $produto->id]) }}"></a>
-                        <a class="bi bi-eye mx-1" href="{{ route('produto.show', ['id' => $produto->id]) }}"></a>
-                    </td>
+                    <tr>
+                        <td>{{$produto->nome}}</td>
+                        <td>{{$produto->descricao}}</td>
+                        <td>{{$produto->preco}}</td>
+                        <td class="text-right">
+                            <a class="bi bi-pencil mx-1" href="{{ route('produto.edit', ['id' => $produto->id]) }}"></a>
+                            <a class="bi bi-eye mx-1" href="{{ route('produto.show', ['id' => $produto->id]) }}"></a>
+                        </td>
+                    </tr>
                 @endforeach
             @endif
             </tbody>

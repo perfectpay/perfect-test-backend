@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h1>Adicionar / Editar Produto</h1>
+    <h1>Adicionar Produto</h1>
     <div class='card'>
         <div class='card-body'>
             @if($errors->all())
