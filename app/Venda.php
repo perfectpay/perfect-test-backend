@@ -21,4 +21,11 @@ class Venda extends Model
     public function produtosVenda(){
         return $this->hasMany(Produto::class);
     }
+
+    /**
+     * Retorna todos os produtos da venda.
+     */
+    public function clientesVenda(){
+        return $this->belongsTo(Cliente::class);
+    }
 }
