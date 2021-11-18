@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Venda;
 use Illuminate\Http\Request;
 
 class VendaController extends Controller
@@ -13,7 +14,8 @@ class VendaController extends Controller
      */
     public function index()
     {
-        return view('crud_sales');
+        $vendas = Venda::with(['clientesVenda'])->get();
+        return view('vendas.index', ['vendas'=>$vendas]);
     }
 
     /**
@@ -33,7 +35,8 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
-        return view('crud_sales');
+        $venda = Venda::create($request->all());
+        return redirect()->route('venda.index')->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);
     }
 
     /**
@@ -41,9 +44,10 @@ class VendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('crud_sales');
+        $venda = Venda::where('id', $id)->with(['produtosVenda', 'clientesVenda'])->get();
+        return view('vendas.show', ['venda'=>$venda]);
     }
 
     /**
@@ -51,9 +55,10 @@ class VendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('crud_sales');
+        $venda = Venda::find($id);
+        return view('crud_sales', ['venda'=>$venda]);
     }
 
     /**
@@ -63,7 +68,10 @@ class VendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return view('crud_sales');
+        $venda = Venda::find($id);
+        $venda->fill($request->all());
+        $venda->save();
+        return redirect()->route('venda.index')->with(['color'=>'green', 'message'=>'atualizado com sucesso']);
     }
 
     /**
@@ -73,6 +81,8 @@ class VendaController extends Controller
      */
     public function destroy($id)
     {
-
+        $venda = Venda::find($id);
+        $venda->delete();
+        return redirect()->route('venda.index')->with(['color' => 'green', 'message' => 'venda deletada']);
     }
 }
