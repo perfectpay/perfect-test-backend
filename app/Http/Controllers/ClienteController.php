@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
+use App\Http\Requests\ClienteRequest;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -13,7 +15,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('crud_clientes');
+        $clientes = Cliente::select('id','name','email','cpf')->get();
+        return view('cliente.index', ['clientes'=>$clientes]);
     }
 
     /**
@@ -23,7 +26,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('crud_clientes');
+        return view('cliente.create');
     }
 
     /**
@@ -31,9 +34,10 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClienteRequest $request)
     {
-        return view('crud_clientes');
+        $cliente = Cliente::create($request->all());
+        return redirect()->route('cliente.index')->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);
     }
 
     /**
@@ -41,9 +45,10 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('crud_clientes');
+        $cliente = Cliente::where('id',$id)->with(['vendasCliente','produtosCliente'])->first();
+        return view('cliente.show', ['cliente'=>$cliente]);
     }
 
     /**
@@ -51,9 +56,10 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('crud_clientes');
+        $cliente = Cliente::find($id);
+        return view('cliente.edit', ['cliente'=>$cliente]);
     }
 
     /**
@@ -61,9 +67,12 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClienteRequest $request, $id)
     {
-        return view('crud_sales');
+        $cliente = Cliente::find($id);
+        $cliente->fill($request->all());
+        $cliente->save();
+        return redirect()->route('cliente.index')->with(['color'=>'green', 'message'=>'atualizado com sucesso']);
     }
 
     /**
@@ -73,6 +82,8 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-
+        $cliente = Cliente::find($id);
+        $cliente->delete();
+        return redirect()->route('cliente.index')->with(['color' => 'green', 'message' => 'cliente deletado']);
     }
 }

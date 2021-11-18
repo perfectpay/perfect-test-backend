@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h1>Adicionar / Editar Cliente</h1>
+    <h1>Adicionar Cliente</h1>
     <div class='card'>
         <div class='card-body'>
             @if($errors->all())
@@ -11,6 +11,13 @@
                     </div>
                 @endforeach
             @endif
+
+            @if(session()->exists('message'))
+                <div class="message message-{{session()->get('color')}}">
+                    <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                </div>
+            @endif
+
             <form action="{{ route('cliente.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
