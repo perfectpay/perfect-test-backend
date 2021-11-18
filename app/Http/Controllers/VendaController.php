@@ -52,7 +52,7 @@ class VendaController extends Controller
      */
     public function show($id)
     {
-        $venda = Venda::where('id', $id)->with(['produtosVenda', 'clientesVenda'])->get();
+        $venda = Venda::where('id', $id)->with(['produtosVenda', 'clientesVenda'])->first();
         return view('vendas.show', ['venda'=>$venda]);
     }
 
