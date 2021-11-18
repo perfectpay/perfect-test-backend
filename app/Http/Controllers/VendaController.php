@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VendaRequest;
 use App\Venda;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class VendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VendaRequest $request)
     {
         $venda = Venda::create($request->all());
         return redirect()->route('venda.index')->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);
@@ -66,7 +67,7 @@ class VendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VendaRequest $request, $id)
     {
         $venda = Venda::find($id);
         $venda->fill($request->all());
