@@ -1,7 +1,10 @@
 <nav class="navbar bg-gradient-primary" id="navbar-main">
     <div class="container-fluid">
         <!-- Brand -->
-        <a class="" href="{{ url('/') }}">Teste Back End</a>
+        <a class="mx-1" href="{{ route('dashboard') }}">Dashboard</a>
+        <a class="mx-1" href="{{ route('cliente.index') }}">Clientes</a>
+        <a class="mx-1" href="{{ route('venda.index') }}">Vendas</a>
+        <a class="mx-1" href="{{ route('produto.index') }}">Produtos</a>
         <!-- User -->
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
