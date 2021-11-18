@@ -18,7 +18,6 @@ class CreateProdutoTable extends Migration
             $table->string('nome', 100);
             $table->string('descricao', 191);
             $table->decimal('preco', 10, 2);
-            $table->foreignId('venda_id')->references('id')->on('venda')->onDelete('cascade');
             $table->timestamps();
         });
     }

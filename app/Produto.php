@@ -11,6 +11,5 @@ class Produto extends Model
         'nome',
         'descricao',
         'preco',
-        'venda_id'
     ];
 }
