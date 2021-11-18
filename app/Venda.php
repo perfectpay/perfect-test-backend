@@ -81,5 +81,4 @@ class Venda extends Model
         }
     }
 
-
 }

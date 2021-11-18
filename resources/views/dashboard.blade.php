@@ -51,48 +51,21 @@
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h15
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                <tbody>
+                @if(!empty($vendas))
+                    @foreach($vendas->take(5) as $venda)
+                        <tr>
+                            <td>{{$venda->produtosVenda->nome}}</td>
+                            <td>{{$venda->data}}</td>
+                            <td>{{'R$ '.$venda->quantidade * $venda->produtosVenda->preco}}</td>
+                            <td>
+                                <a href='{{ route('venda.edit', ['id'=>$venda->id]) }}' class='btn btn-primary'>Editar</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+                </tbody>
+
             </table>
         </div>
     </div>
@@ -110,40 +83,22 @@
                     <th scope="col">
                         Valor Total
                     </th>
+                    <th scope="col">
+                        Ações
+                    </th>
                 </tr>
-                <tr>
-                    <td>
-                        Vendidos
-                    </td>
-                    <td>
-                        100
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Cancelados
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Devoluções
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
+                @if(!empty($resultados))
+                    @foreach($resultados as $resultado)
+                        <tr>
+                            <td>{{$resultado->status}}</td>
+                            <td>{{$resultado->total}}</td>
+                            <td>{{ 'R$ '.($vendas->where('status', $resultado->status)->sum('produtosVenda.preco') - $vendas->where('status', $resultado->status)->sum('desconto')) }}</td>
+                            <td>
+                                <a href='{{ route('venda.edit', ['id'=>$venda->id]) }}' class='btn btn-primary'>Editar</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>
@@ -164,39 +119,17 @@
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        R$ 120,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        R$ 150,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                @if(!empty($produtos))
+                    @foreach($produtos as $produto)
+                        <tr>
+                            <td>{{$produto->nome}}</td>
+                            <td>{{'R$ '.$produto->preco}}</td>
+                            <td class="text-right">
+                                <a class="btn btn-primary" href="{{ route('produto.edit', ['id' => $produto->id]) }}">Editar</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>

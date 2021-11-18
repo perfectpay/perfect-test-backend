@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Produto;
+use App\Venda;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,6 +17,12 @@ class Controller extends BaseController
     public function index()
     {
         $clientes = Cliente::select('name')->get();
-        return view('dashboard', ['clientes'=>$clientes]);
+        $vendas = Venda::with(['produtosVenda'])->latest('data')->get();
+        $resultados = Venda::groupBy('status')
+            ->selectRaw('count(*) as total, status')
+            ->get();
+
+        $produtos = Produto::all();
+        return view('dashboard', ['clientes'=>$clientes, 'vendas'=>$vendas, 'resultados'=>$resultados, 'produtos'=>$produtos]);
     }
 }
