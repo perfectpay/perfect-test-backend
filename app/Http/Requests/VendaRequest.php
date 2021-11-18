@@ -27,7 +27,8 @@ class VendaRequest extends FormRequest
             'data'=>'required',
             'quantidade'=>'required|max:32767',
             'status'=>'required|max:20',
-            'cliente_id'=>'required'
+            'cliente_id'=>'required',
+            'produto_id'=>'required'
         ];
     }
 }

@@ -20,6 +20,7 @@ class CreateVendaTable extends Migration
             $table->decimal('desconto', 10, 2)->nullable();
             $table->string('status', 20);
             $table->foreignId('cliente_id')->references('id')->on('cliente')->onDelete('cascade');
+            $table->foreignId('produto_id')->references('id')->on('produto');
             $table->timestamps();
         });
     }

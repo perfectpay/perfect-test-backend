@@ -13,13 +13,14 @@ class Venda extends Model
         'desconto',
         'status',
         'cliente_id',
+        'produto_id',
     ];
 
     /**
      * Retorna todos os produtos da venda.
      */
     public function produtosVenda(){
-        return $this->hasMany(Produto::class);
+        return $this->hasOne(Produto::class);
     }
 
     /**
