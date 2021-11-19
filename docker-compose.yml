@@ -9,7 +9,6 @@ services:
       dockerfile: Dockerfile
     image: perfectpay
     container_name: perfectpay-app
-    command: php artisan storage:link
     restart: always
     working_dir: /var/www/
     volumes:

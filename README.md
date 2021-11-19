@@ -71,9 +71,14 @@ Quando a compilação terminar, execute o ambiente em modo de segundo plano com:
 docker-compose up -d
 ```
 
-Agora, vamos executar o composer install para instalar as dependências do aplicativo:
+Vamos executar o composer install para instalar as dependências do aplicativo:
 ```
 docker-compose exec app composer install
+```
+
+Agora, vamos criar o link do nosso storage:
+```
+docker-compose exec app php artisan storage:link
 ```
 
 A última coisa que precisamos fazer - antes de testar o aplicativo - é gerar uma chave única para o aplicativo com a artisan, a ferramenta de linha de comando do Laravel. Esta chave é usada para criptografar sessões de usuário e outros dados sensíveis:
