@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 /*
-Telas para ver o funcionamento sem dados
+Dashboard
 */
 Route::get('/', 'Controller@index')->name('dashboard');
 

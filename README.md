@@ -37,6 +37,7 @@ nginx:
 ```
 
 ### Configuração das variáveis de ambiente
+Crie o arquivo .env conforme exemplo
 > .env
 ```
 APP_NAME="perfect-pay"
