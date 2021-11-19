@@ -33,7 +33,7 @@ nginx:
 ./docker-compose/mysql/init_db.sql 
 
 ### configuração do Nginx
-./docker-compose/nginx/petdavila.conf
+./docker-compose/nginx/perfectpay.conf
 ```
 
 ### Configuração das variáveis de ambiente
