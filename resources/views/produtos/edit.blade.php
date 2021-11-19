@@ -32,6 +32,21 @@
                     <label for="price">Preço</label>
                     <input type="tel" class="form-control money" id="preco" name="preco" placeholder="100,00 ou maior" value="{{ old('preco') ?? $produto->preco }}">
                 </div>
+
+                <div class="">
+                    @foreach($produto->imagesProduto as $image)
+                        <img src="{{ url('storage/'.$image->path) }}" class="rounded" alt="...">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deleteArquivo{{$image->id}}">Deletar</button>
+                        </div>
+                        <hr>
+                    @endforeach
+                </div>
+                <div class="form-group">
+                    <label for="arquivos">Imagens</label>
+                    <input type="file" name="arquivos[]" multiple />
+                </div>
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 <button type="button" id="myModal" class="btn btn-danger bi-trash"
                         data-toggle="modal"
@@ -66,6 +81,33 @@
             </div>
         </div>
     </div>
+
+    @foreach($produto->imagesProduto as $image)
+        <!-- Modal Arquivos -->
+        <div class="modal fade" id="deleteArquivo{{$image->id}}" tabindex="-1" aria-labelledby="deleteArquivoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="deleteArquivoLabel">Deletar</h2>
+                        <button type="button" class="btn btn-red icon-times icon-notext search_close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Tem certeza que deseja excluir?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-yellow" data-dismiss="modal">Cancelar</button>
+                        <form action="{{route('produto.imageDelete', ['id'=>$image->id])}}" method="post" class="">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-red icon-trash" >Deletar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 @section('script')
     <script>

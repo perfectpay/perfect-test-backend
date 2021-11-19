@@ -17,7 +17,11 @@
                     <label for="price">Preço</label>
                     <input type="tel" class="form-control money" id="preco" name="preco" placeholder="100,00 ou maior" value="{{ $produto->preco }}">
                 </div>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <div class="">
+                    @foreach($produto->imagesProduto as $image)
+                        <img src="{{ url('storage/'.$image->path) }}" class="rounded" alt="...">
+                    @endforeach
+                </div>
             </form>
         </div>
     </div>

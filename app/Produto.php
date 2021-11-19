@@ -17,7 +17,7 @@ class Produto extends Model
      * Retorna todas as imagens do cliente.
      */
     public function imagesProduto(){
-        return $this->hasMany(Produto::class);
+        return $this->hasMany(ProdutoImages::class, 'produto_id', 'id');
     }
 
     /**

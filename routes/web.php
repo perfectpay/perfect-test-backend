@@ -32,6 +32,7 @@ Route::get('/products/{id}', 'ProdutoController@show')->name('produto.show');
 Route::get('/products/{id}/edit', 'ProdutoController@edit')->name('produto.edit');
 Route::put('/products/{id}', 'ProdutoController@update')->name('produto.update');
 Route::delete('/products/{id}', 'ProdutoController@destroy')->name('produto.destroy');
+Route::delete('/products/image/{id}', 'ProdutoController@imageDelete')->name('produto.imageDelete');
 
 
 /*
