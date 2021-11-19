@@ -1,36 +1,107 @@
- # Você quer ser um desenvolvedor Backend na Perfectpay? 
- O desafio é desenvolver um sistema de vendas onde consiste um cadastro de produtos, o próprio cadastro de vendas onde será preenchido alguns dados também referente a cliente, uma dashboard onde estará
-centralizado os dados de produtos, consulta de vendas e um relatório simplificado de vendas.
- 
- # Instruções
- - O foco principal do nosso teste é o backend. Para facilitar você poderá utilizar os blade.php que disponibilizamos no projeto.
- - Fique à vontade para usar bibliotecas/componentes externos
- - Seguir princípios **CLEAN CODE** 
- - Utilize boas práticas de programação
- - Utilize boas práticas de git
- - Documentar como rodar o projeto
- 
- # Requisitos
- - O sistema deverá ser desenvolvido utilizando a linguagem PHP no framework Laravel.
- - Você deve criar um CRUD que permita cadastrar as seguintes informações:
- 	- **Produto**: Nome, Descrição e Preço.
- 	- **Venda**: Produto,Data da venda, Quantidade do produto, Desconto, Status da venda.
-	- **Cliente**: Nome, Email, CPF.
- - Salvar as informações necessárias em um banco de dados (relacional) de preferência MySql.
- - Exibir todos os dados na dashboard conforme exemplo deixado na blade.php.
+# Aplicação Perfect pay CRUD
+Cadastro de clientes, vendas e produtos.
 
- 
- # Opcionais
- - Testes automatizados com informação da cobertura de testes
- - Upload de imagem no cadastro de produtos
- 
- # O que será avaliado
- - Estrutura e organização do código e dos arquivos
- - Qualidade
- - Enfim, tudo será observado e levado em conta
- 
- # Como iniciar o desenvolvimento
- - Fork esse repositório na sua conta do GitHub.
- - Crie uma branch com o nome desafio
- 
- Qualquer dúvida sobre o teste, fique a vontade para entrar em contato conosco.
+## Funções desta aplicação
+
+| Url | Descrição
+|---|---|
+| localhost:8000/ | dashboard
+| localhost:8000/sales | painel de vendas
+| localhost:8000/products  | painel de produtos
+| localhost:8000/clients  | painel de clientes
+
+Todos os painéis possuem opções de crud completas.
+
+## Ambiente Docker
+```
+app: 
+    build: .DockerFile
+db:  
+    image: mysql:5.7
+nginx: 
+    image: nginx:1.17-alpine
+```
+
+### Dockerfile do aplicativo
+> .DockerFile // php:7.4-fpm
+
+### Docker compose
+> .docker-compose.yml
+
+```
+### configuração do entrypoint para o db criar as tabelas
+./docker-compose/mysql/init_db.sql 
+
+### configuração do Nginx
+./docker-compose/nginx/perfectpay.conf
+```
+
+### Configuração das variáveis de ambiente
+Crie o arquivo .env conforme exemplo
+> .env
+```
+APP_NAME="perfect-pay"
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+APP_DEVELOPER=diegosantos.s@hotmail.com
+APP_VERSION=1.0
+
+LOG_CHANNEL=stack
+FILESYSTEM_DRIVER=public
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=perfect-test-backend
+DB_USERNAME=root
+DB_PASSWORD=exemple
+```
+
+## Subindo os containers
+Usaremos os comandos do docker-compose para compilar a imagem do aplicativo e executar os serviços que especificamos em nossa configuração.
+Compile a imagem do app com o seguinte comando:
+```
+docker-compose build app
+```
+
+Quando a compilação terminar, execute o ambiente em modo de segundo plano com:
+```
+docker-compose up -d
+```
+
+Vamos executar o composer install para instalar as dependências do aplicativo:
+```
+docker-compose exec app composer install
+```
+
+Agora, vamos criar o link do nosso storage:
+```
+docker-compose exec app php artisan storage:link
+```
+
+A última coisa que precisamos fazer - antes de testar o aplicativo - é gerar uma chave única para o aplicativo com a artisan, a ferramenta de linha de comando do Laravel. Esta chave é usada para criptografar sessões de usuário e outros dados sensíveis:
+```
+docker-compose exec app php artisan key:generate
+```
+Agora, vá até seu navegador e acesse o nome de domínio ou endereço IP do seu servidor na porta 8000:
+```
+http://server_domain_or_IP:8000
+```
+Você pode usar o comando logs para verificar os registros gerados por seus serviços:
+```
+docker-compose logs nginx
+```
+Para fechar seu ambiente do Docker Compose e remover todos os seus contêineres, redes e volumes, execute:
+```
+docker-compose down -v
+```
+
+
+## Banco de dados 
+> localhost porta: 3307
+
+
+#### Dúvidas, Sugestões:
+> diegosantos.s26@gmail.com

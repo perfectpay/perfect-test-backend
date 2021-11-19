@@ -5,31 +5,18 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
-            <form>
+                <a href='{{ route('venda.create') }}' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
+            <form action="{{ route('cliente.vendas') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="form-row align-items-center">
-                    <div class="col-sm-5 my-1">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Clientes</div>
-                            </div>
-                            <select class="form-control" id="inlineFormInputName">
-                                <option>Clientes</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="col-sm-6 my-1">
                         <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Período</div>
                             </div>
-                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
+                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username" name="periodo">
                         </div>
                     </div>
                     <div class="col-sm-1 my-1">
@@ -44,57 +31,38 @@
                         Produto
                     </th>
                     <th scope="col">
+                        Quant.
+                    </th>
+                    <th scope="col">
                         Data
                     </th>
                     <th scope="col">
                         Valor
                     </th>
                     <th scope="col">
+                        Cliente
+                    </th>
+                    <th scope="col">
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h15
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                <tbody>
+                @if(!empty($vendas))
+                    @foreach($vendas as $venda)
+                        <tr>
+                            <td>{{$venda->produtosVenda->nome}}</td>
+                            <td>{{$venda->quantidade}}</td>
+                            <td>{{$venda->data}}</td>
+                            <td>{{'R$ '.($venda->quantidade * $venda->produtosVenda->preco - $venda->desconto)}}</td>
+                            <td>{{$venda->clientesVenda->name}}</td>
+                            <td>
+                                <a href='{{ route('venda.edit', ['id'=>$venda->id]) }}' class='btn btn-primary'>Editar</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+                </tbody>
+
             </table>
         </div>
     </div>
@@ -112,40 +80,24 @@
                     <th scope="col">
                         Valor Total
                     </th>
+                    <th scope="col">
+                        Ações
+                    </th>
                 </tr>
-                <tr>
-                    <td>
-                        Vendidos
-                    </td>
-                    <td>
-                        100
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Cancelados
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Devoluções
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                </tr>
+                @if(!empty($resultados))
+                    @foreach($resultados as $resultado)
+                        <tr>
+                            <td>{{$resultado->status}}</td>
+                            <td>{{$resultado->total}}</td>
+                            <td>{{ 'R$ '.($vendas->where('status', $resultado->status)->sum('quantidade')
+                                    * $vendas->where('status', $resultado->status)->sum('produtosVenda.preco')
+                                    - $vendas->where('status', $resultado->status)->sum('desconto')) }}</td>
+                            <td>
+                                <a href='{{ route('venda.edit', ['id'=>$venda->id]) }}' class='btn btn-primary'>Editar</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>
@@ -153,7 +105,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Produtos
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
+                <a href='{{ route('produto.create') }}' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -166,39 +118,17 @@
                         Ações
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        R$ 120,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        R$ 150,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                @if(!empty($produtos))
+                    @foreach($produtos as $produto)
+                        <tr>
+                            <td>{{$produto->nome}}</td>
+                            <td>{{'R$ '.$produto->preco}}</td>
+                            <td class="text-right">
+                                <a class="btn btn-primary" href="{{ route('produto.edit', ['id' => $produto->id]) }}">Editar</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </table>
         </div>
     </div>
