@@ -1,0 +1,64 @@
+----------------------------------------------------------------------------
+Este é o arquivo README do projeto. Você deve descrever aqui o seu projeto.
+Informe ao usuário (alguém que não sabe nada sobre este projeto!) tudo que
+ele/ela precisa saber. Os comentários devem incluir, pelo menos:
+------------------------------------------------------------------------
+
+TÍTULO DO PROJETO: Vou conseguir minha vaga na PerfectPay
+
+OBJETIVO DO PROJETO:
+desenvolver um sistema de vendas onde consiste um cadastro de produtos,
+o próprio cadastro de vendas onde será preenchido alguns dados também referente a cliente,
+uma dashboard onde estará centralizado os dados de produtos, consulta de vendas e um relatório simplificado de vendas.
+REQUISITOS: 
+O sistema deverá ser desenvolvido utilizando a linguagem PHP no framework Laravel.
+Você deve criar um CRUD que permita cadastrar as seguintes informações:
+Produto: Nome, Descrição e Preço.
+Venda: Produto,Data da venda, Quantidade do produto, Desconto, Status da venda.
+Cliente: Nome, Email, CPF.
+Salvar as informações necessárias em um banco de dados (relacional) de preferência MySql.
+Exibir todos os dados na dashboard conforme exemplo deixado na blade.php.
+
+MEUS PENSAMENTOS:
+
+ 1 - PRECISO INSTALAR O COMPOSER ( 7.* )
+
+ 2 - E AGORA OQUE VOU PRECISAR FAZER? \/ 1
+MODELS
+{
+
+Produto -> atributos:
+Nome(string) && Descrição(string) && Preço(double)[Se der tempo: mascara];
+
+Venda -> atributos:
+Produto(idProduto) && Data da venda(timestamp) &&  Quantidade do produto(int) && Desconto(double)[Se der tempo: mascara] && 
+Status da venda(String) && NomeCliente(string) && Email(string)[Se der tempo: mascara] && CPF(int)[Se der tempo: mascara];
+
+}
+Controllers:
+{
+  
+
+   ProdutoController
+
+   VendaController
+
+
+}
+
+Banco de dados: 
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+2 tabelas - Produto e Venda
+
+VERSÃO ou DATA: 10/09/2021 18:30
+COMO INICIAR O PROJETO:
+
+AUTORES:Fábio Hauck
+INSTRUÇÕES PARA O USUÁRIO: AINDA NÃO TEM...
