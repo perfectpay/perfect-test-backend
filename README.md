@@ -8,7 +8,7 @@ Cadastro de clientes, vendas e produtos.
 | localhost:8000/ | dashboard
 | localhost:8000/sales | painel de vendas
 | localhost:8000/products  | painel de produtos
-| localhost:8000/clients  | painel de produtos
+| localhost:8000/clients  | painel de clientes
 
 Todos os painéis possuem opções de crud completas.
 
