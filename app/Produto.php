@@ -13,6 +13,12 @@ class Produto extends Model
         'preco',
     ];
 
+    /**
+     * Retorna todas as imagens do cliente.
+     */
+    public function imagesProduto(){
+        return $this->hasMany(Produto::class);
+    }
 
     /**
      * @param $value
