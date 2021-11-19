@@ -36,13 +36,16 @@
         <tbody>
         @if(!empty($cliente->vendasCliente))
             @foreach($cliente->vendasCliente as $venda)
-            <td>{{ $venda->data }}</td>
-            <td>{{ $venda->quantidade }}</td>
-            <td>{{ $venda->desconto }}</td>
-            <td>{{ $venda->status }}</td>
-            <td class="text-right">
-                <a class="bi bi-eye mx-1" href="{{ route('venda.show', ['id' => $venda->id]) }}"></a>
-            </td>
+            <tr>
+                <td>{{ $venda->data }}</td>
+                <td>{{ $venda->quantidade }}</td>
+                <td>{{ $venda->desconto }}</td>
+                <td>{{ $venda->status }}</td>
+                <td class="text-right">
+                    <a class="bi bi-pencil mx-1" href="{{ route('venda.edit', ['id' => $venda->id]) }}"></a>
+                    <a class="bi bi-eye mx-1" href="{{ route('venda.show', ['id' => $venda->id]) }}"></a>
+                </td>
+            </tr>
             @endforeach
         @endif
         </tbody>

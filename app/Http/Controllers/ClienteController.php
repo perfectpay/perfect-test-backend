@@ -48,7 +48,7 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $cliente = Cliente::where('id',$id)->with(['vendasCliente','produtosCliente'])->first();
+        $cliente = Cliente::where('id',$id)->with(['vendasCliente'])->first();
         return view('cliente.show', ['cliente'=>$cliente]);
     }
 
