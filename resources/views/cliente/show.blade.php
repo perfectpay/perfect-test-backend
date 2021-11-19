@@ -27,6 +27,7 @@
         <thead>
         <tr>
             <th scope="col">Data</th>
+            <th scope="col">Produto</th>
             <th scope="col">Quant.</th>
             <th scope="col">Desc.</th>
             <th scope="col">Status</th>
@@ -38,6 +39,7 @@
             @foreach($cliente->vendasCliente as $venda)
             <tr>
                 <td>{{ $venda->data }}</td>
+                <td>{{ $venda->produtosVenda->nome }}</td>
                 <td>{{ $venda->quantidade }}</td>
                 <td>{{ $venda->desconto }}</td>
                 <td>{{ $venda->status }}</td>

@@ -13466,3 +13466,54 @@ form button[type="submit"] {
   padding: 0.55rem 1.25rem;
 }
 
+.message {
+    border-radius: 4px;
+    width: 100%;
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    background: #555555;
+    color: #ffffff;
+    font-size: 0.875em;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+    transition-duration: 0.3s;
+    margin-bottom: 20px;
+    border: 1px solid #333333;
+}
+.message p {
+    flex-basis: 100%;
+    width: 100%;
+    display: block;
+}
+
+.message-green {
+    color: #ffffff;
+    background-color: #36BA9B;
+    border-color: #2d9a81;
+}
+
+.message-blue {
+    color: #ffffff;
+    background-color: #39AED9;
+    border-color: #2699c4;
+}
+
+.message-yellow {
+    color: #ffffff;
+    background-color: #F5B946;
+    border-color: #f3aa1f;
+}
+
+.message-red {
+    color: #ffffff;
+    background-color: #D94352;
+    border-color: #ca2939;
+}
+
+.message-orange {
+    color: #ffffff;
+    background-color: #F4645F;
+    border-color: #f13f39;
+}
+
