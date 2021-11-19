@@ -31,6 +31,10 @@
                     <label for="price">Preço</label>
                     <input type="tel" class="form-control money" id="preco" name="preco" placeholder="100,00 ou maior">
                 </div>
+                <div class="form-group">
+                    <label for="arquivos">Imagens</label>
+                    <input type="file" name="arquivos[]" multiple />
+                </div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
         </div>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProdutoRequest;
 use App\Produto;
+use App\ProdutoImages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProdutoController extends Controller
 {
@@ -40,6 +42,15 @@ class ProdutoController extends Controller
         $produto->fill($request->all());
         $produto->setValorAttribute($request->preco);
         $produto->save();
+        if (!empty($request->allFiles()['arquivos'])) {
+            foreach ($request->allFiles()['arquivos'] as $file) {
+                $images = new ProdutoImages();
+                $images->produto_id = $produto->id;
+                $images->path = $file->storeAs('images', $file->getClientOriginalName());
+                $images->save();
+                unset($images);
+            }
+        }
         return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'cadastrado com sucesso']);;
     }
 
@@ -50,7 +61,7 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        $produto = Produto::where('id', $id)->first();
+        $produto = Produto::where('id', $id)->with('imagesProduto')->first();
         return view('produtos.show', ['produto'=>$produto]);
     }
 
@@ -61,7 +72,7 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        $produto = Produto::find($id);
+        $produto = Produto::where('id', $id)->with('imagesProduto')->first();
         return view('produtos.edit', ['produto'=>$produto]);
     }
 
@@ -72,10 +83,19 @@ class ProdutoController extends Controller
      */
     public function update(ProdutoRequest $request, $id)
     {
-        $produto = Produto::find($id);
+        $produto = Produto::where('id', $id)->first();
         $produto->fill($request->all());
         $produto->setValorAttribute($request->preco);
         $produto->save();
+        if (!empty($request->allFiles()['arquivos'])) {
+            foreach ($request->allFiles()['arquivos'] as $file) {
+                $images = new ProdutoImages();
+                $images->produto_id = $produto->id;
+                $images->path = $file->storeAs('images', $file->getClientOriginalName());
+                $images->save();
+                unset($images);
+            }
+        }
         return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'atualizado com sucesso']);;
     }
 
@@ -86,9 +106,15 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        $produto = Produto::find($id);
-        $produto->delete();
-        return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'produto deletado']);
+        $produto = Produto::where('id', $id)->with('imagesProduto')->first();
+        if (!empty($produto)){
+            foreach ($produto->imagesProduto as $image){
+                $this->imageDelete($image->id);
+            }
+            $produto->delete();
+            return redirect()->route('produto.index')->with(['color'=>'green', 'message'=>'produto deletado']);
+        }
+        return back()->with(['color' => 'orange', 'message' => 'Não encontrado!']);
     }
 
 
@@ -101,5 +127,18 @@ class ProdutoController extends Controller
     {
         $produto = Produto::where('nome', $request->value)->first();
         return $produto;
+    }
+
+    /**
+     * Deleta um produto.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function imageDelete($id)
+    {
+        $image = ProdutoImages::find($id);
+        Storage::delete($image->path);
+        $image->delete();
+        return back()->with(['color' => 'green', 'message' => 'Arquivo deletado!']);
     }
 }
