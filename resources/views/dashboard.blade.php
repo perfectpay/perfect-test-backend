@@ -53,7 +53,7 @@
                             <td>{{$venda->produtosVenda->nome}}</td>
                             <td>{{$venda->quantidade}}</td>
                             <td>{{$venda->data}}</td>
-                            <td>{{'R$ '.$venda->quantidade * $venda->produtosVenda->preco}}</td>
+                            <td>{{'R$ '.($venda->quantidade * $venda->produtosVenda->preco - $venda->desconto)}}</td>
                             <td>{{$venda->clientesVenda->name}}</td>
                             <td>
                                 <a href='{{ route('venda.edit', ['id'=>$venda->id]) }}' class='btn btn-primary'>Editar</a>
@@ -89,7 +89,9 @@
                         <tr>
                             <td>{{$resultado->status}}</td>
                             <td>{{$resultado->total}}</td>
-                            <td>{{ 'R$ '.($vendas->where('status', $resultado->status)->sum('produtosVenda.preco') - $vendas->where('status', $resultado->status)->sum('desconto')) }}</td>
+                            <td>{{ 'R$ '.($vendas->where('status', $resultado->status)->sum('quantidade')
+                                    * $vendas->where('status', $resultado->status)->sum('produtosVenda.preco')
+                                    - $vendas->where('status', $resultado->status)->sum('desconto')) }}</td>
                             <td>
                                 <a href='{{ route('venda.edit', ['id'=>$venda->id]) }}' class='btn btn-primary'>Editar</a>
                             </td>
